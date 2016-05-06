@@ -77,7 +77,7 @@ exports.serch_hotel_info=function(hotalname,province,city,addr,date_in,date_out,
 }
 
 
-exports.serch_air_info=function(departure,airport,destination,depart_time,arrive_time,total,l_rice,h_price,sort_attr,callback)
+exports.serch_airticket_info=function(departure,airport,destination,depart_time,arrive_time,l_rice,h_price,sort_attr,callback)
 {
   var sql="select * from TicketsInfo where ";
   if(departure!=null)
