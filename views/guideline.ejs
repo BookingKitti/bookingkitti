@@ -1,0 +1,35 @@
+<body style="background-color: #ffd4a5">
+
+<link rel="stylesheet" href="test.css">
+<link rel="stylesheet" href="component.css">
+
+<nav class="navbar navbar-fixed-top" role="navigation" style="background-color:#fd7b35;" name='topBox'>
+	<div>
+   <div class="navbar-header" >
+      <a class="navbar-brand" style=" color: white; font-size: 40px;" href="#">Bookkitty</a>
+   </div>
+   <div >
+      <ul class="nav navbar-nav" style="float: right;">
+
+<div class="dropdown">
+  <button class="dropbtn">用户  zyy</button>
+  <div class="dropdown-content">
+    <a href="http://www.runoob.com">我的订单</a>
+    <a href="http://www.runoob.com">账号管理</a>
+    <a href="http://www.runoob.com">退出登录</a>
+  </div>
+</div>
+      </ul>
+   </div>
+
+</nav>
+
+<nav class="cbp-spmenu" name='LeftBox'>
+	<% var tabs=['首页','搜索','评价']
+		var tabHref=['./index','./search','./comment']
+		for (var i=0;i<tabs.length;i++)
+		{
+	%> <%- ((i!=tabChoose)?"<a ":"<a style='border-left: 6px solid #fd7b35;'")+"href='"+tabHref[i]+"'>" %> <%= tabs[i] %></a>
+		<%}%>
+
+		</nav>

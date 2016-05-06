@@ -1,0 +1,39 @@
+/* General styles for all menus */
+.cbp-spmenu {
+	background: #ffffff;
+	position: fixed;
+	width: 240px;
+	height: 100%;
+	top: 55px;
+	z-index: 1000;
+	border-right: 1px solid #c5c5c5;
+	box-shadow: 10px 0px 25px #c5c5c5;
+}
+
+.cbp-spmenu a {
+	display: block;
+	color: black;
+	font-size: 1.1em;
+	font-weight: 300;
+	border-bottom: 1px solid #c5c5c5;
+	padding: 1em 1em 1em 3em;
+}
+
+.cbp-spmenu a:hover {
+	background: #c5c5c5;
+}
+
+.cbp-spmenu a:active {
+	background: #c5c5c5;
+	color: white;
+}
+.main-container {
+	overFlow-x:scroll;
+	overFlow-y:scroll;
+	position: fixed;
+	left: 240px;
+	right: 0px;
+	top: 110px;
+	bottom: 0px;
+	z-index: 1000;
+}
