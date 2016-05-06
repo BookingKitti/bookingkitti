@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+  <% include bootstrap_base.html %>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <% include guideline.ejs %>
+    <div class="main-container">
+    <div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span7 text-center">
+			<form class="form-horizontal">
+				<div class="control-group">
+					 <label class="control-label" for="inputEmail">邮箱</label>
+					<div class="controls">
+						<input id="inputEmail" type="text" />
+					</div>
+				</div>
+				<div class="control-group">
+					 <label class="control-label" for="inputPassword">密码</label>
+					<div class="controls">
+						<input id="inputPassword" type="password" />
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						 <label class="checkbox"><input type="checkbox" /> Remember me</label> <button type="submit" class="btn">登陆</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+    <% include footer.html %>
   </body>
 </html>

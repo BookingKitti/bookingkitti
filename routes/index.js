@@ -3,22 +3,25 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { tabChoose:0 });
 });
 
-router.route('/book')
-  .get(function(req, res) {
-    res.send('Get a random book');
-  })
-  .post(function(req, res) {
-    res.send('Add a book');
-  })
-  .put(function(req, res) {
-    res.send('Update the book');
-  });
-
-router.get('/birds', function(req, res) {
-    res.send('Birds home page');
+router.get('/index', function(req, res, next) {
+  res.render('index', { tabChoose:0 });
 });
+
+router.get('/comment',function(req,res,next){
+  res.render('comment',{tabChoose:2});
+});
+
+
+router.get('/search',function(req,res,next){
+  res.render('searchHotel',{tabChoose:1});
+});
+
+router.get('/test',function(req,res,next){
+  res.render('a2',{tabChoose:2})
+})
+
 
 module.exports = router;
