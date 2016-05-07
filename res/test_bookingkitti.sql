@@ -6,14 +6,6 @@ insert into HotelInfo values(37 ,'Jingson','Guangdong','Shenzhen','Luohu',5,'Nic
 insert into HotelInfo values(38 ,'Shengfeng','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
 insert into HotelInfo values(39 ,'Heyi','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
 
-create table RoomType(
- Hotel_ID int,
- Type char(10),
- Details text,
- Total int,
- foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
-);
-
 insert into RoomInfo values(35, 'HIGH', '2016/03/03', 12, 800.0);
 insert into RoomInfo values(35, 'MEDIUM', '2016/03/03', 12, 600.0);
 insert into RoomInfo values(35, 'LOW', '2016/03/03', 12, 300.0);

@@ -54,14 +54,14 @@ router.get('/searchResults', function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                var min=vals[0].price;
-                var max=vals[0].price;
+                var min=vals[0].Price;
+                var max=vals[0].Price;
                 for(var i=0;i<vals.length;i++){
-                  if(vals[i].price>max){
-                    max=vals[i].price;
+                  if(vals[i].Price>max){
+                    max=vals[i].Price;
                   }
-                  if(vals[i].price<min){
-                    min=vals[i].price;
+                  if(vals[i].Price<min){
+                    min=vals[i].Price;
                   }
                 }
                 if (count == 2) {
@@ -69,7 +69,7 @@ router.get('/searchResults', function(req, res) {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
-                        price: min+"-"+max
+                        Price: min+"-"+max
                     });
                 }
             }
@@ -80,7 +80,7 @@ router.get('/searchResults', function(req, res) {
  *handle the generating order post
  */
 router.post('/searchResults', function(req, res) {
-    req
+    console.log("Hello");
 })
 
 /*@brief POST search page
