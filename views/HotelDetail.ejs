@@ -6,7 +6,6 @@
     <% include guideline.ejs %>
     <body>
         <div class='main-container'>
-            <div class='span4 text-center'>
                 <div class="container-fluid">
                     <div class="row-fluid">
                         <div class="span12">
@@ -15,22 +14,15 @@
                                     <ul class='list-group'>
                                         <li class='list-group-item'>
                                             酒店名：
-                                            <%- HotelInfo.Hotel_Name %>
-                                        </li>
-                                        <li class='list-group-item'>
-                                            <%- HotelInfo.City %>
-                                        </li>
-                                        <li class='list-group-item'>
-                                            --<%- HotelInfo.Province  %>
-                                        </li>
+                                            <%- HotelInfo.Hotel_Name %><br>
+                                              <%- HotelInfo.City %>--<%- HotelInfo.Province  %>
+                                            </li>
                                         <ul></div>
                                         <div class="span6">
                                             <ul class="list-group">
                                                 <li class="list-group-item">
                                                     价格区间：
-                                                    <%- Price %>
-                                                </li>
-                                                <li class="list-group-item">
+                                                    <%- Price %><br>
                                                     联系方式：
                                                     <%- HotelInfo.PhoneNumber %>
                                                 </li>
@@ -90,7 +82,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
                 <% include footer.html %>
             </body>
