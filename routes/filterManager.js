@@ -4,11 +4,11 @@ var flag1=0;//hotel_info
 var flag2=0;//hotel_info
 
 
-exports.serch_hotel_info=function(hotalname,province,city,addr,date_in,date_out,l_price,h_price,sort_attr,callback)
+exports.serch_hotel_info=function(hotel_name,province,city,addr,date_in,date_out,l_price,h_price,sort_attr,callback)
 {
   var sql="select * from HotelInfo where ";
-  if(hotalname!=null)
-    sql=sql+ " Hotel_Name= " +hotalname+" ";
+  if(hotel_name!=null)
+    sql=sql+ " Hotel_Name= " +hotel_name+" ";
   if(province!=null)
     sql=sql+ " Province= " +province+ " ";
   if(city!=null)
@@ -86,12 +86,12 @@ exports.serch_airticket_info=function(departure,airport,destination,depart_time,
     sql=sql+ " Airport= " +airport+ " ";
   if(destination!=null)
     sql=sql+ " Destination=" +destination+ " ";
-  
+
   if(depart_time!=null)
     sql=sql+ " Depart_time= " +depart_time+" ";
   if(arrive_time!=null)
     sql=sql+ " Arrive_time= " +arrive_time+ " ";
-  
+
   if(l_price!=null)
     sql=sql+ " ";
   if(h_price!=null)
