@@ -3,6 +3,7 @@ var router = express.Router();
 var searchManager = require('./searchManager');
 var filterManager = require('./filterManager');
 var commentManager = require('./commentManager');
+var bookingManager = require('./bookingManager');
 
 var defaultPage = function(req, res, next) {
     searchManager.query('select * from HotelInfo', function(qerr, rows, fields) {
@@ -27,15 +28,59 @@ router.get('/search', defaultPage);
  *render the hotel detail page
  */
 router.get('/searchResults', function(req, res) {
-    console.log(req.query.Hotel_ID);
-    res.send(req.query.Hotel_ID);
+    var data_hotel;
+    var data_room;
+    var count = 0;
+    bookingManager.get_hotel_info(req.query.Hotel_ID,
+        function(qerr, vals, fields) {
+            data_hotel = vals;
+            count++;
+            if (qerr) {
+                console.log('Fatal error: Cannot get hotel info');
+            } else {
+                if (count == 2) {
+                    res.render('HotelDetail', {
+                        tabChoose: 1,
+                        HotelInfo: data_hotel,
+                        RoomInfo: data_room
+                    });
+                }
+            }
+        });
+    bookingManager.get_room_info(req.query.Hotel_ID,
+        function(qerr, vals, fields) {
+            data_room = vals;
+            count++;
+            if (qerr) {
+                console.log('Fatal error: cannot get room info');
+            } else {
+                var min=vals[0].price;
+                var max=vals[0].price;
+                for(var i=0;i<vals.length;i++){
+                  if(vals[i].price>max){
+                    max=vals[i].price;
+                  }
+                  if(vals[i].price<min){
+                    min=vals[i].price;
+                  }
+                }
+                if (count == 2) {
+                    res.render('HotelDetail', {
+                        tabChoose: 1,
+                        HotelInfo: data_hotel,
+                        RoomInfo: data_room,
+                        price: min+"-"+max
+                    });
+                }
+            }
+        });
 })
 
 /*@brief POST searchResults page
  *handle the generating order post
  */
 router.post('/searchResults', function(req, res) {
-    
+    req
 })
 
 /*@brief POST search page

@@ -128,15 +128,7 @@ exports.search_airticket_info=function(departure,airport,destination,depart_time
       }
   }
   searchManager.query(sql,function(qerr,vals,fields){
-    for(var index in vals){
-      var tuple=vals[index];
-      var result='';
-      for(var attribute in tuple){
-        result+=tuple[attribute];
-      }
-      //console.log(result+ " llll");
-    }
       if(callback!=null)
-        callback(result);
+        callback(qerr,vals,fields);
     });
 }
