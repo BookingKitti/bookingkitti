@@ -37,7 +37,7 @@ router.post('/search', function(req, res, next) {
             res.render('searchHotel', {
                 tabChoose: 0
             });
-            console.log(vals[0]);
+            console.log(vals);
         });
 });
 
