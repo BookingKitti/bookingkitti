@@ -21,7 +21,7 @@ insert into RoomInfo values(36, 'HIGH', '2016/03/03', 12, 1000.0);
 insert into RoomInfo values(36, 'MEDIUM', '2016/03/03', 12, 700.0);
 insert into RoomInfo values(36, 'LOW', '2016/03/03', 12, 200.0);
 
-insert into RoomType values(35, 'HIGH', '2016/03/03', 12, 800.0);
-insert into RoomType values(35, 'HIGH', '2016/03/03', 12, 800.0);
-insert into RoomType values(35, 'HIGH', '2016/03/03', 12, 800.0);
-insert into RoomType values(35, 'HIGH', '2016/03/03', 12, 800.0);
+insert into RoomType values(35, 'HIGH', 'good', 80);
+insert into RoomType values(35, 'MEDIUM', 'bad', 50);
+insert into RoomType values(35, 'LOW', 'medium', 100);
+
