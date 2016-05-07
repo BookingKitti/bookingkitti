@@ -22,9 +22,23 @@ router.get('/', defaultPage);
  *by default select all the Hotel info
  */
 router.get('/search', defaultPage);
-router.get('/SearchResults',function(req,res,next){
-  console.log(req.query.Hotel_ID);
+
+
+/*@brief GET searchResults page
+ *render the hotel detail page
+ */
+router.get('/searchResults', function(req, res) {
+    console.log(req.query.Hotel_ID);
+    res.send(req.query.Hotel_ID);
 })
+
+/*@brief POST searchResults page
+ *handle the generating order post
+ */
+router.post('/searchResults', function(req, res) {
+
+})
+
 /*@brief POST search page
  *parse input and call filterManager
  *by default return all the Hotel info
@@ -66,7 +80,7 @@ router.post('/comment', function(req, res, next) {
     commentManager.add_hotel_comment(1,
         parseFloat(req.body.rating),
         1,
-        req.body.content == ""? null: req.body.content,
+        req.body.content == "" ? null : req.body.content,
         function(qerr, vals, fields) {
             if (qerr) {
                 console.log('Comment failed');

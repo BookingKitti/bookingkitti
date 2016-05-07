@@ -52,6 +52,6 @@ create table HotelComments(
   Scores float,
   Account_ID int,
   Comments text,
-  foreign key(Account_ID) references UserAccount(AccountID),
-  foreign key(Hotel_ID) references HotelInfo(Hotel_ID),
+  foreign key(Account_ID) references UserAccount(AccountID));
+  foreign key(Hotel_ID) references Hote
 );
