@@ -31,6 +31,7 @@ router.get('/searchResults', function(req, res) {
     var data_hotel;
     var data_room;
     var count = 0;
+    var min,max;
     bookingManager.get_hotel_info(req.query.Hotel_ID,
         function(qerr, vals, fields) {
             data_hotel = vals;
@@ -39,10 +40,12 @@ router.get('/searchResults', function(req, res) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
                 if (count == 2) {
+                  console.log(data_hotel);
                     res.render('HotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
-                        RoomInfo: data_room
+                        RoomInfo: data_room,
+                        Price: min+"-"+max
                     });
                 }
             }
@@ -54,8 +57,8 @@ router.get('/searchResults', function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                var min=vals[0].Price;
-                var max=vals[0].Price;
+                min=vals[0].Price;
+                max=vals[0].Price;
                 for(var i=0;i<vals.length;i++){
                   if(vals[i].Price>max){
                     max=vals[i].Price;
@@ -65,6 +68,7 @@ router.get('/searchResults', function(req, res) {
                   }
                 }
                 if (count == 2) {
+                  console.log(data_room);
                     res.render('HotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,

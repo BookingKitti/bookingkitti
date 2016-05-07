@@ -6,83 +6,83 @@
     <% include guideline.ejs %>
     <body>
         <div class='main-container'>
-                <div class="container-fluid">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <ul class='list-group'>
-                                        <li class='list-group-item'>
-                                            酒店名：
-                                            <%- HotelInfo.Hotel_Name %><br>
-                                              <%- HotelInfo.City %>--<%- HotelInfo.Province  %>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <ul class='list-group'>
+                                    <li class='list-group-item'>
+                                        酒店名：
+                                        <%= HotelInfo[0].Hotel_Name %><br>
+                                        <%= HotelInfo[0].City %>--<%= HotelInfo[0].Province  %>
+                                    </li>
+                                    <ul></div>
+                                    <div class="span6">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                价格区间：
+                                                <%= Price %><br>
+                                                联系方式：
+                                                <%= HotelInfo[0].PhoneNumber %>
                                             </li>
-                                        <ul></div>
-                                        <div class="span6">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">
-                                                    价格区间：
-                                                    <%- Price %><br>
-                                                    联系方式：
-                                                    <%- HotelInfo.PhoneNumber %>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        </ul>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <div class="row-fluid">
-                                        <div class="span12">
-                                            <div class="row-fluid">
-                                                <div class="span6">
-                                                    <div class="row-fluid">
-                                                        <div class="span8">房间种类</div>
-                                                        <div class="span4">价格</div>
-                                                    </div>
-                                                </div>
-                                                <div class="span6">
-                                                    <div class="row-fluid">
-                                                        <div class="span6">剩余房数</div>
-                                                        <div class="span6">预定</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% for (var i=0;i<RoomInfo.length;i++){ %>
-                                        <div class="row-fluid">
-                                            <div class="span12">
-                                                <div class="row-fluid">
-                                                    <div class="span6">
-                                                        <div class="row-fluid">
-                                                            <div class="span8">
-                                                                <%= RoomInfo[i].type %>
-                                                            </div>
-                                                            <div class="span4"><%= RoomInfo[i].Price %></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="span6">
-                                                        <div class="row-fluid">
-                                                            <div class="span6"><%= RoomInfo[i].Available%></div>
-                                                            <div class="span6">1</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    <%}%>
-                                </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    哈哈哈这里应该是评论
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                房间类型
+                                            </th>
+                                            <th>
+                                                房间价格
+                                            </th>
+                                            <th>
+                                                房间数量
+                                            </th>
+                                            <th>
+                                                预定
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (var i=0;i<RoomInfo.length;i++){%>
+                                            <tr class="info">
+                                                <td>
+                                                    <%- RoomInfo[i].Type %>
+                                                </td>
+                                                <td>
+                                                    <%- RoomInfo[i].Price %>
+                                                </td>
+                                                <td>
+                                                    <%- RoomInfo[i].Available%>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="RoomOrder" value=1>
+                                                </td>
+                                            </tr>
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <a>
+                                哈哈哈这里应该是评论</a>
+                        </div>
+                    </div>
+                      <div class="span7 text-center"><button type="submit" class="btn">预定</button></div>
                 </div>
-                <% include footer.html %>
-            </body>
-        </html>
+            </div>
+            <% include footer.html %>
+        </body>
+    </html>
