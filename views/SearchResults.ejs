@@ -3,16 +3,21 @@
 <head>
     <% include bootstrap_base.html %>
 </head>
-  <% include guideline.html %>
-<body>
-  <div class=‘main-container’>
-      <ul>
-        <% for (var i=0;i<vals.length;i++){ %>
-          <%- <br> %>
-          <%}%>
-      </ul>
-  </div>
-<% include footer.html %>
-</body>
+<% include guideline.ejs %>
+
+    <body>
+        <div class=‘main-container’>
+          <div class="span7 text-center">
+<% for (var i=0;i<data.length;i++){ %>
+            <li>
+
+                    <%- data[i].Hotel_Name+"<br>" %>
+                    <%- data[i].Province+"<br>" %>
+                        <%}%>
+            </li>
+          </div>
+        </div>
+        <% include footer.html %>
+    </body>
 
 </html>
