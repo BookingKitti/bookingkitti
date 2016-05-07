@@ -21,7 +21,9 @@ router.get('/', defaultPage);
  *by default select all the Hotel info
  */
 router.get('/search', defaultPage);
-
+router.get('/SearchResults',function(req,res,next){
+  console.log(req.query.Hotel_ID);
+})
 router.post('/search', function(req, res, next) {
 
     filterManager.search_hotel_info(req.body.textfield_hotel_name==""?null:req.body.textfield_hotel_name,
@@ -34,8 +36,9 @@ router.post('/search', function(req, res, next) {
         req.body.textfield_maxprice==""?null:req.body.textfield_maxprice,
         null,
         function(qerr, vals, fields) {
-            res.render('searchHotel', {
-                tabChoose: 0
+            res.render('SearchResults', {
+                tabChoose: 0,
+                data:vals
             });
             console.log(vals[0]);
         });
