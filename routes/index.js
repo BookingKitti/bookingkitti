@@ -34,9 +34,9 @@ router.post('/search', function(req, res, next) {
         null,
         function(qerr, vals, fields) {
             res.render('searchHotel', {
-                tabChoose: 0,
-                data: '提交成功'
-            })
+                tabChoose: 0
+            });
+            console.log(vals[0]);
         });
 });
 

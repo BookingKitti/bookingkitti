@@ -4,7 +4,7 @@ var flag1=0;//hotel_info
 var flag2=0;//hotel_info
 
 
-exports.serch_hotel_info=function(hotel_name,province,city,addr,date_in,date_out,l_price,h_price,sort_attr,callback)
+exports.search_hotel_info=function(hotel_name,province,city,addr,date_in,date_out,l_price,h_price,sort_attr,callback)
 {
   var sql="select * from HotelInfo where ";
   if(hotel_name!=null)
@@ -63,21 +63,13 @@ exports.serch_hotel_info=function(hotel_name,province,city,addr,date_in,date_out
       }
   }
   searchManager.query(sql,function(qerr,vals,fields){
-    for(var index in vals){
-      var tuple=vals[index];
-      var result='';
-      for(var attribute in tuple){
-        result+=tuple[attribute];
-      }
-      //console.log(result+ " llll");
-    }
       if(callback!=null)
-        callback(result);
+        callback(qerr,vals,fields);
     });
 }
 
 
-exports.serch_airticket_info=function(departure,airport,destination,depart_time,arrive_time,l_rice,h_price,sort_attr,callback)
+exports.search_airticket_info=function(departure,airport,destination,depart_time,arrive_time,l_rice,h_price,sort_attr,callback)
 {
   var sql="select * from TicketsInfo where ";
   if(departure!=null)
