@@ -23,11 +23,21 @@ router.get('/', defaultPage);
 router.get('/search', defaultPage);
 
 router.post('/search', function(req, res, next) {
-    console.log(req.body);
-    res.render('index', {
-        tabChoose: 0,
-        data: '提交成功'
-    })
+    filterManager.search_hotel_info(req.body.textfield_hotel_name,
+        req.body.combobox_province,
+        req.body.combobox_city,
+        req.body.textfield_address,
+        req.body.date_checkin,
+        req.body.date_checkout,
+        req.body.textfield_minprice,
+        req.body.textfield_maxprice,
+        null,
+        function(qerr, vals, fields) {
+            res.render('searchHotel', {
+                tabChoose: 0,
+                data: '提交成功'
+            })
+        });
 });
 
 /*@brief GET comment page
