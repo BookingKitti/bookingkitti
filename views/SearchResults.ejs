@@ -1,11 +1,18 @@
 <html>
 
 <head>
-    <% include head.html %>
+    <% include bootstrap_base.html %>
 </head>
-
+  <% include guideline.html %>
 <body>
-
+  <div class=‘main-container’>
+      <ul>
+        <% for (var i=0;i<vals.length;i++){ %>
+          <%- <br> %>
+          <%}%>
+      </ul>
+  </div>
+<% include footer.html %>
 </body>
 
 </html>
