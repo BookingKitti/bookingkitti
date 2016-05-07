@@ -3,27 +3,26 @@ var router = express.Router();
 var searchManager = require('./searchManager');
 var filterManager = require('./filterManager');
 
-    var defaultPage = function(req, res, next) {
-        searchManager.query('select * from HotelInfo', function(qerr, rows, fields) {
-            res.render('index', {
-                tabChoose: 0,
-                data: rows
-            })
+var defaultPage = function(req, res, next) {
+    searchManager.query('select * from HotelInfo', function(qerr, rows, fields) {
+        res.render('searchHotel', {
+            tabChoose: 0
         })
-    }
+    })
+}
 
-/*@brief GET home page
+/*@brief GET home page which is search page
  *render index.ejs
  */
-router.get('/', defaultPage(res, req, next));
+router.get('/', defaultPage);
 
-/*@brief GET index page
- *render index.ejs
+/*@brief GET search page
+ *render search.ejs
  *by default select all the Hotel info
  */
-router.get('/index', defaultPage(res, req, next));
+router.get('/search', defaultPage);
 
-router.post('/index', function(req, res, next) {
+router.post('/search', function(req, res, next) {
     console.log(req.body);
     res.render('index', {
         tabChoose: 0,
@@ -43,8 +42,8 @@ router.get('/comment', function(req, res, next) {
 /*@brief GET search page
  *render search.ejs
  */
-router.get('/search', function(req, res, next) {
-    res.render('searchHotel', {
+router.get('/order', function(req, res, next) {
+    res.render('order', {
         tabChoose: 1
     });
 });
