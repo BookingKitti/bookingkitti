@@ -11,14 +11,14 @@ var result2log=function(qerr,vals,fields){
   }
 };
 
-exports.add_hotel_comment=function(Hotel_ID,Scores,Account_ID,Comments){
+exports.add_hotel_comment=function(Hotel_ID,Scores,Account_ID,Comments, callback){
   searchManager.query("insert into HotelComments values("+Hotel_ID+","+Scores+","+
-  Account_ID+","+"'"+Comments+"'"+");",result2log);
+  Account_ID+","+"'"+Comments+"'"+");",callback);
   //searchManager.query("insert into mytable values(1"+","+"'yy'"+",1"+","+"1.2);",result2log);
 };
 
 exports.get_hotel_comment=function(Hotel_ID, callback){
-  searchManager.query'select Scores and Comments from HotelComments',function(qerr,vals,fields){
+  searchManager.query('select Scores and Comments from HotelComments where Hotel_ID=\'1\'',function(qerr,vals,fields){
       if(callback!=null)
         callback(qerr,vals,fields);
     });
