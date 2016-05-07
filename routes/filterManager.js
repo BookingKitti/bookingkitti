@@ -137,6 +137,6 @@ exports.search_airticket_info=function(departure,airport,destination,depart_time
       //console.log(result+ " llll");
     }
       if(callback!=null)
-        callback(result);
+        callback(qerr,vals,fields);
     });
 }
