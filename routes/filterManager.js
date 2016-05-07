@@ -8,11 +8,11 @@ exports.search_hotel_info=function(hotel_name,province,city,addr,date_in,date_ou
 {
   var sql="select * from HotelInfo where ";
   if(hotel_name!=null)
-    sql=sql+ " Hotel_Name= " +hotel_name+" ";
+    sql=sql+ " Hotel_Name= '" +hotel_name+"' ";
   if(province!=null)
-    sql=sql+ " Province= " +province+ " ";
+    sql=sql+ " Province= '" +province+ "' ";
   if(city!=null)
-    sql=sql+ " City=" +city+ " ";
+    sql=sql+ " City='" +city+ "' ";
   if(addr!=null)
     sql=sql+ " ";///////////////////////////////////////// need change
   if(date_in!=null)
@@ -73,16 +73,16 @@ exports.search_airticket_info=function(departure,airport,destination,depart_time
 {
   var sql="select * from TicketsInfo where ";
   if(departure!=null)
-    sql=sql+ " Departure= " +departure+" ";
+    sql=sql+ " Departure= '" +departure+"' ";
   if(airport!=null)
-    sql=sql+ " Airport= " +airport+ " ";
+    sql=sql+ " Airport= '" +airport+ "' ";
   if(destination!=null)
-    sql=sql+ " Destination=" +destination+ " ";
+    sql=sql+ " Destination='" +destination+ "' ";
 
   if(depart_time!=null)
-    sql=sql+ " Depart_time= " +depart_time+" ";
+    sql=sql+ " Depart_time= '" +depart_time+"' ";
   if(arrive_time!=null)
-    sql=sql+ " Arrive_time= " +arrive_time+ " ";
+    sql=sql+ " Arrive_time= '" +arrive_time+ "' ";
 
   if(l_price!=null)
     sql=sql+ " ";
