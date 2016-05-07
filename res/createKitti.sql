@@ -41,7 +41,7 @@ create table RoomType(
 create table RoomInfo(
  Hotel_ID int,
  Type char(10),
- Room_date datetime,
+ Room_date date,
  Available int,
  Price float,
  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
