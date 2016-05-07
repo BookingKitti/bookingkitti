@@ -22,6 +22,11 @@ router.get('/', defaultPage);
  *by default select all the Hotel info
  */
 router.get('/search', defaultPage);
+<<<<<<< HEAD
+router.get('/SearchResults',function(req,res,next){
+  console.log(req.query.Hotel_ID);
+})
+=======
 
 /*@brief GET searchResults page
  *render the hotel detail page
@@ -41,6 +46,7 @@ router.post('/searchResults', function(req, res) {
  *parse input and call filterManager
  *by default return all the Hotel info
  */
+>>>>>>> 6fa8984834bdac009efdb9cb4068e264cb377f9a
 router.post('/search', function(req, res, next) {
 
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
@@ -53,11 +59,19 @@ router.post('/search', function(req, res, next) {
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
         null,
         function(qerr, vals, fields) {
+<<<<<<< HEAD
+            res.render('SearchResults', {
+                tabChoose: 0,
+                data:vals
+            });
+            console.log(vals[0]);
+=======
             console.log(vals);
             res.render('searchResults', {
                 tabChoose: 0,
                 data: vals
             })
+>>>>>>> 6fa8984834bdac009efdb9cb4068e264cb377f9a
         });
 });
 
