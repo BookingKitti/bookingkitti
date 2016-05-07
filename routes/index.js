@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var searchManager = require('./searchManager');
 var filterManager = require('./filterManager');
+var commentManager = require('/commentManager');
 
 var defaultPage = function(req, res, next) {
     searchManager.query('select * from HotelInfo', function(qerr, rows, fields) {
@@ -22,6 +23,10 @@ router.get('/', defaultPage);
  */
 router.get('/search', defaultPage);
 
+/*@brief POST search page
+ *parse input and call filterManager
+ *by default return all the Hotel info
+ */
 router.post('/search', function(req, res, next) {
 
     filterManager.search_hotel_info(req.body.textfield_hotel_name==""?null:req.body.textfield_hotel_name,
@@ -34,10 +39,8 @@ router.post('/search', function(req, res, next) {
         req.body.textfield_maxprice==""?null:req.body.textfield_maxprice,
         null,
         function(qerr, vals, fields) {
-            res.render('searchHotel', {
-                tabChoose: 0
-            });
-            console.log(vals[0]);
+          console.log(vals);
+            res.render('searchResults', {tabChoose: 0, data:vals})
         });
 });
 
@@ -49,6 +52,15 @@ router.get('/comment', function(req, res, next) {
         tabChoose: 2
     });
 });
+
+/*@brief POST comment page
+ *parse input and call commentManager
+ *return the comments of the hotel
+ */
+ router.post('/comment', function(req, res, next)) {
+
+   commentManager.add_hotel_comment()
+ }
 
 /*@brief GET search page
  *render search.ejs
