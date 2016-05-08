@@ -13,25 +13,12 @@ var defaultPage = function(req, res, next) {
     })
 }
 
-/*@brief GET home page which is search page
- *render index.ejs
- */
-router.get('/', defaultPage);
-
-/*@brief GET search page
- *render search.ejs
- *by default select all the Hotel info
- */
-router.get('/search', defaultPage);
-
-/*@brief GET searchResults page
- *render the hotel detail page
- */
-router.get('/searchResults', function(req, res) {
+var showDetail = function(req, res) {
     var data_hotel;
     var data_room;
+    var data_comment;
     var count = 0;
-    var min,max;
+    var min, max;
     bookingManager.get_hotel_info(req.query.Hotel_ID,
         function(qerr, vals, fields) {
             data_hotel = vals;
@@ -39,13 +26,14 @@ router.get('/searchResults', function(req, res) {
             if (qerr) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
-                if (count == 2) {
-                  console.log(data_hotel);
+                if (count == 3) {
+                    console.log(data_hotel);
                     res.render('HotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
-                        Price: min+"-"+max
+                        Price: min + "-" + max,
+                        Comment: data_comment
                     });
                 }
             }
@@ -57,35 +45,58 @@ router.get('/searchResults', function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                min=vals[0].Price;
-                max=vals[0].Price;
-                for(var i=0;i<vals.length;i++){
-                  if(vals[i].Price>max){
-                    max=vals[i].Price;
-                  }
-                  if(vals[i].Price<min){
-                    min=vals[i].Price;
-                  }
+                min = vals[0].Price;
+                max = vals[0].Price;
+                for (var i = 0; i < vals.length; i++) {
+                    if (vals[i].Price > max) {
+                        max = vals[i].Price;
+                    }
+                    if (vals[i].Price < min) {
+                        min = vals[i].Price;
+                    }
                 }
-                if (count == 2) {
-                  console.log(data_room);
+                if (count == 3) {
+                    console.log(data_room);
                     res.render('HotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
-                        Price: min+"-"+max
+                        Price: min + "-" + max,
+                        Comment: data_comment
                     });
                 }
             }
         });
-})
+    commentManager.get_hotel_info(req.query.Hotel_ID,
+        function(qerr, vals, fields) {
+            data_comment = vals;
+            count++;
+            if (qerr) {
+                console.log('Fatal error: cannot get room info');
+            } else {
+                if (count == 3) {
+                    res.render('HotelDetail', {
+                        tabChoose: 1,
+                        HotelInfo: data_hotel,
+                        RoomInfo: data_room,
+                        Price: min + "-" + max,
+                        Comment: data_comment
+                    });
+                }
+            }
+        });
+};
 
-/*@brief POST searchResults page
- *handle the generating order post
+/*@brief GET home page which is search page
+ *render index.ejs
  */
-router.post('/searchResults', function(req, res) {
-    console.log("Hello");
-})
+router.get('/', defaultPage);
+
+/*@brief GET search page
+ *render search.ejs
+ *by default select all the Hotel info
+ */
+router.get('/search', defaultPage);
 
 /*@brief POST search page
  *parse input and call filterManager
@@ -111,6 +122,18 @@ router.post('/search', function(req, res, next) {
         });
 });
 
+/*@brief GET searchResults page
+ *render the hotel detail page
+ */
+router.get('/searchResults', showDetail);
+
+/*@brief POST searchResults page
+ *handle the generating order post
+ */
+router.post('/searchResults', function(req, res) {
+    console.log("Hello");
+})
+
 /*@brief GET comment page
  *render comment.ejs
  */
@@ -135,10 +158,8 @@ router.post('/comment', function(req, res, next) {
                 res.send('Comment failed');
             } else {
                 console.log('Comment succeed');
-                res.render('order', {
-                    tabChoose: 1,
-                    data: vals
-                });
+                req.query.Hotel_ID = 35;
+                showDetail(req, res);
             }
         });
 });
