@@ -75,21 +75,16 @@
                                     <%}%>
                             </tbody>
                         </table>
+                      <div class="span7 text-center"><button type="submit" class="btn">预定</button></div>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul class="list-group">
+                              <% for (var i=0;i<Comment.length;i++){ %>
+                                <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
+                                <%}%>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="span7 text-center">
-                <button type="submit" class="btn">预定</button>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <ul class="list-group">
-                        <% for (var i=0;i<Comment.length;i++){ %>
-                            <li class="list-group-item">
-                                <%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %>
-                            </li>
-                            <%}%>
-                    </ul>
                 </div>
             </div>
 
