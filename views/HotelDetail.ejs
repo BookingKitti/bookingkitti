@@ -74,13 +74,17 @@
                             </div>
                         </div>
                     </div>
+                      <div class="span7 text-center"><button type="submit" class="btn">预定</button></div>
                     <div class="row-fluid">
                         <div class="span12">
-                            <a>
-                                哈哈哈这里应该是评论</a>
+                            <ul>
+                              <% for (var i=0;i<Comment.length;i++){ %>
+                                <li><%- "评分： "+Comment[i].Scores+<br>+"评价内容： "+Comment[i].Comments %></li>
+                                <%}%>
+                            </ul>
                         </div>
                     </div>
-                      <div class="span7 text-center"><button type="submit" class="btn">预定</button></div>
+
                 </div>
             </div>
             <% include footer.html %>
