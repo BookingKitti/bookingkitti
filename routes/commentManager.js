@@ -18,7 +18,7 @@ exports.add_hotel_comment=function(Hotel_ID,Scores,Account_ID,Comments, callback
 };
 
 exports.get_hotel_comment=function(Hotel_ID, callback){
-  searchManager.query('select Scores and Comments from HotelComments where Hotel_ID=\'1\'',function(qerr,vals,fields){
+  searchManager.query('select Scores , Comments from HotelComments where Hotel_ID='+Hotel_ID+';',function(qerr,vals,fields){
       if(callback!=null)
         callback(qerr,vals,fields);
     });

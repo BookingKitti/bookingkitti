@@ -67,7 +67,7 @@ var showDetail = function(req, res) {
                 }
             }
         });
-    commentManager.get_hotel_info(req.query.Hotel_ID,
+    commentManager.get_hotel_comment(req.query.Hotel_ID,
         function(qerr, vals, fields) {
             data_comment = vals;
             count++;
@@ -148,7 +148,7 @@ router.get('/comment', function(req, res, next) {
  *return the comments of the hotel
  */
 router.post('/comment', function(req, res, next) {
-    commentManager.add_hotel_comment(1,
+    commentManager.add_hotel_comment(35,
         parseFloat(req.body.rating),
         1,
         req.body.content == "" ? null : req.body.content,
