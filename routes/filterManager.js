@@ -20,22 +20,26 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
             res += addr[i] + "%";
         }
         res += "' ";
-        cond_list[cond_list.length] = " "; ///////////////////////////////////////// need change
+        cond_list[cond_list.length] = res; ///////////////////////////////////////// need change
     }
-    if (date_in != null)
-        cond_list[cond_list.length] = " ";
-    if (date_out != null)
-        cond_list[cond_list.length] = " ";
+    if (date_in != null && date_out != null) {
+        cond_list[cond_list.length] = "Hotel_ID in (select Hotel_ID from RoomInfo where Room_date between '" + date_in + "' and '"+ date_out + "') ";
+    }
+
     if (l_price != null)
-        cond_list[cond_list.length] = " ";
+        cond_list[cond_list.length] = "Hotel_ID in (select Hotel_ID from RoomInfo where Price >= " + l_price + ") ";
     if (h_price != null)
-        cond_list[cond_list.length] = " ";
+        cond_list[cond_list.length] = "Hotel_ID in (select Hotel_ID from RoomInfo where Price <= " + h_price + ") ";
 
     //if user did not input any filter condition, just delete "where" in sql sentence
-    if (cond_list.length == 0) {
+    if (cond_list.length == 0)
         sql = "select * from HotelInfo ";
-    }
+    else
+        sql = sql + cond_list[0];
 
+    for (var i = 1; i < cond_list.length; i++) {
+        sql += " and " + cond_list[i];
+    }
     //if user choose the sorting option
     if (sort_attr != null) {
         sql = sql + "order by " + sort_attr + sort_order[hotel_asc_flag];
@@ -44,6 +48,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
     }
     sql = sql + ";";
 
+    console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
