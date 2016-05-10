@@ -1,8 +1,9 @@
 var searchManager = require('./searchManager');
 
-var flag1 = 0; //hotel_info
-var flag2 = 0; //hotel_info
+var hotel_asc_flag = 0; //hotel_info
+var air_asc_flag = 0; //hotel_info
 
+var sort_order = [' desc', ' asc'];
 
 exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, sort_attr, callback) {
     var sql = "select * from HotelInfo where ";
@@ -57,7 +58,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 }
 
 
-exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_rice, h_price, sort_attr, callback) {
+exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_price, h_price, sort_attr, callback) {
     var sql = "select * from TicketsInfo where ";
     if (departure != null)
         sql = sql + " Departure= '" + departure + "' ";
@@ -76,33 +77,18 @@ exports.search_airticket_info = function(departure, airport, destination, depart
     if (h_price != null)
         sql = sql + " ";
 
-    if (sql == "select * from TicketsInfo where ") {
-        if (sort_attr == null)
-            sql = "select * from TicketsInfo;"
-        else {
-            sql = "select * from TicketsInfo order by " + sort_attr;
-            if (flag2 == 1) {
-                sql = sql + " asc;";
-                flag2 = 0;
-            } else {
-                sql = sql + " desc;";
-                flag2 = 1;
-            }
-        }
-    } else {
-        if (sort_attr == null)
-            sql = sql + ";";
-        else {
-            sql = sql + " order by " + sort_attr;
-            if (flag2 == 1) {
-                sql = sql + " asc;";
-                flag2 = 0;
-            } else {
-                sql = sql + " desc;";
-                flag2 = 1;
-            }
-        }
+    //if user did not input any filter condition, just delete "where" in sql sentence
+    if (departure + airport + destination + depart_time + arrive_time + l_price + h_price == 0) {
+        sql = "select * from TicketsInfo ";
     }
+
+    //if user choose the sorting option
+    if (sort_attr != null) {
+        sql = sql + "order by " + sort_attr + sort_order[air_asc_flag];
+        //change the order flag
+        air_asc_flag == 1 - air_asc_flag;
+    }
+
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
