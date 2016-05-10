@@ -2,7 +2,7 @@
 var searchManager = require('./searchManager');
 var formidable = require('formidable');
 var fs = require('fs');
-var count = 0;
+var count = -1;
 TITLE = 'formidable上传示例'
 AVATAR_UPLOAD_FOLDER = '/avatar/'
 
@@ -50,14 +50,22 @@ exports.upload_hotel_photo = function(req, res) {
             });
             return;
         }
-
-        var avatarName = 'Hotel_35_' + count + '.' + extName;
+        var Hotel_ID = 35;
         count++;
-        var newPath = form.uploadDir + avatarName;
-
-        console.log(newPath);
-        fs.renameSync(files.fulAvatar.path, newPath); //重命名
-        res.send('上传成功')
+        var directoryName = 'Hotel_' + Hotel_ID + '/';
+        var fileName = count + '.' + extName;
+        var newPath = form.uploadDir + directoryName + fileName;
+        var rename = function() {
+            fs.renameSync(files.fulAvatar.path, newPath);
+            res.send('上传成功');
+        }
+        fs.exists(form.uploadDir + directoryName, function(result) {
+            if (result == false) {
+                fs.mkdir(form.uploadDir + directoryName, rename)
+            } else {
+                rename();
+            }
+        })
     });
 
     res.locals.success = '上传成功';
