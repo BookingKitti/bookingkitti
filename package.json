@@ -13,6 +13,7 @@
     "express": "^4.13.4",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
-    "formidable": "latest"
+    "formidable": "latest",
+    "mysql": "^2.10.2"
   }
 }

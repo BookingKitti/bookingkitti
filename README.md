@@ -6,3 +6,6 @@ The contributer includes:
 - HUANG ZHUOFEI
 - CHEN JINGSON
 - QIAN LIHUI
+
+#Usage
+pull from this repository and input `npm install` in the root directory, after all the dependency is installed, run the app by `node bin/www` or by `supervisor bin/www` if you have supervisor installed
