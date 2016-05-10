@@ -15,7 +15,7 @@ create table UserAccount(
 ) DEFAULT CHARSET=utf8;
 
 create table TicketsComments(
-  AirTickets_ID int, 
+  AirTickets_ID int,
   Score float not null,
   Account_ID int not null,
   Comments text not null,
@@ -53,8 +53,8 @@ create table HotelPics(
 create table RoomTypePics(
 	Hotel_ID int,
 	Type char(10),
-	File_Pos varchar(40), 
-	primary key (Hotel_ID, Type, File_Pos), 
+	File_Pos varchar(40),
+	primary key (Hotel_ID, Type, File_Pos),
 	foreign key(Hotel_ID, Type) references RoomType(Hotel_ID, Type)
 ) DEFAULT CHARSET=utf8;
 
@@ -73,5 +73,5 @@ create table HotelComments(
   Account_ID int,
   Comments text,
   foreign key(Account_ID) references UserAccount(AccountID),
-  foreign key(Hotel_ID) references HotelInfo
+  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
