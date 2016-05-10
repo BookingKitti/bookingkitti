@@ -6,8 +6,9 @@
   <% include guideline.ejs %>
 <body>
   <div class='main-container'>
-    <div class='span4 text-center'>
-      <ul class='list-group'>
+    <div class='container-fluid'>
+    <div class='span12 text-center'>
+      <ul class='list-group span4'>
         <% for (var i=0;i<data.length;i++){ %>
           <%- "<a class='list-group-item' href='./searchResults?Hotel_ID="+data[i].Hotel_ID+"'>"+"酒店名称: "+data[i].Hotel_Name+"<br>"+
           "所在省: "+data[i].Province+"\t"+
@@ -17,6 +18,7 @@
       </ul>
     </div>
   </div>
+</div>
 <% include footer.html %>
 </body>
 </html>
