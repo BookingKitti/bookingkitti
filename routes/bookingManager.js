@@ -1,6 +1,5 @@
 var searchManager = require('./searchManager');
 
-var searchManager = require('./searchManager');
 exports.get_hotel_info = function(hotel_id, callback) {
     var sql = "select * from HotelInfo where Hotel_ID= " + hotel_id + " ;";
     searchManager.query(sql, function(qerr, vals, fields) {
