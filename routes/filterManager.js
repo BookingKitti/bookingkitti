@@ -88,7 +88,8 @@ exports.search_airticket_info = function(departure, airport, destination, depart
         //change the order flag
         air_asc_flag == 1 - air_asc_flag;
     }
-
+    sql = sql + ";";
+    
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
