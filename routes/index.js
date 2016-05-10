@@ -173,6 +173,10 @@ router.post('/comment', function(req, res, next) {
 /*@brief GET search page
  *render search.ejs
  */
+
+ router.get('/orderconfirm',function(req,res,next){
+   res.render('OrderDetail',{tabChoose:1})
+ })
 router.get('/order', function(req, res, next) {
     res.render('order', {
         tabChoose: 1,
@@ -183,5 +187,6 @@ router.get('/order', function(req, res, next) {
 router.post('/order', function(req, res, next) {
   adminManager.upload_hotel_photo(req, res)
 });
+
 
 module.exports = router;
