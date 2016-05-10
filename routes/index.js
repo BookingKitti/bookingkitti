@@ -33,7 +33,8 @@ var showDetail = function(req, res) {
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
                         Price: min + "-" + max,
-                        Comment: data_comment
+                        Comment: data_comment,
+                        url: req.originalUrl
                     });
                 }
             }
@@ -62,7 +63,8 @@ var showDetail = function(req, res) {
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
                         Price: min + "-" + max,
-                        Comment: data_comment
+                        Comment: data_comment,
+                        url: req.originalUrl
                     });
                 }
             }
@@ -80,7 +82,8 @@ var showDetail = function(req, res) {
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
                         Price: min + "-" + max,
-                        Comment: data_comment
+                        Comment: data_comment,
+                        url: req.originalUrl
                     });
                 }
             }
