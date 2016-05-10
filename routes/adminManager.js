@@ -2,13 +2,35 @@
 var searchManager = require('./searchManager');
 var formidable = require('formidable');
 var fs = require('fs');
+var gm = require('gm');
+var imageMagick = gm.subClass({
+    imageMagick: true
+});
 var count = -1;
 TITLE = 'formidable上传示例'
 AVATAR_UPLOAD_FOLDER = '/avatar/'
 
+function createGaussianPyramids(path, fileName, callback) {
+    imageMagick(path+fileName)
+        .resize(600, 600, '!')
+        .autoOrient()
+        .write(path + 'large/' + '600x600_' + fileName, function(err) {
+            imageMagick(path+fileName)
+                .resize(300, 300, '!')
+                .autoOrient()
+                .write(path + 'medium/' + '300x300_' + fileName, function(err) {
+                    imageMagick(path+fileName)
+                        .resize(150, 150, '!')
+                        .autoOrient()
+                        .write(path + 'small/' + '150x150_' + fileName, function(err) {
+                            callback();
+                        });
+                });
+        });
+}
 
 exports.add_hotel_info = function(Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, callback) {
-    console.log("add hotel info");
+
 }
 
 exports.upload_hotel_photo = function(req, res) {
@@ -56,12 +78,21 @@ exports.upload_hotel_photo = function(req, res) {
         var fileName = count + '.' + extName;
         var newPath = form.uploadDir + directoryName + fileName;
         var rename = function() {
-            fs.renameSync(files.fulAvatar.path, newPath);
-            res.send('上传成功');
+            fs.rename(files.fulAvatar.path, newPath, function() {
+                createGaussianPyramids(form.uploadDir+directoryName, fileName, function() {
+                    res.send('上传成功');
+                });
+            });
         }
         fs.exists(form.uploadDir + directoryName, function(result) {
             if (result == false) {
-                fs.mkdir(form.uploadDir + directoryName, rename)
+                fs.mkdir(form.uploadDir + directoryName, function() {
+                    fs.mkdir(form.uploadDir + directoryName + 'small', function() {
+                        fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
+                            fs.mkdir(form.uploadDir + directoryName + 'large', rename)
+                        })
+                    })
+                })
             } else {
                 rename();
             }

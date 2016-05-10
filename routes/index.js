@@ -5,6 +5,7 @@ var filterManager = require('./filterManager');
 var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
+var picPath= ['avatar/Hotel_35/1.png','avatar/Hotel_35/2.png','avatar/Hotel_35/3.png']
 
 var defaultPage = function(req, res, next) {
     res.render('searchHotel', {
@@ -28,12 +29,13 @@ var showDetail = function(req, res) {
                 if (count == 3) {
                     console.log(data_hotel);
                     res.render('hotelDetail', {
-                        tabChoose: 1,
+                        tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl
+                        url: req.originalUrl,
+                        FilePos: picPath
                     });
                 }
             }
@@ -58,12 +60,13 @@ var showDetail = function(req, res) {
                 if (count == 3) {
                     console.log(data_room);
                     res.render('hotelDetail', {
-                        tabChoose: 1,
+                        tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl
+                        url: req.originalUrl,
+                        FilePos: picPath
                     });
                 }
             }
@@ -77,12 +80,13 @@ var showDetail = function(req, res) {
             } else {
                 if (count == 3) {
                     res.render('hotelDetail', {
-                        tabChoose: 1,
+                        tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl
+                        url: req.originalUrl,
+                        FilePos: picPath
                     });
                 }
             }
@@ -133,6 +137,7 @@ router.get('/searchResults', showDetail);
  *handle the generating order post
  */
 router.post('/searchResults', function(req, res){
+
 });
 
 /*@brief GET comment page
