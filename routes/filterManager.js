@@ -1,56 +1,49 @@
 var searchManager = require('./searchManager');
 
-var hotel_asc_flag = 0; //hotel_info
-var air_asc_flag = 0; //hotel_info
+var sort_order = [" desc", " asc"];
 
-var sort_order = [' desc', ' asc'];
-
-exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, sort_attr, callback) {
+exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, sort_attr, hotel_asc_flag, callback) {
     var sql = "select * from HotelInfo where ";
-    if (hotel_name != null)
-        sql = sql + " Hotel_Name= '" + hotel_name + "' ";
-    if (province != null)
-        sql = sql + " Province= '" + province + "' ";
-    if (city != null)
-        sql = sql + " City='" + city + "' ";
-    if (addr != null)
-        sql = sql + " "; ///////////////////////////////////////// need change
-    if (date_in != null)
-        sql = sql + " ";
-    if (date_out != null)
-        sql = sql + " ";
-    if (l_price != null)
-        sql = sql + " ";
-    if (h_price != null)
-        sql = sql + " ";
 
-    if (sql == "select * from HotelInfo where ") {
-        if (sort_attr == null)
-            sql = "select * from HotelInfo;"
-        else {
-            sql = "select * from HotelInfo order by " + sort_attr;
-            if (flag1 == 1) {
-                sql = sql + " asc;";
-                flag1 = 0;
-            } else {
-                sql = sql + " desc;";
-                flag1 = 1;
-            }
-        }
-    } else {
-        if (sort_attr == null)
-            sql = sql + ";";
-        else {
-            sql = sql + " order by " + sort_attr;
-            if (flag1 == 1) {
-                sql = sql + " asc;";
-                flag1 = 0;
-            } else {
-                sql = sql + " desc;";
-                flag1 = 1;
-            }
-        }
+    var cond_list = [];
+
+    if (hotel_name != null)
+        cond_list[cond_list.length] = " Hotel_Name= '" + hotel_name + "' ";
+    if (province != null)
+        cond_list[cond_list.length] = " Province= '" + province + "' ";
+    if (city != null) {
+        cond_list[cond_list.length] = " City='" + city + "' ";
     }
+    if (addr != null) {
+        var res = " Address like '%";
+        for (var i = 0; i < addr.length; i++) {
+            res += addr[i] + "%";
+        }
+        res += "' ";
+        cond_list[cond_list.length] = " "; ///////////////////////////////////////// need change
+    }
+    if (date_in != null)
+        cond_list[cond_list.length] = " ";
+    if (date_out != null)
+        cond_list[cond_list.length] = " ";
+    if (l_price != null)
+        cond_list[cond_list.length] = " ";
+    if (h_price != null)
+        cond_list[cond_list.length] = " ";
+
+    //if user did not input any filter condition, just delete "where" in sql sentence
+    if (cond_list.length == 0) {
+        sql = "select * from HotelInfo ";
+    }
+
+    //if user choose the sorting option
+    if (sort_attr != null) {
+        sql = sql + "order by " + sort_attr + sort_order[hotel_asc_flag];
+        //change the order flag
+        hotel_asc_flag = 1 - hotel_asc_flag;
+    }
+    sql = sql + ";";
+
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
@@ -58,8 +51,11 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 }
 
 
-exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_price, h_price, sort_attr, callback) {
+exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_price, h_price, sort_attr, air_asc_flag, callback) {
     var sql = "select * from TicketsInfo where ";
+
+    var cond_list = [];
+
     if (departure != null)
         sql = sql + " Departure= '" + departure + "' ";
     if (airport != null)
@@ -86,10 +82,10 @@ exports.search_airticket_info = function(departure, airport, destination, depart
     if (sort_attr != null) {
         sql = sql + "order by " + sort_attr + sort_order[air_asc_flag];
         //change the order flag
-        air_asc_flag == 1 - air_asc_flag;
+        air_asc_flag = 1 - air_asc_flag;
     }
     sql = sql + ";";
-    
+    //console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
