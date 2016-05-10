@@ -1,10 +1,10 @@
-insert into UserAccount values(1);
+insert into UserAccount values();
 
-insert into HotelInfo values(35 ,'RuJia','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
-insert into HotelInfo values(36 ,'Hanting','Zhejiang','Shenzhen','Luohu',5,'Nice','30624700');
-insert into HotelInfo values(37 ,'Jingson','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
-insert into HotelInfo values(38 ,'Shengfeng','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
-insert into HotelInfo values(39 ,'Heyi','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
+insert into HotelInfo values(null ,'如家','广东','深圳','罗湖',5,'Nice','30624700');
+insert into HotelInfo values(null ,'汉庭','浙江','Shenzhen','Luohu',5,'Nice','30624700');
+insert into HotelInfo values(null ,'紫金港大酒店','浙江','Shenzhen','Luohu',5,'Nice','30624700');
+insert into HotelInfo values(null ,'太子酒店','Guangdong','Shenzhen','Luohu',5,'Nice','30624700');
+insert into HotelInfo values(null ,'和颐酒店','北京','北京','Luoh',5,'Nice','30624700');
 
 insert into RoomInfo values(35, 'HIGH', '2016/03/03', 12, 800.0);
 insert into RoomInfo values(35, 'MEDIUM', '2016/03/03', 12, 600.0);
