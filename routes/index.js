@@ -131,7 +131,7 @@ router.post('/search', function(req, res, next) {
 router.get('/searchResults', showDetail);
 
 /*@brief POST searchResults page
- *handle the generating order post
+ *generating order and send to module 2
  */
 router.post('/searchResults', function(req, res) {
     console.log("Hello");

@@ -21,13 +21,13 @@ create table TicketsComments(
 
 create table HotelInfo(
   Hotel_ID int primary key auto_increment,
-  Hotel_Name varchar(20),
-  Province varchar(20),
-  City varchar(20),
-  Address varchar(20),
-  Stars int,
-  Description text,
-  PhoneNumber varchar(20)
+  Hotel_Name varchar(20) not null,
+  Province varchar(20) not null,
+  City varchar(20) not null,
+  Address varchar(20) not null,
+  Stars int not null,
+  Description text not null,
+  PhoneNumber varchar(20) not null
 );
 
 create table RoomType(
