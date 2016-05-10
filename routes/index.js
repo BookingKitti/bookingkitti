@@ -4,13 +4,12 @@ var searchManager = require('./searchManager');
 var filterManager = require('./filterManager');
 var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
+var adminManager = require('./adminManager');
 
 var defaultPage = function(req, res, next) {
-    searchManager.query('select * from HotelInfo', function(qerr, rows, fields) {
-        res.render('searchHotel', {
-            tabChoose: 0
-        })
-    })
+    res.render('searchHotel', {
+        tabChoose: 0
+    });
 }
 
 var showDetail = function(req, res) {
@@ -28,7 +27,7 @@ var showDetail = function(req, res) {
             } else {
                 if (count == 3) {
                     console.log(data_hotel);
-                    res.render('HotelDetail', {
+                    res.render('hotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -57,7 +56,7 @@ var showDetail = function(req, res) {
                 }
                 if (count == 3) {
                     console.log(data_room);
-                    res.render('HotelDetail', {
+                    res.render('hotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -75,7 +74,7 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: cannot get room info');
             } else {
                 if (count == 3) {
-                    res.render('HotelDetail', {
+                    res.render('hotelDetail', {
                         tabChoose: 1,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -128,11 +127,10 @@ router.post('/search', function(req, res, next) {
 router.get('/searchResults', showDetail);
 
 /*@brief POST searchResults page
- *generating order and send to module 2
+ *handle the generating order post
  */
-router.post('/searchResults', function(req, res) {
-    console.log("Hello");
-})
+router.post('/searchResults', function(req, res){
+});
 
 /*@brief GET comment page
  *render comment.ejs
@@ -174,10 +172,8 @@ router.get('/order', function(req, res, next) {
     });
 });
 
-router.get('/test', function(req, res, next) {
-    res.render('a2', {
-        tabChoose: 2
-    })
-})
+router.post('/order', function(req, res, next) {
+  adminManager.upload_hotel_photo(req, res)
+});
 
 module.exports = router;

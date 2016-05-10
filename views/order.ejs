@@ -8,35 +8,42 @@
 <body>
     <% include guideline.ejs %>
         <div class="main-container">
-          <% for (var i = 0;i<10;i++){ %>
-            <%- data+"<br>" %><%}%>
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span7 text-center">
-                        <form class="form-horizontal" action="/index" name='myform' method="post">
-                            <div class="control-group">
-                                <label class="control-label" for="inputEmail">邮箱</label>
-                                <div class="controls">
-                                    <input id="inputEmail" type="text" name="mail"/>
+            <% for (var i = 0;i<10;i++){ %>
+                <%- data+"<br>" %>
+                    <%}%>
+                        <div class="container-fluid">
+                            <div class="row-fluid">
+                                <div class="span7 text-center">
+                                    <form class="form-signin" role="form" method="post" enctype='multipart/form-data'>
+                                        <h2 class="form-signin-heading">上传文件</h2>
+                                        <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
+                                        <br/>
+                                        <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
+                                    </form>
+                                    <form class="form-horizontal" action="/order" name='myform' method="post">
+                                        <div class="control-group">
+                                            <label class="control-label" for="inputEmail">邮箱</label>
+                                            <div class="controls">
+                                                <input id="inputEmail" type="text" name="mail" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="inputPassword">密码</label>
+                                            <div class="controls">
+                                                <input id="inputPassword" type="password" name="passwd" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="chkbox" /> Remember me</label>
+                                                <button type="submit" class="btn">登陆</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label" for="inputPassword">密码</label>
-                                <div class="controls">
-                                    <input id="inputPassword" type="password" name="passwd"/>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="chkbox"/> Remember me</label>
-                                    <button type="submit" class="btn">登陆</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                        </div>
         </div>
         <% include footer.html %>
 </body>
