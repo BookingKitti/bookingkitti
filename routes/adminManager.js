@@ -6,7 +6,7 @@ var gm = require('gm');
 var imageMagick = gm.subClass({
     imageMagick: true
 });
-var count = -1;//Testing variable
+var count = -1; //Testing variable
 TITLE = 'formidable上传示例'
 AVATAR_UPLOAD_FOLDER = '/avatar/'
 
@@ -14,21 +14,21 @@ function createGaussianPyramids(path, fileName, callback) {
     imageMagick(path + fileName)
         .resize(600, 600, '!')
         .autoOrient()
-        .write(path + 'large/' + '600x600_' + fileName, function(err) {
+        .write(path + 'large/600x600_' + fileName, function(err) {
             if (err) {
                 return err;
             }
             imageMagick(path + fileName)
                 .resize(300, 300, '!')
                 .autoOrient()
-                .write(path + 'medium/' + '300x300_' + fileName, function(err) {
+                .write(path + 'medium/300x300_' + fileName, function(err) {
                     if (err) {
                         return err;
                     }
                     imageMagick(path + fileName)
                         .resize(150, 150, '!')
                         .autoOrient()
-                        .write(path + 'small/' + '150x150_' + fileName, function(err) {
+                        .write(path + 'small/150x150_' + fileName, function(err) {
                             if (err) {
                                 return err;
                             }
@@ -81,52 +81,58 @@ exports.upload_hotel_photo = function(req, res) {
             });
             return;
         }
-        var Hotel_ID = 35;
+        var Hotel_ID = 1;
         count++;
         var directoryName = 'Hotel_' + Hotel_ID + '/';
         var fileName = count + '.' + extName;
         var newPath = form.uploadDir + directoryName + fileName;
         var rename = function() {
             fs.rename(files.fulAvatar.path, newPath, function() {
-                    createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
-                            searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + 'avatar/' + directoryName + 'small\/'+fileName+')',
+                createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
+                    searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                        function(qerr) {
+                            if (qerr) {
+                                return;
+                            }
+                            searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
                                 function(qerr) {
                                     if (qerr) {
                                         return;
                                     }
-                                    searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + 'avatar/' + directoryName + 'medium\/'+fileName+')',
+                                    searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
                                         function(qerr) {
                                             if (qerr) {
                                                 return;
                                             }
-                                            searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + 'avatar/' + directoryName + 'large\/'+fileName+')',
+                                            searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
                                                 function(qerr) {
                                                     if (qerr) {
                                                         return;
                                                     }
                                                 });
-                                           res.send('上传成功');
+                                            res.send('上传成功');
+                                        });
                                 });
-                    });
+                        });
+                });
             });
-    });
-}
-fs.exists(form.uploadDir + directoryName, function(result) {
-if (result == false) {
-    fs.mkdir(form.uploadDir + directoryName, function() {
-        fs.mkdir(form.uploadDir + directoryName + 'small', function() {
-            fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
-                fs.mkdir(form.uploadDir + directoryName + 'large', rename)
-            })
+        }
+        fs.exists(form.uploadDir + directoryName, function(result) {
+            if (result == false) {
+                fs.mkdir(form.uploadDir + directoryName, function() {
+                    fs.mkdir(form.uploadDir + directoryName + 'small', function() {
+                        fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
+                            fs.mkdir(form.uploadDir + directoryName + 'large', rename)
+                        })
+                    })
+                })
+            } else {
+                rename();
+            }
         })
-    })
-} else {
-    rename();
-}
-})
-});
+    });
 
-res.locals.success = '上传成功';
+    res.locals.success = '上传成功';
 }
 
 exports.delete_hotel_info = function(Hotel_ID, callback) {

@@ -5,7 +5,6 @@ var filterManager = require('./filterManager');
 var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
-var picPath= ['avatar/Hotel_35/1.png','avatar/Hotel_35/2.png','avatar/Hotel_35/3.png']
 
 var defaultPage = function(req, res, next) {
     res.render('searchHotel', {
@@ -17,8 +16,29 @@ var showDetail = function(req, res) {
     var data_hotel;
     var data_room;
     var data_comment;
+    var data_image;
     var count = 0;
     var min, max;
+    searchManager.query('select * from HotelPics where Hotel_ID='+req.query.Hotel_ID+' and '+'File_Pos like \'%600x600%\'', function(qerr, vals) {
+      data_image = vals;
+      count++;
+      if (qerr) {
+          console.log('Fatal error: Cannot get hotel info');
+      } else {
+          if (count == 4) {
+              console.log(data_hotel);
+              res.render('hotelDetail', {
+                  tabChoose: 0,
+                  HotelInfo: data_hotel,
+                  RoomInfo: data_room,
+                  Price: min + "-" + max,
+                  Comment: data_comment,
+                  url: req.originalUrl,
+                  FilePos: data_image
+              });
+          }
+      }
+    })
     bookingManager.get_hotel_info(req.query.Hotel_ID,
         function(qerr, vals, fields) {
             data_hotel = vals;
@@ -26,7 +46,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
-                if (count == 3) {
+                if (count == 4) {
                     console.log(data_hotel);
                     res.render('hotelDetail', {
                         tabChoose: 0,
@@ -35,7 +55,7 @@ var showDetail = function(req, res) {
                         Price: min + "-" + max,
                         Comment: data_comment,
                         url: req.originalUrl,
-                        FilePos: picPath
+                        FilePos: data_image
                     });
                 }
             }
@@ -57,7 +77,7 @@ var showDetail = function(req, res) {
                         min = vals[i].Price;
                     }
                 }
-                if (count == 3) {
+                if (count == 4) {
                     console.log(data_room);
                     res.render('hotelDetail', {
                         tabChoose: 0,
@@ -66,7 +86,7 @@ var showDetail = function(req, res) {
                         Price: min + "-" + max,
                         Comment: data_comment,
                         url: req.originalUrl,
-                        FilePos: picPath
+                        FilePos: data_image
                     });
                 }
             }
@@ -78,7 +98,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                if (count == 3) {
+                if (count == 4) {
                     res.render('hotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
@@ -86,7 +106,7 @@ var showDetail = function(req, res) {
                         Price: min + "-" + max,
                         Comment: data_comment,
                         url: req.originalUrl,
-                        FilePos: picPath
+                        FilePos: data_image
                     });
                 }
             }
@@ -154,7 +174,7 @@ router.get('/comment', function(req, res, next) {
  *return the comments of the hotel
  */
 router.post('/comment', function(req, res, next) {
-    commentManager.add_hotel_comment(35,
+    commentManager.add_hotel_comment(1,
         parseFloat(req.body.rating),
         1,
         req.body.content == "" ? null : req.body.content,
@@ -164,7 +184,7 @@ router.post('/comment', function(req, res, next) {
                 res.send('Comment failed');
             } else {
                 console.log('Comment succeed');
-                req.query.Hotel_ID = 35;
+                req.query.Hotel_ID = 1;
                 showDetail(req, res);
             }
         });
