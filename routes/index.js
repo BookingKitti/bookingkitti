@@ -26,7 +26,6 @@ var showDetail = function(req, res) {
           console.log('Fatal error: Cannot get hotel info');
       } else {
           if (count == 4) {
-              console.log(data_hotel);
               res.render('hotelDetail', {
                   tabChoose: 0,
                   HotelInfo: data_hotel,
@@ -47,7 +46,6 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
                 if (count == 4) {
-                    console.log(data_hotel);
                     res.render('hotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
@@ -78,7 +76,6 @@ var showDetail = function(req, res) {
                     }
                 }
                 if (count == 4) {
-                    console.log(data_room);
                     res.render('hotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
@@ -204,8 +201,18 @@ router.get('/order', function(req, res, next) {
     });
 });
 
-router.post('/order', function(req, res, next) {
-  adminManager.upload_hotel_photo(req, res)
+router.post('/order', function(req, res, next){
+  for(var attribute in req.body){
+    if(attribute==""){
+      console.log("请填写必要信息");
+      res.render('order');
+    }
+  }
+  adminManager.add_hotel_info()
+  adminManager.upload_hotel_photo(req, res, function(req, res) {
+    res.locals.success = '上传成功';
+    res.send('上传成功');
+  });
 });
 
 

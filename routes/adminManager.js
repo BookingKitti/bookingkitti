@@ -7,7 +7,6 @@ var imageMagick = gm.subClass({
     imageMagick: true
 });
 var count = -1; //Testing variable
-TITLE = 'formidable上传示例'
 AVATAR_UPLOAD_FOLDER = '/avatar/'
 
 function createGaussianPyramids(path, fileName, callback) {
@@ -39,10 +38,21 @@ function createGaussianPyramids(path, fileName, callback) {
 }
 
 exports.add_hotel_info = function(Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, callback) {
-
+    var sql = 'insert into HotelInfo value(';
+    sql += 'null';
+    sql += ' \'' + Hotel_Name + '\'';
+    sql += ' \'' + Province + '\'';
+    sql += ' \'' + City + '\'';
+    sql += ' \'' + Address + '\'';
+    sql += ' \'' + Stars;
+    sql += ' \'' + Description + '\'';
+    sql += ' \'' + PhoneNumber + '\')';
+    searchManager.query(sql, function(qerr) {
+        callback(qerr);
+    });
 }
 
-exports.upload_hotel_photo = function(req, res) {
+exports.upload_hotel_photo = function(req, res, callback) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.uploadDir = 'public' + AVATAR_UPLOAD_FOLDER;
@@ -82,7 +92,10 @@ exports.upload_hotel_photo = function(req, res) {
             return;
         }
         var Hotel_ID = 1;
-        count++;
+        var count;
+        searchManager.query('select count(*) from HotelPics where Hotel_ID=' + Hotel_ID + ')', function(qerr, vals) {
+            count = vals[0];
+        })
         var directoryName = 'Hotel_' + Hotel_ID + '/';
         var fileName = count + '.' + extName;
         var newPath = form.uploadDir + directoryName + fileName;
@@ -109,8 +122,8 @@ exports.upload_hotel_photo = function(req, res) {
                                                     if (qerr) {
                                                         return;
                                                     }
+                                                    callback(req, res);
                                                 });
-                                            res.send('上传成功');
                                         });
                                 });
                         });
@@ -131,8 +144,6 @@ exports.upload_hotel_photo = function(req, res) {
             }
         })
     });
-
-    res.locals.success = '上传成功';
 }
 
 exports.delete_hotel_info = function(Hotel_ID, callback) {

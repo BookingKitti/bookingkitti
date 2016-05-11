@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <h1><%- HotelInfo[0].Hotel_Name %></h1>
                 <div class='row'>
-                    <div class='col-md-6 col-xs-12'>
+                    <div class='col-md-4 col-xs-12'>
                         <div class="carousel slide" id="carousel">
 
                             <ol class="carousel-indicators">
@@ -22,11 +22,11 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img alt="" src=<%- '"'+FilePos[0].File_Pos+'"' %> class='img-thumbnail' height=600 width=600/>
+                                    <img alt="" src=<%- '"'+FilePos[0].File_Pos+'"' %> class='img-thumbnail' height=400 width=400/>
                                 </div>
                                 <% for (var i=1;i<FilePos.length;i++){%>
                                     <div class='item'>
-                                        <img alt="" src=<%- '"'+FilePos[i].File_Pos+'"'%> class='img-thumbnail' height=600 width=600/>
+                                        <img alt="" src=<%- '"'+FilePos[i].File_Pos+'"'%> class='img-thumbnail' height=400 width=400/>
                                     </div>
                                 <%}%>
                             </div>
@@ -34,7 +34,7 @@
                             <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
                         </div>
                     </div>
-                    <div class='col-md-6 col-xs-12'>
+                    <div class='col-md-8 col-xs-12'>
                     <li class='list-group-item'>
                         酒店名：
                         <%= HotelInfo[0].Hotel_Name %>
