@@ -7,7 +7,7 @@ var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 
 var defaultPage = function(req, res, next) {
-    res.render('searchHotel', {
+    res.render('search', {
         tabChoose: 0
     });
 }
