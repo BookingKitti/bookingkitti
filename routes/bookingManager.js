@@ -6,99 +6,99 @@ exports.get_hotel_info = function(hotel_id, callback) {
         if (callback != null) callback(qerr, vals, fields);
     });
 }
+
 exports.get_room_info = function(hotel_id, callback) {
     var sql = "select * from RoomInfo where Hotel_ID= " + hotel_id + " ;";
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null) callback(qerr, vals, fields);
     });
 }
-exports.change_room_data = function(hotel_id, type, room_date, callback) {
-    var sql = "update HotelInfo set Available = Available - 1 where ";
-    if (hotel_id != null) sql = sql + " Hotel_ID= " + hotelname + " ";
-    if (type != null) sql = sql + " Type= " + type + " ";
-    if (room_date != null) sql = sql + " Room_date=" + room_date + " ";
-    if (sql == "update HotelInfo set Available = Available - 1 where ") {
-        sql = "update HotelInfo set Available = Available - 1;";
-    } else sql = sql + ";";
+
+//need to change
+exports.get_airticket_info = function(airticket_id, callback) {
+    var sql = "select * from TicketsInfo where AirTicket_ID= " + airticket_id + " ;";
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null) callback(qerr, vals, fields);
     });
 }
-exports.change_airticket_data = function(departure, airport, destination, depart_time, arrive_time, callback) {
+
+var change_room_data = function(hotel_id, type, room_date, callback) {
+    var sql = "update RoomInfo set Available = Available - 1 where ";
+    if (hotel_id != null)
+      sql = sql + " Hotel_ID= " + hotel_id + " ";
+    if (type != null)
+      sql = sql + " and Type=  '" + type + "' ";
+    if (room_date != null)
+      sql = sql + " and Room_date= '" + room_date + "' ";
+    if (sql == "update RoomInfo set Available = Available - 1 where ") {
+        sql = "update RoomInfo set Available = Available - 1;";
+    } else sql = sql + ";";
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+        if (callback != null)
+          callback(qerr, vals, fields);
+    });
+}
+
+var change_airticket_data = function(departure, airport, destination, depart_time, arrive_time, callback) {
     var sql = "update TicketsInfo set Available = Available - 1 where";
-    if (departure != null) sql = sql + " Departure= " + departure + " ";
-    if (airport != null) sql = sql + " Airport= " + airport + " ";
-    if (destination != null) sql = sql + " Destination=" + destination + " ";
-    if (depart_time != null) sql = sql + " Depart_time= " + depart_time + " ";
-    if (arrive_time != null) sql = sql + " Arrive_time= " + arrive_time + " ";
+    if (departure != null)
+      sql = sql + " Departure=  '" + departure + "' ";
+    if (airport != null)
+      sql = sql + " and Airport= '" + airport + "' ";
+    if (destination != null)
+      sql = sql + " and Destination= '" + destination + "' ";
+    if (depart_time != null)
+      sql = sql + " and Depart_time= '" + depart_time + "' ";
+    if (arrive_time != null)
+      sql = sql + " and Arrive_time= '" + arrive_time + "' ";
     if (sql == "update TicketsInfo set Available = Available - 1 where") {
         sql = "update TicketsInfo set Available = Available - 1;";
     } else sql = sql + ";";
+
     searchManager.query(sql, function(qerr, vals, fields) {
-        if (callback != null) callback(qerr, vals, fields);
+        if (callback != null)
+          callback(qerr, vals, fields);
     });
 }
 
-exports.changedata_room = function(hotalname, province, city, date_in, date_out, callback) {
-    var sql = "delete from HotelInfo where ";
-    if (hotalname != null)
-        sql = sql + " Hotel_Name= " + hotalname + " ";
-    if (province != null)
-        sql = sql + " Province= " + province + " ";
-    if (city != null)
-        sql = sql + " City=" + city + " ";
-    if (date_in != null) //
-        sql = sql + " ";
-    if (date_out != null) //
-        sql = sql + " ";
-    if (sql == "delete from HotelInfo where ") {
-        sql = "delete from HotelInfo;";
-    } else
-        sql = sql + ";";
-
-    searchManager.query(sql, function(qerr, vals, fields) {
-        for (var index in vals) {
-            var tuple = vals[index];
-            var result = '';
-            for (var attribute in tuple) {
-                result += tuple[attribute];
-            }
-            //console.log(result+ " llll");
-        }
-        if (callback != null)
-            callback(result);
-    });
+exports.create_order_hotel = function(hotel_id, type, room_date, callback){
+  change_room_data(hotel_id, type, room_date, function(qerr, vals, fields){
+    //result=result;
+    if(qerr)
+    {
+      console.log("error");
+      callback(qerr, vals, fields);
+    }
+  });
+  var sql="select Hotel_Name,Province,City,Address,Stars,Description,PhoneNumber,Type,Room_date,Price\
+   from HotelInfo,RoomInfo where HotelInfo.Hotel_ID=RoomInfo.Hotel_ID and\
+   RoomInfo.Hotel_ID="+hotel_id+" and Type='"+type+"' and Room_date='"+
+   room_date+"' ;"
+  searchManager.query(sql, function(qerr, vals, fields) {
+    //console.log(qerr);
+    callback(qerr, vals, fields);
+  });
 }
 
-
-exports.changedata_airticket = function(departure, airport, destination, depart_time, arrive_time, callback) {
-    var sql = "delete from TicketsInfo where ";
-
-    if (departure != null)
-        sql = sql + " Departure= " + departure + " ";
-    if (airport != null)
-        sql = sql + " Airport= " + airport + " ";
-    if (destination != null)
-        sql = sql + " Destination=" + destination + " ";
-
-    if (depart_time != null)
-        sql = sql + " Depart_time= " + depart_time + " ";
-    if (arrive_time != null)
-        sql = sql + " Arrive_time= " + arrive_time + " ";
-    if (sql == "delete from TicketsInfo where ") {
-        sql = "delete from TicketsInfo;";
-    } else
-        sql = sql + ";";
-    searchManager.query(sql, function(qerr, vals, fields) {
-        for (var index in vals) {
-            var tuple = vals[index];
-            var result = '';
-            for (var attribute in tuple) {
-                result += tuple[attribute];
-            }
-            //console.log(result+ " llll");
-        }
-        if (callback != null)
-            callback(result);
-    });
+exports.create_order_ariticket = function(departure, airport, destination, depart_time, arrive_time, callback){
+  change_airticket_data(departure, airport, destination, depart_time, arrive_time, function(qerr, vals, fields){
+    //result=result;
+    if(qerr)
+    {
+      callback(qerr, vals, fields);
+    }
+  });
+  //var final_qerr;
+  //var final_vals;
+  var sql="select Departure,Airport,Destination,Depart_time,Arrive_time,Price from TicketsInfo where "
+  + " Departure=  '" + departure + "' "
+  + " and Airport= '" + airport + "' "
+  + " and Destination= '" + destination + "' "
+  + " and Depart_time= '" + depart_time + "' "
+  + " and Arrive_time= '" + arrive_time + "' ;";
+  searchManager.query(sql, function(qerr, vals, fields) {
+    //console.log(qerr);
+      callback(qerr, vals, fields);
+  });
 }
