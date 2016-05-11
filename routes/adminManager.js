@@ -37,21 +37,27 @@ function createGaussianPyramids(path, fileName, callback) {
         });
 }
 
-exports.add_hotel_info = function(Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, callback) {
-    var sql = 'insert into HotelInfo value(';
-    sql += 'null';
-    sql += ' \'' + Hotel_Name + '\'';
-    sql += ' \'' + Province + '\'';
-    sql += ' \'' + City + '\'';
-    sql += ' \'' + Address + '\'';
-    sql += ' \'' + Stars;
-    sql += ' \'' + Description + '\'';
-    sql += ' \'' + PhoneNumber + '\')';
+/*@brief
+*callback(req, res, qerr)
+*/
+exports.add_hotel_info = function(req, res, callback) {
+    var sql = 'insert into HotelInfo values(';
+    sql += 'null,';
+    sql += ' \'' + req.body.Hotel_Name + '\',';
+    sql += ' \'' + req.body.Province + '\',';
+    sql += ' \'' + req.body.City + '\',';
+    sql += ' \'' + req.body.Address + '\',';
+    sql += ' ' + req.body.Stars + ',';
+    sql += ' \'' + req.body.Description + '\',';
+    sql += ' \'' + req.body.PhoneNumber + '\')';
     searchManager.query(sql, function(qerr) {
-        callback(qerr);
+        callback(req, res, qerr);
     });
 }
 
+/*@brief
+*callback(req, res)
+*/
 exports.upload_hotel_photo = function(req, res, callback) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
@@ -91,61 +97,65 @@ exports.upload_hotel_photo = function(req, res, callback) {
             });
             return;
         }
+
         var Hotel_ID = 1;
-        var count;
-        searchManager.query('select count(*) from HotelPics where Hotel_ID=' + Hotel_ID + ')', function(qerr, vals) {
-            count = vals[0];
-        })
-        var directoryName = 'Hotel_' + Hotel_ID + '/';
-        var fileName = count + '.' + extName;
-        var newPath = form.uploadDir + directoryName + fileName;
-        var rename = function() {
-            fs.rename(files.fulAvatar.path, newPath, function() {
-                createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
-                    searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
-                        function(qerr) {
-                            if (qerr) {
-                                return;
-                            }
-                            searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
-                                function(qerr) {
-                                    if (qerr) {
-                                        return;
-                                    }
-                                    searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
-                                        function(qerr) {
-                                            if (qerr) {
-                                                return;
-                                            }
-                                            searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
-                                                function(qerr) {
-                                                    if (qerr) {
-                                                        return;
-                                                    }
-                                                    callback(req, res);
-                                                });
-                                        });
-                                });
-                        });
+        searchManager.query('select count(Hotel_ID) from HotelPics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
+            console.log(vals[0]);
+            var count = vals[0]['count(Hotel_ID)']/4;
+            var directoryName = 'Hotel_' + Hotel_ID + '/';
+            var fileName = count + '.' + extName;
+            var newPath = form.uploadDir + directoryName + fileName;
+            var rename = function() {
+                fs.rename(files.fulAvatar.path, newPath, function() {
+                    createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
+                        searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                            function(qerr) {
+                                if (qerr) {
+                                    return;
+                                }
+                                searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
+                                    function(qerr) {
+                                        if (qerr) {
+                                            return;
+                                        }
+                                        searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
+                                            function(qerr) {
+                                                if (qerr) {
+                                                    return;
+                                                }
+                                                searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
+                                                    function(qerr) {
+                                                        if (qerr) {
+                                                            return;
+                                                        }
+                                                        callback(req, res);
+                                                    });
+                                            });
+                                    });
+                            });
+                    });
                 });
-            });
-        }
-        fs.exists(form.uploadDir + directoryName, function(result) {
-            if (result == false) {
-                fs.mkdir(form.uploadDir + directoryName, function() {
-                    fs.mkdir(form.uploadDir + directoryName + 'small', function() {
-                        fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
-                            fs.mkdir(form.uploadDir + directoryName + 'large', rename)
+            }
+            fs.exists(form.uploadDir + directoryName, function(result) {
+                if (result == false) {
+                    fs.mkdir(form.uploadDir + directoryName, function() {
+                        fs.mkdir(form.uploadDir + directoryName + 'small', function() {
+                            fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
+                                fs.mkdir(form.uploadDir + directoryName + 'large', rename)
+                            })
                         })
                     })
-                })
-            } else {
-                rename();
-            }
+                } else {
+                    rename();
+                }
+            })
         })
     });
 }
 
+/*@brief*
+*
+*/
 exports.delete_hotel_info = function(Hotel_ID, callback) {
     console.log('delete hotel info');
 }

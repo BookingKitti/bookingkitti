@@ -19,24 +19,24 @@ var showDetail = function(req, res) {
     var data_image;
     var count = 0;
     var min, max;
-    searchManager.query('select * from HotelPics where Hotel_ID='+req.query.Hotel_ID+' and '+'File_Pos like \'%600x600%\'', function(qerr, vals) {
-      data_image = vals;
-      count++;
-      if (qerr) {
-          console.log('Fatal error: Cannot get hotel info');
-      } else {
-          if (count == 4) {
-              res.render('hotelDetail', {
-                  tabChoose: 0,
-                  HotelInfo: data_hotel,
-                  RoomInfo: data_room,
-                  Price: min + "-" + max,
-                  Comment: data_comment,
-                  url: req.originalUrl,
-                  FilePos: data_image
-              });
-          }
-      }
+    searchManager.query('select * from HotelPics where Hotel_ID=' + req.query.Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
+        data_image = vals;
+        count++;
+        if (qerr) {
+            console.log('Fatal error: Cannot get hotel info');
+        } else {
+            if (count == 4) {
+                res.render('hotelDetail', {
+                    tabChoose: 0,
+                    HotelInfo: data_hotel,
+                    RoomInfo: data_room,
+                    Price: min + "-" + max,
+                    Comment: data_comment,
+                    url: req.originalUrl,
+                    FilePos: data_image
+                });
+            }
+        }
     })
     bookingManager.get_hotel_info(req.query.Hotel_ID,
         function(qerr, vals, fields) {
@@ -136,6 +136,7 @@ router.post('/search', function(req, res, next) {
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
         null,
+        null,
         function(qerr, vals, fields) {
             console.log(vals);
             res.render('searchResults', {
@@ -153,7 +154,7 @@ router.get('/searchResults', showDetail);
 /*@brief POST searchResults page
  *handle the generating order post
  */
-router.post('/searchResults', function(req, res){
+router.post('/searchResults', function(req, res) {
 
 });
 
@@ -191,9 +192,11 @@ router.post('/comment', function(req, res, next) {
  *render search.ejs
  */
 
- router.get('/orderconfirm',function(req,res,next){
-   res.render('OrderDetail',{tabChoose:1})
- })
+router.get('/orderconfirm', function(req, res, next) {
+    res.render('OrderDetail', {
+        tabChoose: 1
+    })
+})
 router.get('/order', function(req, res, next) {
     res.render('order', {
         tabChoose: 1,
@@ -201,19 +204,28 @@ router.get('/order', function(req, res, next) {
     });
 });
 
-router.post('/order', function(req, res, next){
-  for(var attribute in req.body){
-    if(attribute==""){
-      console.log("请填写必要信息");
-      res.render('order');
+router.post('/order', function(req, res, next) {
+    for (var attribute in req.body) {
+        if (attribute == "") {
+            console.log("请填写必要信息");
+            res.render('order');
+        }
     }
-  }
-  adminManager.add_hotel_info()
-  adminManager.upload_hotel_photo(req, res, function(req, res) {
-    res.locals.success = '上传成功';
-    res.send('上传成功');
-  });
+    adminManager.add_hotel_info(req, res,
+        function(req, res, qerr) {
+            if (!qerr)
+                res.send('添加成功');
+        });
 });
+
+router.post('/orderupload', function(req, res) {
+    adminManager.upload_hotel_photo(req, res, function(req, res) {
+        res.locals.success = '上传成功';
+        res.render('order', {
+            tabChoose: 1
+        });
+    });
+})
 
 
 module.exports = router;
