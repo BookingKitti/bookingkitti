@@ -126,7 +126,7 @@ router.get('/search', defaultPage);
  *by default return all the Hotel info
  */
 router.post('/search', function(req, res, next) {
-
+  console.log(req);
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
