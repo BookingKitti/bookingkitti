@@ -6,7 +6,6 @@ var gm = require('gm');
 var imageMagick = gm.subClass({
     imageMagick: true
 });
-var count = -1; //Testing variable
 AVATAR_UPLOAD_FOLDER = '/avatar/'
 
 function createGaussianPyramids(path, fileName, callback) {
@@ -37,8 +36,10 @@ function createGaussianPyramids(path, fileName, callback) {
         });
 }
 
-/*@brief
-*callback(req, res, qerr)
+/*@brief add a new hotel
+*@param req, request
+*@param res, response
+*@param callback(req, res, qerr)
 */
 exports.add_hotel_info = function(req, res, callback) {
     var sql = 'insert into HotelInfo values(';
