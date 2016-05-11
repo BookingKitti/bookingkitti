@@ -48,7 +48,7 @@ create table RoomInfo(
  Room_date date,
  Available int,
  Price float,
- primary key (Hotel_ID, Room_date, Room_date),
+ primary key (Hotel_ID, Type, Room_date),
  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
 
