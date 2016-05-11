@@ -67,14 +67,14 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                min = vals[0].Price;
-                max = vals[0].Price;
+                min = vals[0]['avg(Price)'];
+                max = vals[0]['avg(Price)'];
                 for (var i = 0; i < vals.length; i++) {
-                    if (vals[i].Price > max) {
-                        max = vals[i].Price;
+                    if (vals[i]['avg(Price)'] > max) {
+                        max = vals[i]['avg(Price)'];
                     }
-                    if (vals[i].Price < min) {
-                        min = vals[i].Price;
+                    if (vals[i]['avg(Price)'] < min) {
+                        min = vals[i]['avg(Price)'];
                     }
                 }
                 if (count == 4) {
