@@ -138,7 +138,6 @@ router.post('/search', function(req, res, next) {
         null,
         null,
         function(qerr, vals, fields) {
-            console.log(vals);
             res.render('searchResults', {
                 tabChoose: 0,
                 data: vals

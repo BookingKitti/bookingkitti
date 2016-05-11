@@ -40,6 +40,10 @@ function createGaussianPyramids(path, fileName, callback) {
 *@param req, request
 *@param res, response
 *@param callback(req, res, qerr)
+*for callback param:
+*req is the request
+*res is the response
+*qerr is the query error message, if it is null, there is no error
 */
 exports.add_hotel_info = function(req, res, callback) {
     var sql = 'insert into HotelInfo values(';
@@ -56,8 +60,37 @@ exports.add_hotel_info = function(req, res, callback) {
     });
 }
 
+/*@brief add a new airticket
+*@param req, request
+*@param res, response
+*@param callback(req, res, qerr)
+*for callback param:
+*req is the request
+*res is the response
+*qerr is the query error message, if it is null, there is no error
+*/
+exports.add_airticket_info = function(req, res, callback) {
+    var sql = 'insert into HotelInfo values(';
+    sql += 'null,';
+    sql += ' \'' + req.body.Hotel_Name + '\',';
+    sql += ' \'' + req.body.Province + '\',';
+    sql += ' \'' + req.body.City + '\',';
+    sql += ' \'' + req.body.Address + '\',';
+    sql += ' ' + req.body.Stars + ',';
+    sql += ' \'' + req.body.Description + '\',';
+    sql += ' \'' + req.body.PhoneNumber + '\')';
+    searchManager.query(sql, function(qerr) {
+        callback(req, res, qerr);
+    });
+}
+
 /*@brief
-*callback(req, res)
+*@param req, request
+*@param res, response
+*@param callback(req, res)
+*for callback param:
+*req is the request
+*res is the response
 */
 exports.upload_hotel_photo = function(req, res, callback) {
     var form = new formidable.IncomingForm();
@@ -154,13 +187,26 @@ exports.upload_hotel_photo = function(req, res, callback) {
     });
 }
 
-/*@brief*
-*
+/*@brief delete a hotel
+*@param req, request
+*@param res, response
+*@param callback(req, res)
+*for callback param:
+*req is the request
+*res is the response
 */
-exports.delete_hotel_info = function(Hotel_ID, callback) {
+exports.delete_hotel_info = function(req, res, callback) {
     console.log('delete hotel info');
 }
 
-exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, callback) {
+/*@brief delete a hotel
+*@param req, request
+*@param res, response
+*@param callback(req, res)
+*for callback param:
+*req is the request
+*res is the response
+*/
+exports.update_hotel_info = function(req, res, callback) {
     console.log('update_hotel_info');
 }
