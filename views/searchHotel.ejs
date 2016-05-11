@@ -9,76 +9,98 @@
         <% include guideline.ejs %>
         <div class="main-container">
             <div class="container-fluid text-center">
-                <form name="serachinfo" method="post" action="./search">
-                    <legend>搜索酒店</legend>
-                    <div class="row-fluid">
-                        <div class="col-md-4">
-                            <label>酒店名</label>
-                            <input type="text" name="textfield_hotel_name" class='form-control'/>
-                            <span class="help-block">输入酒店名</span>
+                <div class="tabbable" id="tabs-273106">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-419013" data-toggle="tab">机票</a>
+                        </li>
+                        <li>
+                            <a href="#panel-75657" data-toggle="tab">酒店</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-419013">
+                            <p>
+                                <form name="serachinfo" method="post" action="./search">
+                                    <legend>搜索酒店</legend>
+                                    <div class="row-fluid">
+                                        <div class="col-md-4">
+                                            <label>酒店名</label>
+                                            <input type="text" name="textfield_hotel_name" class='form-control'/>
+                                            <span class="help-block">输入酒店名</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>城市</label>
+                                            <input type="text" name="combobox_city" class='form-control'/>
+                                            <span class="help-block">输入城市名</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>所在省</label>
+                                            <input type="text" name="combobox_province" class='form-control'/>
+                                            <span class="help-block">输入省名</span>
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span4">
+                                            <label>地段</label>
+                                            <input type="text" name="textfield_address"/>
+                                            <span class="help-block">输入地段</span>
+                                        </div>
+                                        <div class="span4">
+                                            <div class="form-group">
+                                                <label for="dtp_input2" class="col-md-2 control-label">入住日期</label>
+                                                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </span>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" id="dtp_input2" value="" name='date_checkin'/><br/>
+                                            </div>
+                                        </div>
+                                        <div class="span4">
+                                            <div class="form-group">
+                                                <label for="dtp_input3" class="col-md-2 control-label">离店日期</label>
+                                                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </span>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" id="dtp_input3" value="" name='date_checkout'/><br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span4">
+                                            <label>最低价格</label>
+                                            <input type="text" name="textfield_minprice"/>
+                                            <span class="help-block">您能接受的最低的价格</span>
+                                        </div>
+                                        <div class="span4">
+                                            <label>最高价格</label>
+                                            <input type="text" name="textfield_maxprice"/>
+                                            <span class="help-block">您能接受的最高的价格</span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn">提交</button>
+                                </form>
+
+                            </p>
                         </div>
-                        <div class="col-md-4">
-                            <label>城市</label>
-                            <input type="text" name="combobox_city" class='form-control'/>
-                            <span class="help-block">输入城市名</span>
-                        </div>
-                        <div class="col-md-4">
-                            <label>所在省</label>
-                            <input type="text" name="combobox_province" class='form-control'/>
-                            <span class="help-block">输入省名</span>
+                        <div class="tab-pane" id="panel-75657">
+                            <p>
+                                <% include SearchTickets.ejs %>
+                            </p>
                         </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span4">
-                            <label>地段</label>
-                            <input type="text" name="textfield_address"/>
-                            <span class="help-block">输入地段</span>
-                        </div>
-                        <div class="span4">
-                            <div class="form-group">
-                                <label for="dtp_input2" class="col-md-2 control-label">入住日期</label>
-                                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                                    <input class="form-control" size="16" type="text" value="" readonly>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </span>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="dtp_input2" value="" name='date_checkin'/><br/>
-                            </div>
-                        </div>
-                        <div class="span4">
-                            <div class="form-group">
-                                <label for="dtp_input3" class="col-md-2 control-label">离店日期</label>
-                                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
-                                    <input class="form-control" size="16" type="text" value="" readonly>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </span>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="dtp_input3" value="" name='date_checkout'/><br/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-fluid">
-                        <div class="span4">
-                            <label>最低价格</label>
-                            <input type="text" name="textfield_minprice"/>
-                            <span class="help-block">您能接受的最低的价格</span>
-                        </div>
-                        <div class="span4">
-                            <label>最高价格</label>
-                            <input type="text" name="textfield_maxprice"/>
-                            <span class="help-block">您能接受的最高的价格</span>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn">提交</button>
-                </form>
+                </div>
             </div>
         </div>
         <% include footer.html %>
