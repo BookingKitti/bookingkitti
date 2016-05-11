@@ -105,6 +105,7 @@ exports.upload_hotel_photo = function(req, res, callback) {
 
         if (err) {
             res.locals.error = err;
+            console.log(err);
             res.render('order', {
                 tabChoose: 0
             });
