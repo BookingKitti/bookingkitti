@@ -67,6 +67,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
+                console.log(vals);
                 min = vals[0]['avg(Price)'];
                 max = vals[0]['avg(Price)'];
                 for (var i = 0; i < vals.length; i++) {
@@ -128,6 +129,7 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
+    console.log(req.body);
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
