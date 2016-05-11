@@ -81,10 +81,11 @@ create table RoomType(
  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
 */
+/*
 exports.search_hotel_details = function(, callback) {
 
 }
-
+*/
 exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_price, h_price, sort_attr, air_asc_flag, callback) {
     var sql = "select * from TicketsInfo where ";
 
