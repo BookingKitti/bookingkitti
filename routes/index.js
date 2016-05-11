@@ -139,7 +139,7 @@ router.post('/searchHotel', function(req, res) {
         null,
         null,
         function(qerr, vals, fields) {
-            res.render('SearchResults', {
+            res.render('SearchHotelResults', {
                 tabChoose: 0,
                 data: vals
             })
@@ -160,7 +160,7 @@ router.post('/searchTicket', function(req, res) {
         null,
         null,
         function(qerr, vals, fields) {
-            res.render('SearchResults', {
+            res.render('SearchTicketsResults', {
                 tabChoose: 0,
                 data: vals
             })

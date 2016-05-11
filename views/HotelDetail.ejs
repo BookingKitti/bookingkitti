@@ -73,9 +73,6 @@
                                     房间价格
                                 </th>
                                 <th>
-                                    房间数量
-                                </th>
-                                <th>
                                     预定
                                 </th>
                             </tr>
@@ -87,13 +84,10 @@
                                         <%- RoomInfo[i].Type %>
                                     </td>
                                     <td>
-                                        <%- RoomInfo[i].Price %>
+                                        <%- RoomInfo[i]['avg(Price)'] %>
                                     </td>
                                     <td>
-                                        <%- RoomInfo[i].Available%>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="RoomOrder" value=1>
+                                        <%= (RoomInfo[i]['min(Available)'])?'<input type="text" name="RoomOrder" value=1>':'已满' %>
                                     </td>
                                 </tr>
                             <%}%>
