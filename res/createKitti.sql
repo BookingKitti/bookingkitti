@@ -42,6 +42,15 @@ create table RoomType(
  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
 
+create table RoomInfo(
+ Hotel_ID int,
+ Type char(10),
+ Room_date date,
+ Available int,
+ Price float,
+ foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+) DEFAULT CHARSET=utf8;
+
 create table HotelPics(
 	Hotel_ID int,
 	File_Pos varchar(40),
@@ -58,14 +67,7 @@ create table RoomTypePics(
 	foreign key(Hotel_ID, Type) references RoomType(Hotel_ID, Type)
 ) DEFAULT CHARSET=utf8;
 
-create table RoomInfo(
- Hotel_ID int,
- Type char(10),
- Room_date date,
- Available int,
- Price float,
- foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
-) DEFAULT CHARSET=utf8;
+
 
 create table HotelComments(
   Hotel_ID int,

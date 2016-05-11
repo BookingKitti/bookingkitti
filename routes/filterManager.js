@@ -7,8 +7,14 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
     var cond_list = [];
 
-    if (hotel_name != null)
-        cond_list[cond_list.length] = " Hotel_Name= '" + hotel_name + "' ";
+    if (hotel_name != null) {
+        var res = " Hotel_Name like '%";// + hotel_name + "' ";
+        for (var i = 0; i < addr.length; i++) {
+            res += hotel_name[i] + "%";
+        }
+        res += "' ";
+        cond_list[cond_list.length] = res;
+    }
     if (province != null)
         cond_list[cond_list.length] = " Province= '" + province + "' ";
     if (city != null) {
@@ -55,18 +61,30 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
     });
 }
 /*
-create table TicketsInfo(
-  AirTicket_ID int primary key auto_increment,
-  Departure varchar(50) not null,
-  Airport varchar(50) not null,
-  Destination varchar(50) not null,
-  Depart_time datetime not null,
-  Arrive_time datetime not null,
-  Total int not null,
-  Available int not null,
-  Price int not null
+create table HotelInfo(
+  Hotel_ID int primary key auto_increment,
+  Hotel_Name varchar(20) not null,
+  Province varchar(20) not null,
+  City varchar(20) not null,
+  Address varchar(20) not null,
+  Stars int not null,
+  Description text not null,
+  PhoneNumber varchar(20) not null
+) DEFAULT CHARSET=utf8;
+
+create table RoomType(
+ Hotel_ID int,
+ Type char(10),
+ Details text not null,
+ Total int not null,
+ primary key (Hotel_ID, Type),
+ foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
 */
+exports.search_hotel_details = function(, callback) {
+
+}
+
 exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_price, h_price, sort_attr, air_asc_flag, callback) {
     var sql = "select * from TicketsInfo where ";
 
@@ -93,7 +111,7 @@ exports.search_airticket_info = function(departure, airport, destination, depart
 
     //if user did not input any filter condition, just delete "where" in sql sentence
     if (cond_list.length == 0)
-        sql = "select * from HotelInfo ";
+        sql = "select * from TicketsInfo ";
     else
         sql = sql + cond_list[0];
 
