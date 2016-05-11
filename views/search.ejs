@@ -1,0 +1,55 @@
+<HTML>
+
+    <head>
+        <% include bootstrap_base.html %>
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    </head>
+
+    <body>
+        <% include guideline.ejs %>
+        <div class="main-container">
+            <div class="container-fluid text-center">
+                <div class="tabbable" id="tabs-273106">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-419013" data-toggle="tab">酒店</a>
+                        </li>
+                        <li>
+                            <a href="#panel-75657" data-toggle="tab">机票</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-419013">
+                            <p>
+                              <% include SearchHotel %>
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="panel-75657">
+                            <p>
+                                <% include SearchTickets.ejs %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% include footer.html %>
+        <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+        <script type="text/javascript">
+
+            $('.form_date').datetimepicker({
+                language: 'fr',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+        </script>
+
+    </body>
+
+</html>

@@ -6,8 +6,8 @@ var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 
-var defaultPage = function(req, res, next) {
-    res.render('searchHotel', {
+var defaultPage = function(req, res) {
+    res.render('search', {
         tabChoose: 0
     });
 }
@@ -110,23 +110,22 @@ var showDetail = function(req, res) {
         });
 };
 
-/*@brief GET home page which is search page
- *render index.ejs
+/*@brief GET home page which is default search page
+ *render search.ejs
  */
 router.get('/', defaultPage);
 
 /*@brief GET search page
  *render search.ejs
- *by default select all the Hotel info
  */
 router.get('/search', defaultPage);
 
-/*@brief POST search page
+/*@brief POST searchHotel page
  *parse input and call filterManager
  *by default return all the Hotel info
+ *render searchResults.ejs
  */
-router.post('/search', function(req, res, next) {
-  console.log(req);
+router.post('/searchHotel', function(req, res) {
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
@@ -145,22 +144,47 @@ router.post('/search', function(req, res, next) {
         });
 });
 
-/*@brief GET searchResults page
- *render the hotel detail page
+/*@brief POST searchTicket page
+ *parse input and call filterManager
+ *by default return all the Hotel info
+ *render searchResults.ejs
  */
-router.get('/searchResults', showDetail);
+router.post('/searchTicket', function(req, res) {
+    filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
+        req.body.Destination == "" ? null : req.body.Destination,
+        req.body.combobox_city == "" ? null : req.body.combobox_city,
+        req.body.textfield_address == "" ? null : req.body.textfield_address,
+        req.body.date_checkin == "" ? null : req.body.date_checkin,
+        req.body.date_checkout == "" ? null : req.body.date_checkout,
+        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+        null,
+        null,
+        function(qerr, vals, fields) {
+            res.render('searchResults', {
+                tabChoose: 0,
+                data: vals
+            })
+        });
+});
 
-/*@brief POST searchResults page
+/*@brief GET searchResults page
+ *render the HotelDetail.ejs
+ *pass Hotel_ID by URL
+ */
+router.get('/hotelDetail', showDetail);
+
+/*@brief POST  page
  *handle the generating order post
  */
-router.post('/searchResults', function(req, res) {
-
+router.post('/hotelDetail', function(req, res) {
+    console.log('Hotel Detail');
 });
 
 /*@brief GET comment page
  *render comment.ejs
  */
-router.get('/comment', function(req, res, next) {
+router.get('/comment', function(req, res) {
     res.render('comment', {
         tabChoose: 2
     });
@@ -190,20 +214,19 @@ router.post('/comment', function(req, res, next) {
 /*@brief GET search page
  *render search.ejs
  */
-
-router.get('/orderconfirm', function(req, res, next) {
+router.get('/orderconfirm', function(req, res) {
     res.render('OrderDetail', {
         tabChoose: 1
     })
 })
-router.get('/order', function(req, res, next) {
+router.get('/order', function(req, res) {
     res.render('order', {
         tabChoose: 1,
         data: "<br>"
     });
 });
 
-router.post('/order', function(req, res, next) {
+router.post('/order', function(req, res) {
     for (var attribute in req.body) {
         if (attribute == "") {
             console.log("请填写必要信息");
@@ -211,14 +234,14 @@ router.post('/order', function(req, res, next) {
         }
     }
     adminManager.add_hotel_info(req, res,
-        function(req, res, qerr) {
+        function(qerr, req, res) {
             if (!qerr)
                 res.send('添加成功');
         });
 });
 
 router.post('/orderupload', function(req, res) {
-    adminManager.upload_hotel_photo(req, res, function(req, res) {
+    adminManager.upload_hotel_photo(req, res, function(qerr, req, res) {
         res.locals.success = '上传成功';
         res.render('order', {
             tabChoose: 1

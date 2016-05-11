@@ -37,14 +37,14 @@ function createGaussianPyramids(path, fileName, callback) {
 }
 
 /*@brief add a new hotel
-*@param req, request
-*@param res, response
-*@param callback(req, res, qerr)
-*for callback param:
-*req is the request
-*res is the response
-*qerr is the query error message, if it is null, there is no error
-*/
+ *@param req, request
+ *@param res, response
+ *@param callback(qerr, req, res)
+ *err is the error message, if it is null, there is no error
+ *for callback param:
+ *req is the request
+ *res is the response
+ */
 exports.add_hotel_info = function(req, res, callback) {
     var sql = 'insert into HotelInfo values(';
     sql += 'null,';
@@ -55,20 +55,20 @@ exports.add_hotel_info = function(req, res, callback) {
     sql += ' ' + req.body.Stars + ',';
     sql += ' \'' + req.body.Description + '\',';
     sql += ' \'' + req.body.PhoneNumber + '\')';
-    searchManager.query(sql, function(qerr) {
-        callback(req, res, qerr);
+    searchManager.query(sql, function(err) {
+        callback(err, req, res);
     });
 }
 
 /*@brief add a new airticket
-*@param req, request
-*@param res, response
-*@param callback(req, res, qerr)
-*for callback param:
-*req is the request
-*res is the response
-*qerr is the query error message, if it is null, there is no error
-*/
+ *@param req, request
+ *@param res, response
+ *@param callback(err, req, res)
+ *err is the error message, if it is null, there is no error
+ *for callback param:
+ *req is the request
+ *res is the response
+ */
 exports.add_airticket_info = function(req, res, callback) {
     var sql = 'insert into TicketsInfo values(';
     sql += 'null,';
@@ -80,19 +80,20 @@ exports.add_airticket_info = function(req, res, callback) {
     sql += ' \'' + req.body.Total + '\',';
     sql += ' \'' + req.body.Total + '\',';
     sql += ' \'' + req.body.Price + '\')';
-    searchManager.query(sql, function(qerr) {
-        callback(req, res, qerr);
+    searchManager.query(sql, function(err) {
+        callback(err, req, res);
     });
 }
 
 /*@brief
-*@param req, request
-*@param res, response
-*@param callback(req, res)
-*for callback param:
-*req is the request
-*res is the response
-*/
+ *@param req, request
+ *@param res, response
+ *@param callback(err, req, res)
+ *err is the error message, if it is null, there is no error
+ *for callback param:
+ *req is the request
+ *res is the response
+ */
 exports.upload_hotel_photo = function(req, res, callback) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
@@ -136,7 +137,7 @@ exports.upload_hotel_photo = function(req, res, callback) {
         var Hotel_ID = 1;
         searchManager.query('select count(Hotel_ID) from HotelPics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
             console.log(vals[0]);
-            var count = vals[0]['count(Hotel_ID)']/4;
+            var count = vals[0]['count(Hotel_ID)'] / 4;
             var directoryName = 'Hotel_' + Hotel_ID + '/';
             var fileName = count + '.' + extName;
             var newPath = form.uploadDir + directoryName + fileName;
@@ -163,7 +164,7 @@ exports.upload_hotel_photo = function(req, res, callback) {
                                                         if (qerr) {
                                                             return;
                                                         }
-                                                        callback(req, res);
+                                                        callback(qerr, req, res);
                                                     });
                                             });
                                     });
@@ -191,39 +192,49 @@ exports.upload_hotel_photo = function(req, res, callback) {
 /*@brief delete a hotel
 *@param req, request
 *@param res, response
-*@param callback(req, res)
+*@param callback(err, req, res)
 *for callback param:
 *req is the request
 *res is the response
+#qerr is the query error
 */
 exports.delete_hotel_info = function(req, res, callback) {
-    if(req.body.Hotel_ID==null)
-    {
-      var err="Hotel_ID is null"
-      callback(err);
-      return;
+    if (req.query.Hotel_ID == null) {
+        callback("Hotel_ID is null");
     }
+    var sql = 'delete from HotelInfo where Hotel_ID=' + req.query.Hotel_ID;
+    searchManager.query(sql, function(err) {
+        callback(err, req, res);
+    })
 }
 
 /*@brief delete an airticket
 *@param req, request
 *@param res, response
-*@param callback(req, res)
+*@param callback(req, res, qerr)
 *for callback param:
 *req is the request
 *res is the response
+#qerr is the query error
 */
 exports.delete_airticket_info = function(req, res, callback) {
-    console.log('delete hotel info');
+    if (req.query.AirTicket_ID == null) {
+        callback("Hotel_ID is null");
+    }
+    var sql = 'delete from HotelInfo where Hotel_ID=' + req.query.AirTicket_ID;
+    searchManager.query(sql, function(err) {
+        callback(err, req, res);
+    })
 }
 
-/*@brief delete a hotel
+/*@brief update a hotel info
 *@param req, request
 *@param res, response
-*@param callback(req, res)
+*@param callback(req, res, qerr)
 *for callback param:
 *req is the request
 *res is the response
+#qerr is the query error
 */
 exports.update_hotel_info = function(req, res, callback) {
     console.log('update_hotel_info');
