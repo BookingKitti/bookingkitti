@@ -58,7 +58,9 @@ var showDetail = function(req, res) {
                 }
             }
         });
-    bookingManager.get_room_info(req.query.Hotel_ID,
+    Date_From="2016/5/12";
+    Date_To="2016/5/13";
+    bookingManager.get_room_info(req.query.Hotel_ID,Date_From,Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
             count++;
