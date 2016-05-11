@@ -60,49 +60,20 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
             callback(qerr, vals, fields);
     });
 }
-/*
-create table HotelInfo(
-  Hotel_ID int primary key auto_increment,
-  Hotel_Name varchar(20) not null,
-  Province varchar(20) not null,
-  City varchar(20) not null,
-  Address varchar(20) not null,
-  Stars int not null,
-  Description text not null,
-  PhoneNumber varchar(20) not null
-) DEFAULT CHARSET=utf8;
 
-create table RoomType(
- Hotel_ID int,
- Type char(10),
- Details text not null,
- Total int not null,
- primary key (Hotel_ID, Type),
- foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
-) DEFAULT CHARSET=utf8;
-*/
-/*
-exports.search_hotel_details = function(, callback) {
-
-}
-*/
-exports.search_airticket_info = function(departure, airport, destination, depart_time, arrive_time, l_price, h_price, sort_attr, air_asc_flag, callback) {
+exports.search_airticket_info = function(departure, destination, depart_time, l_price, h_price, sort_attr, air_asc_flag, callback) {
     var sql = "select * from TicketsInfo where ";
 
     var cond_list = [];
 
     if (departure != null)
         cond_list[cond_list.length] = " Departure= '" + departure + "' ";
-    if (airport != null)
-        cond_list[cond_list.length] = " Airport= '" + airport + "' ";
+
     if (destination != null) {
         cond_list[cond_list.length] = " Destination='" + destination + "' ";
     }
     if (depart_time != null) {
         cond_list[cond_list.length] = " Depart_time='" + depart_time + "' ";
-    }
-    if (arrive_time != null) {
-        cond_list[cond_list.length] = " Arrive_time='" + arrive_time + "' ";
     }
 
     if (l_price != null)
