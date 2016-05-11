@@ -152,12 +152,9 @@ router.post('/searchHotel', function(req, res) {
 router.post('/searchTicket', function(req, res) {
     filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
         req.body.Destination == "" ? null : req.body.Destination,
-        req.body.combobox_city == "" ? null : req.body.combobox_city,
-        req.body.textfield_address == "" ? null : req.body.textfield_address,
-        req.body.date_checkin == "" ? null : req.body.date_checkin,
-        req.body.date_checkout == "" ? null : req.body.date_checkout,
-        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+        req.body.Depart_time == "" ? null : req.body.Depart_time,
+        req.body.minprice == "" ? null : req.body.minprice,
+        req.body.maxprice == "" ? null : req.body.maxprice,
         null,
         null,
         function(qerr, vals, fields) {
