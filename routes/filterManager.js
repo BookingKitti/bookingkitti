@@ -9,7 +9,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
     if (hotel_name != null) {
         var res = " Hotel_Name like '%";// + hotel_name + "' ";
-        for (var i = 0; i < addr.length; i++) {
+        for (var i = 0; i < hotel_name.length; i++) {
             res += hotel_name[i] + "%";
         }
         res += "' ";
