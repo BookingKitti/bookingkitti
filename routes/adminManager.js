@@ -70,15 +70,16 @@ exports.add_hotel_info = function(req, res, callback) {
 *qerr is the query error message, if it is null, there is no error
 */
 exports.add_airticket_info = function(req, res, callback) {
-    var sql = 'insert into HotelInfo values(';
+    var sql = 'insert into TicketsInfo values(';
     sql += 'null,';
-    sql += ' \'' + req.body.Hotel_Name + '\',';
-    sql += ' \'' + req.body.Province + '\',';
-    sql += ' \'' + req.body.City + '\',';
-    sql += ' \'' + req.body.Address + '\',';
-    sql += ' ' + req.body.Stars + ',';
-    sql += ' \'' + req.body.Description + '\',';
-    sql += ' \'' + req.body.PhoneNumber + '\')';
+    sql += ' \'' + req.body.Departure + '\',';
+    sql += ' \'' + req.body.Airport + '\',';
+    sql += ' \'' + req.body.Destination + '\',';
+    sql += ' \'' + req.body.Depart_time + '\',';
+    sql += ' \'' + req.body.Arrive_time + '\',';
+    sql += ' \'' + req.body.Total + '\',';
+    sql += ' \'' + req.body.Total + '\',';
+    sql += ' \'' + req.body.Price + '\')';
     searchManager.query(sql, function(qerr) {
         callback(req, res, qerr);
     });
@@ -196,6 +197,23 @@ exports.upload_hotel_photo = function(req, res, callback) {
 *res is the response
 */
 exports.delete_hotel_info = function(req, res, callback) {
+    if(req.body.Hotel_ID==null)
+    {
+      var err="Hotel_ID is null"
+      callback(err);
+      return;
+    }
+}
+
+/*@brief delete an airticket
+*@param req, request
+*@param res, response
+*@param callback(req, res)
+*for callback param:
+*req is the request
+*res is the response
+*/
+exports.delete_airticket_info = function(req, res, callback) {
     console.log('delete hotel info');
 }
 
