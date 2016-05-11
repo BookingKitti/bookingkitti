@@ -7,7 +7,7 @@ var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 
 var defaultPage = function(req, res) {
-    res.render('search', {
+    res.render('Search', {
         tabChoose: 0
     });
 }
@@ -26,7 +26,7 @@ var showDetail = function(req, res) {
             console.log('Fatal error: Cannot get hotel info');
         } else {
             if (count == 4) {
-                res.render('hotelDetail', {
+                res.render('HotelDetail', {
                     tabChoose: 0,
                     HotelInfo: data_hotel,
                     RoomInfo: data_room,
@@ -46,7 +46,7 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
                 if (count == 4) {
-                    res.render('hotelDetail', {
+                    res.render('HotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -78,7 +78,7 @@ var showDetail = function(req, res) {
                     }
                 }
                 if (count == 4) {
-                    res.render('hotelDetail', {
+                    res.render('HotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -98,7 +98,7 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: cannot get room info');
             } else {
                 if (count == 4) {
-                    res.render('hotelDetail', {
+                    res.render('HotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -139,7 +139,7 @@ router.post('/searchHotel', function(req, res) {
         null,
         null,
         function(qerr, vals, fields) {
-            res.render('searchResults', {
+            res.render('SearchResults', {
                 tabChoose: 0,
                 data: vals
             })
@@ -160,7 +160,7 @@ router.post('/searchTicket', function(req, res) {
         null,
         null,
         function(qerr, vals, fields) {
-            res.render('searchResults', {
+            res.render('SearchResults', {
                 tabChoose: 0,
                 data: vals
             })
@@ -219,7 +219,7 @@ router.get('/orderconfirm', function(req, res) {
     })
 })
 router.get('/order', function(req, res) {
-    res.render('order', {
+    res.render('Order', {
         tabChoose: 1,
         data: "<br>"
     });
@@ -229,7 +229,7 @@ router.post('/order', function(req, res) {
     for (var attribute in req.body) {
         if (attribute == "") {
             console.log("请填写必要信息");
-            res.render('order');
+            res.render('Order');
         }
     }
     adminManager.add_hotel_info(req, res,
@@ -242,7 +242,7 @@ router.post('/order', function(req, res) {
 router.post('/orderupload', function(req, res) {
     adminManager.upload_hotel_photo(req, res, function(qerr, req, res) {
         res.locals.success = '上传成功';
-        res.render('order', {
+        res.render('Order', {
             tabChoose: 1
         });
     });
