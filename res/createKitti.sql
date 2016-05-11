@@ -120,4 +120,21 @@ insert into TicketsComments values('1');#set a random error sql sentence to gene
 END IF;
 END //
 
+CREATE TRIGGER trig_hotel_avail_check BEFORE UPDATE ON RoomInfo
+FOR EACH ROW BEGIN
+IF NEW.Available < 0 THEN
+set NEW.Available = 0;
+insert into HotelInfo values('1');
+END IF;
+END //
+
+
+CREATE TRIGGER trig_air_avail_check BEFORE UPDATE ON TicketsInfo
+FOR EACH ROW BEGIN
+IF NEW.Available < 0 THEN
+set NEW.Available = 0;
+insert into TicketsInfo values('1');
+END IF;
+END //
+
 delimiter ;
