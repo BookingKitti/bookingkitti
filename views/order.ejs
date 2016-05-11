@@ -3,67 +3,90 @@
 
 <head>
     <% include bootstrap_base.html %>
-      <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
     <% include guideline.ejs %>
         <div class="main-container">
-            <% for (var i = 0;i<10;i++){ %>
-                <%- data+"<br>" %>
-                    <%}%>
-                        <div class="container-fluid">
-
-                            <div class="row-fluid">
-                                <div class="span7 text-center">
-                                    <form class="form-signin" role="form" method="post" enctype='multipart/form-data'>
-                                        <h2 class="form-signin-heading">上传文件</h2>
-                                        <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
-                                        <br/>
-                                        <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
-                                    </form>
-                                    <form class="form-horizontal" action="/order" name='myform' method="post">
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputEmail">邮箱</label>
-                                            <div class="controls">
-                                                <input id="inputEmail" type="text" name="mail" />
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span7 text-center">
+                        <form method="post" action="/order">
+                            <fieldset>
+                                <legend>添加酒店</legend>
+                                <grammarly>
+                                    <div class="_9b5ef6-textarea_btn _9b5ef6-show _9b5ef6-field_hovered">
+                                        <div class="_9b5ef6-transform_wrap">
+                                            <div class="_9b5ef6-status">
                                             </div>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputPassword">密码</label>
-                                            <div class="controls">
-                                                <input id="inputPassword" type="password" name="passwd" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="chkbox" /> Remember me</label>
-                                                <button type="submit" class="btn">登陆</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
+                                </grammarly>
+                                <label>酒店名</label>
+                                <input type="text" name="Hotel_Name" /> <span class="help-block">请输入您的酒店名称</span>
+                                <label>省份</label>
+                                <input type="text" name="Province" /> <span class="help-block">请输入您的酒店所在的省</span>
+                                <label>城市</label>
+                                <input type="text" name="City" /> <span class="help-block">请输入您酒店所在的城市</span>
+                                <label>详细地址</label>
+                                <input type="text" name="Address" /> <span class="help-block">请输入您酒店所在的详细地址</span>
+                                <label>星级</label>
+                                <input type="number" name="Stars" /> <span class="help-block">请输入您酒店的星级</span>
+                                <label>描述</label>
+                                <input type="text" name="Description" /> <span class="help-block">请输入您酒店的描述</span>
+                                <label>电话</label>
+                                <input type="text" name="PhoneNumber" /> <span class="help-block">请输入您酒店的联系电话</span>
+                                <button type="submit" class="btn">提交</button>
+                            </fieldset>
+                        </form>
+                        <form class="form-signin" role="form" action="orderupload" method="post" enctype='multipart/form-data'>
+                            <form class="form-signin" role="form" method="post" enctype='multipart/form-data'>
+                                <h2 class="form-signin-heading">上传文件</h2>
+                                <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
+                                <br/>
+                                <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
+                            </form>
+                            <form class="form-horizontal" action="/order" name='myform' method="post">
+                                <div class="control-group">
+                                    <label class="control-label" for="inputEmail">邮箱</label>
+                                    <div class="controls">
+                                        <input id="inputEmail" type="text" name="mail" />
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword">密码</label>
+                                    <div class="controls">
+                                        <input id="inputPassword" type="password" name="passwd" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="chkbox" /> Remember me</label>
+                                        <button type="submit" class="btn">登陆</button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <% include footer.html %>
-        <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-        <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
-        <script type="text/javascript">
-
-        	$('.form_date').datetimepicker({
-                language:  'fr',
-                weekStart: 1,
-                todayBtn:  1,
-        		autoclose: 1,
-        		todayHighlight: 1,
-        		startView: 2,
-        		minView: 2,
-        		forceParse: 0
-            });
-
-        </script>
+            <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+            <script type="text/javascript">
+                $('.form_date').datetimepicker({
+                    language: 'fr',
+                    weekStart: 1,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0
+                });
+            </script>
 
 </body>
 

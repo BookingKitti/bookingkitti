@@ -1,45 +1,38 @@
 <html>
 
-<head>
-    <% include bootstrap_base.html %>
+    <head>
+        <% include bootstrap_base.html %>
 
-    <!-- 星级标签 引用自https://github.com/kartik-v/bootstrap-star-rating -->
-    <link href="/css/rate-star/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="js/rate-star/star-rating.js" type="text/javascript"></script>
+        <!-- 星级标签 引用自https://github.com/kartik-v/bootstrap-star-rating -->
+        <link href="/css/rate-star/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+        <script src="js/rate-star/star-rating.js" type="text/javascript"></script>
 
-</head>
+    </head>
 
-<body>
-    <% include guideline.ejs %>
+    <body>
+        <% include guideline.ejs %>
         <div class='main-container'>
             <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="container-fluid">
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <form method="post" action="/comment">
-                                        <fieldset>
-                                            <legend>评价</legend>
-                                            <label>评价星级</label>
-                                            <input id="rate-star" type="text" class="rating" min=1 max=5 step=1 data-size="lg" name="rating" showCaption=false>
-                                            <span class="help-block">请打分</span>
-                                            <label>评价内容</label>
-                                            <input type="text" name="content">
-                                            <button type="submit" class="btn">提交</button>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                <form method="post" action="/comment">
+                    <div class="form-group">
+                        <legend>评价</legend>
+                        <label>评价星级</label>
+                        <input id="rate-star" type="text" class="rating" min=1 max=5 step=1 data-size="lg" name="rating" showCaption=false>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <span class="help-block">请打分</span>
+                        <label>评价内容</label>
+                        <input type="text" name="content">
+                    </div>
+                    <button type="submit" class="btn">提交</button>
+                </form>
             </div>
+
         </div>
         <script type="text/javascript">
-          $("rate-star").rating({size:'lg',showCaption:false,max:5,min:1,stpe:1});
+            $("rate-star").rating({size: 'lg', showCaption: false, max: 5, min: 1, step: 1});
         </script>
         <% include footer.html %>
-</body>
+    </body>
 
 </html>
