@@ -7,10 +7,20 @@ exports.get_hotel_info = function(hotel_id, callback) {
     });
 }
 
-exports.get_room_info = function(hotel_id, callback) {
-    var sql = "select * from RoomInfo where Hotel_ID= " + hotel_id + " ;";
+exports.get_room_info = function(hotel_id, room_date_from, room_data_to, callback) {
+
+    var sql="select RoomType.Hotel_ID,RoomType.Type,\
+    Details,Total,avg(Price),min(Available)\
+    from RoomInfo,RoomType where RoomInfo.Hotel_ID\
+    =RoomType.Hotel_ID and RoomInfo.Type=RoomType.Type\
+    and Room_date between '"+room_date_from+"' and '"
+    +room_data_to+"' and RoomInfo.Hotel_ID="
+    +hotel_id+" group by  RoomType.Type;" ;
+
     searchManager.query(sql, function(qerr, vals, fields) {
-        if (callback != null) callback(qerr, vals, fields);
+        if (callback != null)
+
+        callback(qerr, vals, fields);
     });
 }
 
@@ -71,9 +81,11 @@ exports.create_order_hotel = function(hotel_id, type, room_date, callback){
       callback(qerr, vals, fields);
     }
   });
-  var sql="select Hotel_Name,Province,City,Address,Stars,Description,PhoneNumber,Type,Room_date,Price\
-   from HotelInfo,RoomInfo where HotelInfo.Hotel_ID=RoomInfo.Hotel_ID and\
-   RoomInfo.Hotel_ID="+hotel_id+" and Type='"+type+"' and Room_date='"+
+  var sql="select Hotel_Name,Province,City,Address,\
+  Stars,Description,PhoneNumber,Type,Room_date,Price\
+   from HotelInfo,RoomInfo where HotelInfo.Hotel_ID=\
+   RoomInfo.Hotel_ID and RoomInfo.Hotel_ID="+hotel_id
+   +" and Type='"+type+"' and Room_date='"+
    room_date+"' ;"
   searchManager.query(sql, function(qerr, vals, fields) {
     //console.log(qerr);
