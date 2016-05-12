@@ -16,5 +16,5 @@ var result_result=function(qerr, vals, fields){
 }
 
 //book.change_room_data(1, "HIGH_ROOM", "2016/5/20", result_result);
-book.create_order_hotel(1, "HIGH_ROOM", "2016/5/20", result_result);
+book.create_order_hotel(1, "村庄别墅", "2016/5/10","2016/5/11", result_result);
 book.get_room_info(1,"2016/5/18","2016/5/20",result_result);
