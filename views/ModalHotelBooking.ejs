@@ -36,7 +36,7 @@
                                     <%- RoomInfo[i]['avg(Price)'] %>
                                 </td>
                                 <td>
-                                    <%= (RoomInfo[i]['min(Available)'])?'<input type="text" name="RoomOrder" value=0>':'已满' %>
+                                    <%= (RoomInfo[i]['min(Available)'])?'<input type="text" name="RoomOrder"'+RoomInfo[i].Type+' value=0>':'已满' %>
                                 </td>
                             </tr>
                         <%}%>
