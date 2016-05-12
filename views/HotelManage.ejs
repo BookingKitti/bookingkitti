@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <% include bootstrap_base.html %>
+</head>
+  <% include guideline.ejs %>
+<body>
+  <div class='main-container'>
+    <div class='container-fluid'>
+
+      <ul class='list-group span4'>
+            <% for (var i=0;i<data.length;i++){ %>
+          <%- "<a class='list-group-item' href='./HotelManage?Hotel_ID="+data[i].Hotel_ID+"'>"+"<h4 font-color='purple' class='text-center'> "+data[i].Hotel_Name+"</h4>"+
+          "<div class='row'><div class='col-md-5'></div>\
+          <div class='col-md-1'>"+data[i].Province+"</div>"+
+          "<div class='col-md-1'> "+data[i].City+"</div></div>"+
+          "<div class='row text-center'>详细地址: "+data[i].Address+"</div>" %>
+          <a class='btn btn-danger btn-block' href=<%- "'./DeleteHotel?Hotel_ID="+data[i].Hotel_ID+"'" %> >删除</a>
+        </a>
+        <br>
+          <%}%>
+      </ul>
+    </div>
+  </div>
+
+<% include footer.html %>
+</body>
+</html>
