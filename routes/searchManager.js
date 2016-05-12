@@ -5,9 +5,10 @@ var pool = mysql.createPool({
     user: 'root',
     password: 'cjs2042868', //'lucas95123',
     database: 'lucas',
+
 });
 
-exports.query = function(sql, callback) {
+exports.query = function(sql, callback, req, res) {
     pool.getConnection(function(err, conn) {
         if (err) {
             callback(err, null, null);

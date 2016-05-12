@@ -58,16 +58,15 @@ var showDetail = function(req, res) {
                 }
             }
         });
-    Date_From = "2016/5/10";
-    Date_To = "2016/5/11";
-    bookingManager.get_room_info(req.query.Hotel_ID, Date_From, Date_To,
+    Date_From="2016/5/12";
+    Date_To="2016/5/13";
+    bookingManager.get_room_info(req.query.Hotel_ID,Date_From,Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                console.log(vals);
                 min = vals[0]['avg(Price)'];
                 max = vals[0]['avg(Price)'];
                 for (var i = 0; i < vals.length; i++) {
@@ -129,6 +128,13 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
+    filepath=['avatar/Hotel_1/small/150x150_0.png'
+    ,'avatar/Hotel_2/small/150x150_0.png'
+    ,'avatar/Hotel_3/small/150x150_0.png'
+    ,'avatar/Hotel_4/small/150x150_0.png'];
+
+    minprice=[3340, 2134, 2445, 1232];
+
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
@@ -142,7 +148,9 @@ router.post('/searchHotel', function(req, res) {
         function(qerr, vals, fields) {
             res.render('SearchHotelResults', {
                 tabChoose: 0,
-                data: vals
+                data: vals,
+                imgpath: filepath,
+                price: minprice
             })
         });
 });
@@ -216,9 +224,7 @@ router.post('/comment', function(req, res, next) {
  */
 router.get('/orderconfirm', function(req, res) {
     res.render('OrderDetail', {
-        tabChoose: 1,
-        roomType: req.query.roomType,
-        hotelID: req.query.hotelID
+        tabChoose: 1
     })
 })
 
@@ -226,14 +232,15 @@ router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
     console.log(req.body);
     console.log(req.query);
-    showDetail(req, res);
-    // bookingManager.create_order_hotel(req.query.hotelID,
-    //     req.query.roomType,
-    //     req.body.date_checkin,
-    //     req.body.date_checkout,
-    //     function() {
-    //         res.render('HotelDetail', showDetail);
-    //     });
+    bookingManager.create_order_hotel(req.query.Hotel_ID,
+        req.query.RoomType,
+        req.body.date_checkin,
+        req.body.date_checkout,
+        req,
+        res,
+        function(qerr, vals, fields, req, res) {
+            showDetail(req, res)
+        });
 })
 
 router.get('/order', function(req, res) {
@@ -264,6 +271,7 @@ router.post('/orderupload', function(req, res) {
             tabChoose: 1
         });
     });
-});
+})
+
 
 module.exports = router;

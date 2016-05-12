@@ -40,44 +40,26 @@
                                 <button type="submit" class="btn">提交</button>
                             </fieldset>
                         </form>
-                        <form class="form-signin" role="form" action="/orderupload" method="post" enctype='multipart/form-data'>
-                            <form class="form-signin" role="form" method="post" enctype='multipart/form-data'>
+                        <form class="form-signin" role="form" action="./orderupload" method="post" enctype='multipart/form-data'>
+                            <fieldset>
                                 <h2 class="form-signin-heading">上传文件</h2>
                                 <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
                                 <br/>
                                 <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
-                            </form>
-                            <form class="form-horizontal" action="/order" name='myform' method="post">
-                                <div class="control-group">
-                                    <label class="control-label" for="inputEmail">邮箱</label>
-                                    <div class="controls">
-                                        <input id="inputEmail" type="text" name="mail" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="inputPassword">密码</label>
-                                    <div class="controls">
-                                        <input id="inputPassword" type="password" name="passwd" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="chkbox" /> Remember me</label>
-                                        <button type="submit" class="btn">登陆</button>
-                                    </div>
-                                </div>
-                            </form>
+                            </fieldset>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
         <% include footer.html %>
             <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
             <script type="text/javascript">
+
                 $('.form_date').datetimepicker({
-                    language: 'fr',
+                    language: 'zh-CN',
                     weekStart: 1,
                     todayBtn: 1,
                     autoclose: 1,
