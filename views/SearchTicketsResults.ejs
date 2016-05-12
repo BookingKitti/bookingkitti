@@ -27,7 +27,7 @@
                                     <form method="post" action=<%- "'./bookAirticket?AirTicket_ID="+data[i].AirTicket_ID+"'" %> >
                                         <div class="form-group">
                                             <label>登机人姓名</label>
-                                            <input type="text" class="form-control" id="CheckInText" placeholder="请输入入住人中文名" name='CheckInName'>
+                                            <input type="text" class="form-control" id="CheckInText" placeholder="请输入登机人中文名" name='CheckInName'>
                                         </div>
                                         <div class="form-group">
                                             <label>联系方式</label>
@@ -65,11 +65,11 @@
             </div>
             <% include footer.html %>
             <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
             <script type="text/javascript">
 
                 $('.form_date').datetimepicker({
-                    language: 'fr',
+                    language: 'zh-CN',
                     weekStart: 1,
                     todayBtn: 1,
                     autoclose: 1,

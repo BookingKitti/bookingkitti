@@ -12,8 +12,8 @@
         <% for (var i=0;i<data.length;i++){ %>
           <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
           "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
-          "<div class='row'><div class='col-md-1'>"+data[i].Province+"</div>"+
-          "<div class='col-md-1'> "+data[i].City+"</div></div>"+
+          "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
+          "<div class='col-md-2'> "+data[i].City+"</div></div>"+
           "<div class='row'>详细地址: "+data[i].Address+"</div></div>"+
           "<div class='col-md-3'><h3>"+price[i]+"起</h3></div>"+
           "</div>" %>

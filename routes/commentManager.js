@@ -14,7 +14,6 @@ var result2log = function(qerr, vals, fields) {
 exports.add_hotel_comment = function(Hotel_ID, Scores, Account_ID, Comments, callback) {
     searchManager.query("insert into HotelComments values(" + Hotel_ID + "," + Scores + "," +
         Account_ID + "," + "'" + Comments + "'" + ");", callback);
-    //searchManager.query("insert into mytable values(1"+","+"'yy'"+",1"+","+"1.2);",result2log);
 };
 
 exports.get_hotel_comment = function(Hotel_ID, callback) {
