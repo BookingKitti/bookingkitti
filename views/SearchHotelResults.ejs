@@ -10,10 +10,11 @@
     <div class='span12 text-center'>
       <ul class='list-group span4'>
         <% for (var i=0;i<data.length;i++){ %>
-          <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+"酒店名称: "+data[i].Hotel_Name+"<br>"+
-          "所在省: "+data[i].Province+"\t"+
-          "城市: "+data[i].City+"<br>"+
-          "详细地址: "+data[i].Address %></a><br>
+          <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+"<h4 font-color='purple'> "+data[i].Hotel_Name+"</h4>"+
+          "<div class='row'><div class='col-md-5'></div>\
+          <div class='col-md-1'>"+data[i].Province+"</div>"+
+          "<div class='col-md-1'> "+data[i].City+"</div></div>"+
+          "<div class='row'>详细地址: "+data[i].Address+"</div>" %></a><br>
           <%}%>
       </ul>
     </div>
