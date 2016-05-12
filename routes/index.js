@@ -96,7 +96,7 @@ var showDetail = function(req, res) {
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
-            } else {
+            } else {cas95123
                 if (count == 4) {
                     res.render('HotelDetail', {
                         tabChoose: 0,
