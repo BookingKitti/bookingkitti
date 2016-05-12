@@ -129,7 +129,6 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
-    console.log(req.body);
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
@@ -220,6 +219,11 @@ router.get('/orderconfirm', function(req, res) {
         tabChoose: 1
     })
 })
+
+router.post('/bookHotel', function(req, res) {
+  //bookingManager.create_order_hotel()
+})
+
 router.get('/order', function(req, res) {
     res.render('Order', {
         tabChoose: 1,
@@ -248,7 +252,6 @@ router.post('/orderupload', function(req, res) {
             tabChoose: 1
         });
     });
-})
-
+});
 
 module.exports = router;
