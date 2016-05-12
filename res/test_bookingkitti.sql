@@ -8,6 +8,8 @@ insert into HotelInfo values(4 ,'深圳途家斯维登度假别墅东部华侨�
 insert into RoomInfo values(1, '村庄客舍房', '2016/05/10', 12, 4772.0);
 insert into RoomInfo values(1, '村庄套房', '2016/05/10', 8, 4835.0);
 insert into RoomInfo values(1, '豪华村庄套房', '2016/05/10', 4, 5359.0);
+insert into RoomInfo values(1, '豪华村庄套房', '2016/05/11', 5, 5859.0);
+insert into RoomInfo values(1, '豪华村庄套房', '2016/05/12', 4, 5942.0);
 insert into RoomInfo values(1, '村庄别墅', '2016/05/10', 2, 100);
 insert into RoomInfo values(1, '村庄别墅', '2016/05/11', 6, 200);
 insert into RoomInfo values(1, '村庄别墅', '2016/05/12', 0, 200);
