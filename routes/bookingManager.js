@@ -32,17 +32,20 @@ exports.get_airticket_info = function(airticket_id, callback) {
     });
 }
 
-var change_room_data = function(hotel_id, type, room_date, callback) {
+var change_room_data = function(hotel_id, type, room_date_from, room_data_to, callback) {
     var sql = "update RoomInfo set Available = Available - 1 where ";
     if (hotel_id != null)
       sql = sql + " Hotel_ID= " + hotel_id + " ";
     if (type != null)
       sql = sql + " and Type=  '" + type + "' ";
-    if (room_date != null)
-      sql = sql + " and Room_date= '" + room_date + "' ";
-    if (sql == "update RoomInfo set Available = Available - 1 where ") {
+    sql = sql + " and Room_date between '" + room_date_from + "' ";
+    sql = sql + " and '" + room_data_to + "' ";
+    if (sql == "update RoomInfo set Available = Available - 1 where ")
+    {
         sql = "update RoomInfo set Available = Available - 1;";
-    } else sql = sql + ";";
+    }
+    else
+      sql = sql + ";";
 
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
@@ -72,24 +75,24 @@ var change_airticket_data = function(departure, airport, destination, depart_tim
     });
 }
 
-exports.create_order_hotel = function(hotel_id, type, room_date, callback){
-  change_room_data(hotel_id, type, room_date, function(qerr, vals, fields){
+exports.create_order_hotel = function(hotel_id, type, room_date_from, room_data_to, callback){
+  change_room_data(hotel_id, type, room_date_from, room_data_to, function(qerr, vals, fields){
     //result=result;
     if(qerr)
     {
       console.log("error");
       callback(qerr, vals, fields);
     }
-  });
-  var sql="select Hotel_Name,Province,City,Address,\
-  Stars,Description,PhoneNumber,Type,Room_date,Price\
-   from HotelInfo,RoomInfo where HotelInfo.Hotel_ID=\
-   RoomInfo.Hotel_ID and RoomInfo.Hotel_ID="+hotel_id
-   +" and Type='"+type+"' and Room_date='"+
-   room_date+"' ;"
-  searchManager.query(sql, function(qerr, vals, fields) {
-    //console.log(qerr);
-    callback(qerr, vals, fields);
+      var sql1="select Hotel_Name,Province,City,Address,\
+      Stars,Description,PhoneNumber,Type,Room_date,Price\
+       from HotelInfo,RoomInfo where HotelInfo.Hotel_ID=\
+       RoomInfo.Hotel_ID and RoomInfo.Hotel_ID="+hotel_id
+       +" and Type='"+type+"' and Room_date='"+
+       room_date_from+"' ;"
+      searchManager.query(sql1, function(qerr1, vals1, fields1) {
+        //console.log(qerr);
+        callback(qerr1, vals1, fields1);
+    });
   });
 }
 
