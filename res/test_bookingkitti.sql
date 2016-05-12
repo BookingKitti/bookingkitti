@@ -10,6 +10,7 @@ insert into RoomInfo values(1, '村庄套房', '2016/05/10', 8, 4835.0);
 insert into RoomInfo values(1, '豪华村庄套房', '2016/05/10', 4, 5359.0);
 insert into RoomInfo values(1, '豪华村庄套房', '2016/05/11', 6, 5423.0);
 insert into RoomInfo values(1, '豪华村庄套房', '2016/05/12', 7, 6243.0);
+
 insert into RoomInfo values(1, '村庄别墅', '2016/05/10', 2, 100);
 insert into RoomInfo values(1, '村庄别墅', '2016/05/11', 6, 200);
 insert into RoomInfo values(1, '村庄别墅', '2016/05/12', 0, 200);

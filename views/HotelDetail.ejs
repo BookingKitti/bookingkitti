@@ -37,13 +37,19 @@
                         </div>
                     </div>
                     <div class='col-md-8 col-xs-12'>
-                    <li class='list-group-item'>
+                    <div class='row'>
+                    <span class='list-group-item'>
                         酒店名：
                         <%= HotelInfo[0].Hotel_Name %>
                         <br>
                         <%= HotelInfo[0].City %>--
                         <%= HotelInfo[0].Province  %>
-                    </li>
+                    </span>
+                    </div>
+                    <div class='row'>
+                      <span class='list-group-item'>详细信息：<br>
+                      <%= HotelInfo[0].Description %></span>
+                    </div>
                 </div>
 
             </div>
@@ -91,9 +97,14 @@
                                         <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn" data-toggle="modal" data-target=<%- "'#"+"Modal"+i+"'"%> >
+                                      <% if (RoomInfo[i]['min(Available)']){%>
+                                        <button type="button" color='red' class="btn" data-toggle="modal" data-target=<%- "'#"+"Modal"+i+"'"%> >
                                             预定
                                         </button>
+                                        <%}else{
+                                        %>
+                                        <button type="button" class="btn" color="gray" disabled="disabled">预定</button>
+                                        <%}%>
                                     </td>
                                 </tr>
                             <%}%>
