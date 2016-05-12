@@ -11,12 +11,12 @@
 
                     <% for (var i=0;i<data.length;i++){%>
                       <br>
-                      <li class='list-group-item'>
+                      <a class='list-group-item' href=<%- "'./SearchTicketsResults?AirTicket_ID="+data[i].AirTicket_ID+"'" %> >
                         <%- data[i].Departure%><br>
                         <%- data[i].Airport %><br>
                         <%- data[i].Destination %><br>
                         <%- data[i].Price %>
-                      </li>
+                    </a>
                       <%}%>
                 </ul>
 
