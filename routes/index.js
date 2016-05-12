@@ -67,6 +67,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
+                console.log(vals);
                 min = vals[0]['avg(Price)'];
                 max = vals[0]['avg(Price)'];
                 for (var i = 0; i < vals.length; i++) {
@@ -218,6 +219,11 @@ router.get('/orderconfirm', function(req, res) {
         tabChoose: 1
     })
 })
+
+router.post('/bookHotel', function(req, res) {
+  //bookingManager.create_order_hotel()
+})
+
 router.get('/order', function(req, res) {
     res.render('Order', {
         tabChoose: 1,
@@ -246,7 +252,6 @@ router.post('/orderupload', function(req, res) {
             tabChoose: 1
         });
     });
-})
-
+});
 
 module.exports = router;
