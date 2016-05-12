@@ -1,13 +1,14 @@
-
 <!DOCTYPE html>
 <html lang='zh-CN'>
 
     <head>
         <% include bootstrap_base.html %>
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     </head>
     <% include guideline.ejs %>
 
     <body>
+
         <div class='main-container'>
             <div class="container-fluid">
                 <h1><%- HotelInfo[0].Hotel_Name %></h1>
@@ -62,7 +63,7 @@
 
             <div class="row-fluid">
                 <div class="span12">
-                    <%-'<form class="form" name="BookHotel" method="post" action='+"'"+url+"'>" %>
+
                     <table class="table">
                         <thead>
                             <tr>
@@ -87,31 +88,50 @@
                                         <%- RoomInfo[i]['avg(Price)'] %>
                                     </td>
                                     <td>
-                                        <%= (RoomInfo[i]['min(Available)'])?'<input type="text" name="RoomOrder" value=1>':'已满' %>
+                                        <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
                                     </td>
                                 </tr>
                             <%}%>
                         </tbody>
                     </table>
                     <div class="span7 text-center">
-                        <button type="submit" class="btn">预定</button>
+                        <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+                            预定
+                        </button>
+
                     </div>
-                </form>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <ul class="list-group">
-                            <% for (var i=0;i<Comment.length;i++){ %>
-                                <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
-                            <%}%>
-                        </ul>
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul class="list-group">
+                                <% for (var i=0;i<Comment.length;i++){ %>
+                                    <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
+                                <%}%>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
-<% include footer.html %>
+    <% include ModalHotelBooking %>
+    <% include footer.html %>
+    <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+
+        $('.form_date').datetimepicker({
+            language: 'fr',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    </script>
 </body>
 
 </html>
