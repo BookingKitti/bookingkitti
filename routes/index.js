@@ -58,9 +58,9 @@ var showDetail = function(req, res) {
                 }
             }
         });
-    Date_From="2016/5/12";
-    Date_To="2016/5/13";
-    bookingManager.get_room_info(req.query.Hotel_ID,Date_From,Date_To,
+    Date_From = "2016/5/12";
+    Date_To = "2016/5/13";
+    bookingManager.get_room_info(req.query.Hotel_ID, Date_From, Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
             count++;
@@ -216,12 +216,21 @@ router.post('/comment', function(req, res, next) {
  */
 router.get('/orderconfirm', function(req, res) {
     res.render('OrderDetail', {
-        tabChoose: 1
+        tabChoose: 1,
+        roomType: req.query.roomType,
+        hotelID: req.query.hotelID
     })
 })
 
 router.post('/bookHotel', function(req, res) {
-  //bookingManager.create_order_hotel()
+    //bookingManager.create_order_hotel()
+    bookingManager.create_order_hotel(req.query.hotelID,
+        req.query.roomType,
+        req.body.date_checkin,
+        req.body.date_checkout,
+        function() {
+            res.render('HotelDetail', showDetail);
+        });
 })
 
 router.get('/order', function(req, res) {
