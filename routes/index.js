@@ -226,14 +226,15 @@ router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
     console.log(req.body);
     console.log(req.query);
-    showDetail(req, res);
-    // bookingManager.create_order_hotel(req.query.hotelID,
-    //     req.query.roomType,
-    //     req.body.date_checkin,
-    //     req.body.date_checkout,
-    //     function() {
-    //         res.render('HotelDetail', showDetail);
-    //     });
+    bookingManager.create_order_hotel(req.query.Hotel_ID,
+        req.query.RoomType,
+        req.body.date_checkin,
+        req.body.date_checkout,
+        req,
+        res,
+        function(qerr, vals, fields, req, res) {
+            showDetail(req, res)
+        });
 })
 
 router.get('/order', function(req, res) {
