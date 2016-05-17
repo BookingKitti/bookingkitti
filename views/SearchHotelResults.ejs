@@ -12,7 +12,10 @@
   <div class='right_col' role='main'>
     <div class='container-fluid'>
       <div class='row'>
-        
+        <div class='col-md-2'><a herf=''>价格排序</a></div>
+        <div class='col-md-2'><a herf=''>热度排序</a></div>
+        <div class='col-md-2'><a herf=''>评分排序</a></div>
+        <div class='col-md-2'><a herf=''>星级排序</a></div>
       </div>
       <div class='row'>
       <ul class='list-group'>
@@ -20,9 +23,10 @@
           <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
           "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
           "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
-          "<div class='col-md-2'> "+data[i].City+"</div></div>"+
-          "<div class='row'>详细地址: "+data[i].Address+"</div></div>"+
-          "<div class='col-md-3'><h3>"+price[i]+"起</h3></div>"+
+          "<div class='col-md-2'> "+data[i].City+"</div></div><br>"+
+          "<div class='row'>详细地址: "+data[i].Address+"</div><br>"+
+          "<div class='row'>评分: "+data[i].Rating+"</div></div>"+
+          "<div class='col-md-3'><h3>"+price[i]+"起</h3><br>热度: "+data[i].Heat+"</div>"+
           "</div>" %>
 
         </a>
