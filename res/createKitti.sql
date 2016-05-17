@@ -84,6 +84,26 @@ create table HotelComments(
   foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 delimiter //
 CREATE TRIGGER trig_ticketsinfo_check BEFORE INSERT ON TicketsInfo
 FOR EACH ROW BEGIN
