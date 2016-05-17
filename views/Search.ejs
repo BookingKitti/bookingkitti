@@ -5,30 +5,36 @@
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     </head>
 
-    <body>
-        <% include guideline.ejs %>
-        <div class="main-container">
-            <div class="container-fluid text-center">
-                <div class="tabbable" id="tabs-273106">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#panel-419013" data-toggle="tab">酒店</a>
-                        </li>
-                        <li>
-                            <a href="#panel-75657" data-toggle="tab">机票</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="panel-419013">
-                            <p>
-                              <% include SearchHotel %>
-                            </p>
+    <body class='nav-md'>
+        <div class='container body'>
+            <div class='main_container'>
+                <% include guideline.ejs %>
+                <div class='right_col' role='main'>
+
+                    <div class="container-fluid text-center">
+                        <div class="tabbable" id="tabs-273106">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#panel-419013" data-toggle="tab">酒店</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-75657" data-toggle="tab">机票</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="panel-419013">
+                                    <p>
+                                        <% include SearchHotel %>
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="panel-75657">
+                                    <p>
+                                        <% include SearchTickets.ejs %>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="panel-75657">
-                            <p>
-                                <% include SearchTickets.ejs %>
-                            </p>
-                        </div>
+
                     </div>
                 </div>
             </div>

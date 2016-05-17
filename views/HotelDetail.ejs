@@ -5,12 +5,15 @@
         <% include bootstrap_base.html %>
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     </head>
-    <% include guideline.ejs %>
 
-    <body>
 
-        <div class='main-container'>
-            <div class="container-fluid">
+    <body class='nav-md'>
+
+        <div class='container body'>
+            <div class="main_container">
+              <% include guideline.ejs %>
+              <div class='right_col' role='main'>
+                <div class='container-fluid'>
                 <h1><%- HotelInfo[0].Hotel_Name %></h1>
                 <div class='row'>
                     <div class='col-md-4 col-xs-12'>
@@ -40,15 +43,15 @@
                     <div class='row'>
                     <span class='list-group-item'>
                         酒店名：
-                        <%= HotelInfo[0].Hotel_Name %>
+                        <%- HotelInfo[0].Hotel_Name %>
                         <br>
-                        <%= HotelInfo[0].City %>--
-                        <%= HotelInfo[0].Province  %>
+                        <%- HotelInfo[0].City %>--
+                        <%- HotelInfo[0].Province  %>
                     </span>
                     </div>
                     <div class='row'>
                       <span class='list-group-item'>详细信息：<br>
-                      <%= HotelInfo[0].Description %></span>
+                      <%- HotelInfo[0].Description %></span>
                     </div>
                 </div>
 
@@ -58,10 +61,10 @@
                     <ul class="list-group">
                         <li class="list-group-item">
                             价格区间：
-                            <%= Price %>
+                            <%- Price %>
                             <br>
                             联系方式：
-                            <%= HotelInfo[0].PhoneNumber %>
+                            <%- HotelInfo[0].PhoneNumber %>
                         </li>
                     </ul>
                 </div>
@@ -123,7 +126,8 @@
                     </div>
                 </div>
             </div>
-
+          </div>
+          </div>
         </div>
     </div>
     <% include ModalHotelBooking %>

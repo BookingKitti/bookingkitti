@@ -9,10 +9,12 @@
 
     </head>
 
-    <body>
-        <% include guideline.ejs %>
-        <div class='main-container'>
-            <div class="container-fluid">
+    <body class='nav-md'>
+
+        <div class='container body'>
+            <div class="main_container">
+              <% include guideline.ejs %>
+              <div class='right_col container' role='main'>
                 <form method="post" action="/comment">
                     <div class="form-group">
                         <legend>评价</legend>
@@ -26,6 +28,7 @@
                     </div>
                     <button type="submit" class="btn">提交</button>
                 </form>
+              </div>
             </div>
 
         </div>

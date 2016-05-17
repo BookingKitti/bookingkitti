@@ -1,16 +1,25 @@
+
+<footer>
+  <div class="pull-right">
+    PayKitty v0.0.1 by <a href="https://github.com/DearRabbit/PayKittyTemplate">A4</a>
+  </div>
+  <div class="clearfix"></div>
+</footer>
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="js/stickUp.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="js/custom.js"></script>
 
 <script type="text/javascript">
     //initiating jQuery
     jQuery(function($) {
         $(document).ready(function() {
             //enabling stickUp on the '.navbar-wrapper' class
-            $('topBox').stickUp();
-            $('LeftBox').stickUp();
+            $('.left_col').stickUp();
+            $('top_nav').stickUp();
         });
     });
 </script>

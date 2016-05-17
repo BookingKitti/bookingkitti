@@ -4,8 +4,10 @@
     <% include bootstrap_base.html %>
 </head>
   <% include guideline.ejs %>
-<body>
-  <div class='main-container'>
+<body class='nav-md'>
+  <div class='container body'>
+    <div class='main_container'>
+      <div class='right_col container' role='main'>
     <div class='container-fluid'>
 
       <ul class='list-group span4'>
@@ -21,8 +23,10 @@
           <%}%>
       </ul>
     </div>
+    <% include footer.html %>
   </div>
+  </div>
+</div>
 
-<% include footer.html %>
 </body>
 </html>
