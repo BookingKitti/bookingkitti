@@ -11,9 +11,11 @@
 
   <div class='right_col' role='main'>
     <div class='container-fluid'>
-      <br><br><br>
+      <div class='row'>
+        
+      </div>
+      <div class='row'>
       <ul class='list-group'>
-
         <% for (var i=0;i<data.length;i++){ %>
           <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
           "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
@@ -27,7 +29,7 @@
         <br>
           <%}%>
       </ul>
-
+    </div>
   </div>
 </div>
 <% include footer.html %>

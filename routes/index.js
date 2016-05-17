@@ -115,6 +115,33 @@ var showDetail = function(req, res) {
 /*@brief GET home page which is default search page
  *render search.ejs
  */
+ function yaowang(){
+  this.HotelInfo = 'name';
+  this.Hotel_ID = 'age';
+  this.Hotel_Name = 'location';
+}
+router.get('/test',function(req,res,next){
+  console.log("test");
+  filepath=['avatar/Hotel_1/small/150x150_0.png'
+  ,'avatar/Hotel_2/small/150x150_0.png'
+  ,'avatar/Hotel_3/small/150x150_0.png'];
+  var vals=new Array();
+  vals[0]=new yaowang();
+  vals[1]=new yaowang();
+  vals[2]=new yaowang();
+  vals[0].Hotel_ID=vals[1].Hotel_ID=vals[2].Hotel_ID=1
+  vals[0].HotelInfo=vals[1].HotelInfo=vals[2].HotelInfo='来自保加利亚的好酒店'
+  vals[0].Hotel_Name=vals[1].Hotel_Name=vals[2].Hotel_Name='XON'
+  console.log(vals);
+  res.render('Search',{
+    HotHotelPic:filepath,
+    DiscountHotelPic:filepath,
+    HotHotel:vals,
+    DiscountHotel:vals
+  })
+
+})
+
 router.get('/', defaultPage);
 
 /*@brief GET search page
