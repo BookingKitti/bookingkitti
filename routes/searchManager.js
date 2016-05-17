@@ -8,7 +8,7 @@ var pool = mysql.createPool({
 
 });
 
-exports.query = function(sql, callback, req, res) {
+exports.query = function(sql, callback) {
     pool.getConnection(function(err, conn) {
         if (err) {
             callback(err, null, null);
