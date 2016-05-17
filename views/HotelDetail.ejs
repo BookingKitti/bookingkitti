@@ -101,7 +101,7 @@
                                     </td>
                                     <td>
                                       <% if (RoomInfo[i]['min(Available)']){%>
-                                        <button type="button" color='red' class="btn" data-toggle="modal" data-target=<%- "'#"+"Modal"+i+"'"%> >
+                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+"Modal"+i+"'"%> >
                                             预定
                                         </button>
                                         <%}else{
@@ -128,10 +128,11 @@
             </div>
           </div>
           </div>
+            <% include footer.html %>
         </div>
     </div>
     <% include ModalHotelBooking %>
-    <% include footer.html %>
+
     <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
     <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     <script type="text/javascript">
