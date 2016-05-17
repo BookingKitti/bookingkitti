@@ -45,7 +45,11 @@ $(document).ready(function() {
                 $SIDEBAR_MENU.find('li').removeClass('active');
                 $SIDEBAR_MENU.find('li ul').slideUp();
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
             $li.addClass('active');
 
             $('ul:first', $li).slideDown(function() {
@@ -83,7 +87,11 @@ $(document).ready(function() {
     }).parent().addClass('active');
 
     // recompute content when resizing
+<<<<<<< HEAD
     $(window).smartresize(function(){
+=======
+    $(window).smartresize(function(){  
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
         setContentHeight();
     });
 
@@ -104,15 +112,24 @@ $(document).ready(function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
         // fix for some div with hardcoded fix class
         if ($BOX_PANEL.attr('style')) {
             $BOX_CONTENT.slideToggle(200, function(){
                 $BOX_PANEL.removeAttr('style');
             });
         } else {
+<<<<<<< HEAD
             $BOX_CONTENT.slideToggle(200);
             $BOX_PANEL.css('height', 'auto');
+=======
+            $BOX_CONTENT.slideToggle(200); 
+            $BOX_PANEL.css('height', 'auto');  
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
         }
 
         $ICON.toggleClass('fa-chevron-up fa-chevron-down');
@@ -246,9 +263,15 @@ if (typeof NProgress != 'undefined') {
 
 /**
  * Resize function without multiple trigger
+<<<<<<< HEAD
  *
  * Usage:
  * $(window).smartresize(function(){
+=======
+ * 
+ * Usage:
+ * $(window).smartresize(function(){  
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
  *     // code here
  * });
  */
@@ -263,7 +286,11 @@ if (typeof NProgress != 'undefined') {
             function delayed () {
                 if (!execAsap)
                     func.apply(obj, args);
+<<<<<<< HEAD
                 timeout = null;
+=======
+                timeout = null; 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
             }
 
             if (timeout)
@@ -271,15 +298,27 @@ if (typeof NProgress != 'undefined') {
             else if (execAsap)
                 func.apply(obj, args);
 
+<<<<<<< HEAD
             timeout = setTimeout(delayed, threshold || 100);
         };
     };
 
     // smartresize
+=======
+            timeout = setTimeout(delayed, threshold || 100); 
+        };
+    };
+
+    // smartresize 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
 
 function audit_help() {
     alert('help');
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7

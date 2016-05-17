@@ -164,7 +164,11 @@
 .nav-sm .menu_section {
   margin: 0;
 }
+<<<<<<< HEAD
 .nav-sm span.fa,
+=======
+.nav-sm span.fa, 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
 .nav-sm .menu_section h3 {
   display: none;
 }
@@ -545,11 +549,19 @@ a:hover, a:focus {
   color: #E7E7E7;
   font-weight: 500;
 }
+<<<<<<< HEAD
 .nav.child_menu li li:hover,
 .nav.child_menu li li.active {
   background: none;
 }
 .nav.child_menu li li a:hover,
+=======
+.nav.child_menu li li:hover, 
+.nav.child_menu li li.active {
+  background: none;
+}
+.nav.child_menu li li a:hover, 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
 .nav.child_menu li li a.active {
   color: #fff;
 }
@@ -694,7 +706,11 @@ footer {
   }
 }
 .nav-sm footer {
+<<<<<<< HEAD
   margin-left: 70px ;
+=======
+  margin-left: 70px ;  
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
 }
 .tile-stats.sparkline {
   padding: 10px;
@@ -1366,7 +1382,11 @@ ul.msg_list li a .message {
   border: 1px solid #D9DEE4;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
 }
 .dropdown-menu>li>a {
   color: #5A738E;
@@ -1552,9 +1572,15 @@ span.right {
   }
 }
 .tile_count .tile_stats_count:before {
+<<<<<<< HEAD
   content:"";
   position: absolute;
   left: 0;
+=======
+  content:""; 
+  position: absolute; 
+  left: 0; 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
   height: 65px;
   border-left: 2px solid #ADB2B5;
   margin-top: 10px;
@@ -1998,7 +2024,11 @@ a.star {
   display: inline-block;
 }
 
+<<<<<<< HEAD
 .compose {
+=======
+.compose {  
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
   padding: 0;
   position: fixed;
   bottom: 0;
@@ -3822,11 +3852,19 @@ header {
 .editor-wrapper {
   min-height: 250px;
   background-color: white;
+<<<<<<< HEAD
   border-collapse: separate;
   border: 1px solid rgb(204, 204, 204);
   padding: 4px;
   box-sizing: content-box;
   -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+=======
+  border-collapse: separate; 
+  border: 1px solid rgb(204, 204, 204); 
+  padding: 4px; 
+  box-sizing: content-box; 
+  -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
   box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
   border-top-right-radius: 3px; border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px; border-top-left-radius: 3px;
@@ -4772,7 +4810,11 @@ ul.notifications {
 
 /** FullCalendar **/
 .fc-state-default {
+<<<<<<< HEAD
   background: #f5f5f5;
+=======
+  background: #f5f5f5; 
+>>>>>>> c0ab79899fb568caffee47810329e28fc1bae8d7
   color: #73879C;
 }
 
