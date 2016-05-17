@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="css/HotHotel.css" />
+
+<div class='container-fluid'>
+    <div class='row'>
+        <% for (var i=0;i<HotHotel.length;i++){ %>
+            <div class='col-md-4'>
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h1><%- HotHotel[i].Hotel_Name  %></h1>
+                        <p>
+                            <a href=<%- "'./hotelDetail?Hotel_ID="+HotHotel[i].Hotel_ID+"'" %> class="label label-danger biglabel" rel="tooltip" title="预定">立即预定</a>
+                        </p>
+                    </div>
+                    <img src=<%-"'"+HotHotelPic[i]+"'" %> alt=<%- "热门酒店"+i%>  width=300 height=300>
+                </div>
+                <p>
+                    <%-HotHotel[i].HotelInfo%>
+                </p>
+            </div>
+        <%}%>
+    </div>
+
+<!--一共显示六个打折和热门酒店-->
+<div class='row'>
+    <%for (var i=0;i<DiscountHotel.length;i++){%>
+        <div class='col-md-4'>
+            <div class="thumbnail" >
+                <div class="caption">
+                    <h1><%- DiscountHotel[i].Hotel_Name  %></h1>
+                    <p>
+                        <a href=<%- "'"+"'./hotelDetail?Hotel_ID="+DiscountHotel[i].Hotel_ID+"'" %> class="label label-danger biglabel size=20" rel="tooltip" title="预定">立即预定</a>
+                    </p>
+                </div>
+                <img src=<%-"'"+DiscountHotelPic[i]+"'" %> alt=<%- "打折酒店"+i%> width=300 height=300>
+            </div>
+            <p>
+                <%-DiscountHotel[i].HotelInfo%>
+            </p>
+        </div>
+    <%}%>
+</div>
+</div>
+
+<!-- 基本的HTML -->
+<script type="text/javascript">
+/* 生成工具提示 */
+
+$('[rel="tooltip"]').tooltip();
+
+/* 生成鼠标悬浮滑动展示图片说明 */
+
+$('.thumbnail').hover(function() {
+    //鼠标进入 $(this).find('.caption').slideDown(300);
+    $(this).find('.caption').fadeIn(300);
+}, function() {
+    //鼠标离开 $(this).find('.caption').slideUp(300);
+    $(this).find('.caption').fadeOut(300);
+});
+</script>

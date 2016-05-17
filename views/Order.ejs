@@ -1,75 +1,85 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <% include bootstrap_base.html %>
+    <head>
+        <% include bootstrap_base.html %>
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-</head>
+    </head>
 
-<body>
-    <% include guideline.ejs %>
-        <div class="main-container">
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span7 text-center">
-                        <form method="post" action="/order">
-                            <fieldset>
-                                <legend>添加酒店</legend>
-                                <grammarly>
-                                    <div class="_9b5ef6-textarea_btn _9b5ef6-show _9b5ef6-field_hovered">
-                                        <div class="_9b5ef6-transform_wrap">
-                                            <div class="_9b5ef6-status">
+    <body class='nav-md'>
+
+        <div class="container body">
+            <div class="main_container">
+                <% include guideline.ejs %>
+                <div class='right_col container' role='main'>
+                    <div class="row-fluid">
+                        <div class="span7 text-center">
+                            <form method="post" action="/order">
+                                <fieldset>
+                                    <legend>添加酒店</legend>
+                                    <grammarly>
+                                        <div class="_9b5ef6-textarea_btn _9b5ef6-show _9b5ef6-field_hovered">
+                                            <div class="_9b5ef6-transform_wrap">
+                                                <div class="_9b5ef6-status"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </grammarly>
-                                <label>酒店名</label>
-                                <input type="text" name="Hotel_Name" /> <span class="help-block">请输入您的酒店名称</span>
-                                <label>省份</label>
-                                <input type="text" name="Province" /> <span class="help-block">请输入您的酒店所在的省</span>
-                                <label>城市</label>
-                                <input type="text" name="City" /> <span class="help-block">请输入您酒店所在的城市</span>
-                                <label>详细地址</label>
-                                <input type="text" name="Address" /> <span class="help-block">请输入您酒店所在的详细地址</span>
-                                <label>星级</label>
-                                <input type="number" name="Stars" /> <span class="help-block">请输入您酒店的星级</span>
-                                <label>描述</label>
-                                <input type="text" name="Description" /> <span class="help-block">请输入您酒店的描述</span>
-                                <label>电话</label>
-                                <input type="text" name="PhoneNumber" /> <span class="help-block">请输入您酒店的联系电话</span>
-                                <button type="submit" class="btn">提交</button>
-                            </fieldset>
-                        </form>
-                        <form class="form-signin" role="form" action="./orderupload" method="post" enctype='multipart/form-data'>
-                            <fieldset>
-                                <h2 class="form-signin-heading">上传文件</h2>
-                                <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
-                                <br/>
-                                <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
-                            </fieldset>
-                        </form>
+                                    </grammarly>
+                                    <label>酒店名</label>
+                                    <input type="text" name="Hotel_Name"/>
+                                    <span class="help-block">请输入您的酒店名称</span>
+                                    <label>省份</label>
+                                    <input type="text" name="Province"/>
+                                    <span class="help-block">请输入您的酒店所在的省</span>
+                                    <label>城市</label>
+                                    <input type="text" name="City"/>
+                                    <span class="help-block">请输入您酒店所在的城市</span>
+                                    <label>详细地址</label>
+                                    <input type="text" name="Address"/>
+                                    <span class="help-block">请输入您酒店所在的详细地址</span>
+                                    <label>星级</label>
+                                    <input type="number" name="Stars"/>
+                                    <span class="help-block">请输入您酒店的星级</span>
+                                    <label>描述</label>
+                                    <input type="text" name="Description"/>
+                                    <span class="help-block">请输入您酒店的描述</span>
+                                    <label>电话</label>
+                                    <input type="text" name="PhoneNumber"/>
+                                    <span class="help-block">请输入您酒店的联系电话</span>
+                                    <button type="submit" class="btn">提交</button>
+                                </fieldset>
+                            </form>
+                            <form class="form-signin" role="form" action="./orderupload" method="post" enctype='multipart/form-data'>
+                                <fieldset>
+                                    <h2 class="form-signin-heading">上传文件</h2>
+                                    <input id="fulAvatar" name="fulAvatar" type="file" class="form-control"/>
+                                    <br/>
+                                    <button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
+                                </fieldset>
+                            </form>
 
+                        </div>
                     </div>
                 </div>
+                <% include footer.html %>
             </div>
         </div>
-        <% include footer.html %>
-            <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-            <script type="text/javascript">
 
-                $('.form_date').datetimepicker({
-                    language: 'zh-CN',
-                    weekStart: 1,
-                    todayBtn: 1,
-                    autoclose: 1,
-                    todayHighlight: 1,
-                    startView: 2,
-                    minView: 2,
-                    forceParse: 0
-                });
-            </script>
+        <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+        <script type="text/javascript">
 
-</body>
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+        </script>
+
+    </body>
 
 </html>

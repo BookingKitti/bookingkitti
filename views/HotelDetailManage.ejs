@@ -4,108 +4,115 @@
     <head>
         <% include bootstrap_base.html %>
     </head>
-    <% include guideline.ejs %>
 
-    <body>
-        <div class='main-container'>
-            <div class="container-fluid">
-                <h1><%- HotelInfo[0].Hotel_Name %></h1>
-                <div class='row'>
-                    <div class='col-md-4 col-xs-12'>
-                    <div class="item">
-                        <img alt="" src=<%- '"'+FilePos[0]+'"' %> class='img-thumbnail' height=100 width=100/>
-                        <a href=<%- "'/DeleteHotelImage?HotelID="+Hotel_ID+'&&ImageID='+FilePos[0]+"'" %> ><button type="">删除</button></a>
-                    </div>
-                    <% for (var i=1;i<FilePos.length;i++){%>
-                        <div class='item'>
-                            <img alt="" src=<%- '"'+FilePos[i]+'"'%> class='img-thumbnail' height=100 width=100/>
+    <body class='nav-md'>
+        <div class='container body'>
+            <div class='main_container'>
+                <% include guideline.ejs %>
+                <div class='right_col container'>
+                    <div class="container-fluid">
+                        <h1><%- HotelInfo[0].Hotel_Name %></h1>
+                        <div class='row'>
+                            <div class='col-md-4 col-xs-12'>
+                                <div class="item">
+                                    <img alt="" src=<%- '"'+FilePos[0]+'"' %> class='img-thumbnail' height=100 width=100/>
+                                    <a href=<%- "'/DeleteHotelImage?HotelID="+Hotel_ID+'&&ImageID='+FilePos[0]+"'" %>>
+                                        <button type="">删除</button>
+                                    </a>
+                                </div>
+                                <% for (var i=1;i<FilePos.length;i++){%>
+                                    <div class='item'>
+                                        <img alt="" src=<%- '"'+FilePos[i]+'"'%> class='img-thumbnail' height=100 width=100/>
+                                    </div>
+                                <%}%>
+
+                            </div>
+                            <div class='col-md-8 col-xs-12'>
+                            <li class='list-group-item'>
+                                酒店名：
+                                <%= HotelInfo[0].Hotel_Name %>
+                                <br>
+                                <%= HotelInfo[0].City %>--
+                                <%= HotelInfo[0].Province  %>
+                            </li>
                         </div>
-                    <%}%>
 
-                </div>
-                <div class='col-md-8 col-xs-12'>
-                    <li class='list-group-item'>
-                        酒店名：
-                        <%= HotelInfo[0].Hotel_Name %>
-                        <br>
-                        <%= HotelInfo[0].City %>--
-                        <%= HotelInfo[0].Province  %>
-                    </li>
-                </div>
-
-            </div>
-            <div class='row-fluid'>
-                <div class="span6">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            价格区间：
-                            <%= Price %>
-                            <br>
-                            联系方式：
-                            <%= HotelInfo[0].PhoneNumber %>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row-fluid">
-                <div class="span12">
-                    <%-'<form class="form" name="BookHotel" method="post" action='+"'"+url+"'>" %>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    房间类型
-                                </th>
-                                <th>
-                                    房间价格
-                                </th>
-                                <th>
-                                    房间数量
-                                </th>
-                                <th>
-                                    预定
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for (var i=0;i<RoomInfo.length;i++){%>
-                                <tr class="info">
-                                    <td>
-                                        <%- RoomInfo[i].Type %>
-                                    </td>
-                                    <td>
-                                        <%- RoomInfo[i].Price %>
-                                    </td>
-                                    <td>
-                                        <%- RoomInfo[i].Available%>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="RoomOrder" value=1>
-                                    </td>
-                                </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
-                    <div class="span7 text-center">
-                        <button type="submit" class="btn">预定</button>
                     </div>
-                </form>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <ul class="list-group">
-                            <% for (var i=0;i<Comment.length;i++){ %>
-                                <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
-                            <%}%>
-                        </ul>
+                    <div class='row-fluid'>
+                        <div class="span6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    价格区间：
+                                    <%= Price %>
+                                    <br>
+                                    联系方式：
+                                    <%= HotelInfo[0].PhoneNumber %>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <%-'<form class="form" name="BookHotel" method="post" action='+"'"+url+"'>" %>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            房间类型
+                                        </th>
+                                        <th>
+                                            房间价格
+                                        </th>
+                                        <th>
+                                            房间数量
+                                        </th>
+                                        <th>
+                                            预定
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for (var i=0;i<RoomInfo.length;i++){%>
+                                        <tr class="info">
+                                            <td>
+                                                <%- RoomInfo[i].Type %>
+                                            </td>
+                                            <td>
+                                                <%- RoomInfo[i].Price %>
+                                            </td>
+                                            <td>
+                                                <%- RoomInfo[i].Available%>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="RoomOrder" value=1>
+                                            </td>
+                                        </tr>
+                                    <%}%>
+                                </tbody>
+                            </table>
+                            <div class="span7 text-center">
+                                <button type="submit" class="btn">预定</button>
+                            </div>
+                        </form>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <ul class="list-group">
+                                    <% for (var i=0;i<Comment.length;i++){ %>
+                                        <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
+                                    <%}%>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
+        <% include footer.html %>
     </div>
 </div>
-<% include footer.html %>
+
 </body>
 
 </html>

@@ -4,22 +4,33 @@
         <% include bootstrap_base.html %>
           <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     </head>
-    <% include guideline.ejs %>
-    <body>
-        <div class='main-container'>
+
+    <body class='nav-md'>
+      <div class='container body'>
+        <div class='main_container'>
+        <% include guideline.ejs %>
+        <div class='right_col' role='main'>
             <div class='container-fluid'>
+              <div class='container-fluid'>
+              <div class='row text-center'>
+                 <h1><div class='col-md-4' font-color="gray">出发地</div>
+                 <div class='col-md-4' font-color="gray">目的地</div>
+                 <div class='col-md-4' font-color="gray">价格</div></h1>
+              </div>
+            </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <% for (var i=0;i<data.length;i++){%>
                         <br>
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id=<%-"heading"+i %> >
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href=<%-"'"+'#collapse'+data[i].AirTicket_ID+"'" %> aria-expanded="true" aria-controls=<%-"'"+'collapse'+data[i].AirTicket_ID+"'" %>>
-                                        <%- data[i].Departure%><br>
-                                        <%- data[i].Airport %><br>
-                                        <%- data[i].Destination %><br>
-                                        <%- data[i].Price %>
-                                    </a>
+                                  <a role="button" data-toggle="collapse" data-parent="#accordion" href=<%-"'"+'#collapse'+data[i].AirTicket_ID+"'" %> aria-expanded="true" aria-controls=<%-"'"+'collapse'+data[i].AirTicket_ID+"'" %>>
+                                    <div class='row text-center'>
+                                        <div class='col-md-4' font-size=17><h3><%- data[i].Departure%></h3><br>
+                                        <%- data[i].Airport %></div>
+                                        <div class='col-md-4' font-size=17><h3><%- data[i].Destination %></h3></div>
+                                        <div class='col-md-4' font-size=17><h3><%- data[i].Price %>RMB</h3></div>
+                                    </div></a>
                                 </h4>
                             </div>
                             <div id=<%-"'"+'collapse'+data[i].AirTicket_ID+"'" %> class="panel-collapse collapse in" role="tabpanel" aria-labelledby=<%-"'"+"heading"+i+"'" %>>
@@ -63,7 +74,11 @@
 
                 </div>
             </div>
-            <% include footer.html %>
+          </div>
+          <% include footer.html %>
+        </div>
+      </div>
+
             <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
             <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
             <script type="text/javascript">

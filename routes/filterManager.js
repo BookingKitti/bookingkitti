@@ -2,7 +2,9 @@ var searchManager = require('./searchManager');
 
 var sort_order = [" desc", " asc"];
 
-exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, sort_attr, hotel_asc_flag, callback) {
+exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price,
+  sort_attr, hotel_asc_flag, callback) {
+
     var sql = "select * from HotelInfo where ";
 
     var cond_list = [];
@@ -50,8 +52,6 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
     //if user choose the sorting option
     if (sort_attr != null) {
         sql = sql + "order by " + sort_attr + sort_order[hotel_asc_flag];
-        //change the order flag
-        hotel_asc_flag = 1 - hotel_asc_flag;
     }
     sql = sql + ";";
 

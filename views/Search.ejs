@@ -24,6 +24,7 @@
                                 <div class="tab-pane active" id="panel-419013">
                                     <p>
                                         <% include SearchHotel %>
+                                        <% include HotHotel.ejs %>
                                     </p>
                                 </div>
                                 <div class="tab-pane" id="panel-75657">
@@ -33,19 +34,15 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
-
+                    <% include footerContent.html %>
                 </div>
-                <footer>
-  <div class="pull-right">
-    PayKitty v0.0.1 by <a href="https://github.com/DearRabbit/PayKittyTemplate">A4</a>
-  </div>
-  <div class="clearfix"></div>
-</footer>
+                  <% include footer.html %>
         </div>
     </div>
-    <% include footer.html %>
+
         <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
         <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
         <script type="text/javascript">

@@ -1,13 +1,17 @@
 create table TicketsInfo(
   AirTicket_ID int primary key auto_increment,
+  Flight_No char(6) not null,
   Departure varchar(50) not null,
-  Airport varchar(50) not null,
+  #Airport varchar(50) not null,
+  Stopover varchar(50),
   Destination varchar(50) not null,
   Depart_time datetime not null,
+  Stopover_time datetime,
   Arrive_time datetime not null,
   Total int not null,#>=0
   Available int not null,#>=0
-  Price int not null#>=0
+  Price int not null, #>=0
+  Discount decimal(3, 2)
 ) DEFAULT CHARSET=utf8;
 
 create table UserAccount(
@@ -30,7 +34,9 @@ create table HotelInfo(
   Address varchar(20) not null,
   Stars int not null,
   Description text not null,
-  PhoneNumber varchar(20) not null
+  PhoneNumber varchar(20) not null,
+  Discount decimal(3, 2),
+  Heat int
 ) DEFAULT CHARSET=utf8;
 
 create table RoomType(
@@ -69,6 +75,7 @@ create table RoomTypePics(
 ) DEFAULT CHARSET=utf8;
 
 create table HotelComments(
+  Comment_ID int primary key auto_increment, #add comment id
   Hotel_ID int,
   Scores float,
   Account_ID int,
@@ -76,6 +83,26 @@ create table HotelComments(
   foreign key(Account_ID) references UserAccount(AccountID),
   foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
 ) DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 delimiter //
 CREATE TRIGGER trig_ticketsinfo_check BEFORE INSERT ON TicketsInfo
