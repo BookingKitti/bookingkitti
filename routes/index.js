@@ -526,8 +526,9 @@ router.post('/addRoom', function(req, res) {
 })
 
 router.get('/deleteHotel', function(req, res) {
-    adminManager.delete_hotel_info(req, res);
-    searchPage(req, res);
+    adminManager.delete_hotel_info(req, res, function(qerr, req, res) {
+        searchPage(req, res);
+    });
 })
 
 router.get('/hotelDetailManage', showAdminDetail);

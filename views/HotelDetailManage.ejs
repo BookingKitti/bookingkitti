@@ -19,6 +19,9 @@
                 <div class='col-md-4'>
                   <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
                 </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Upload_Pics'" %>>添加图片</button>
+                </div>
                 </div>
                 <br>
                 <div class='row'>
@@ -74,7 +77,7 @@
             <div class='row-fluid'>
                 <div class="span6">
                   <div class='row'>
-                    <div class='col-md-3'>
+                    <div class='col-md-4'>
                       <input class="form-control" type="text" name="data" value = <%- Price %> >
                     </div>
                   </div>
@@ -159,6 +162,7 @@
         </div>
     </div>
 <% include Add_Room %>
+<% include Upload_Pics %>
 </body>
 </form>
 </html>
