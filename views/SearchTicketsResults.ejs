@@ -35,12 +35,14 @@
               </div>
               <div class='container-fluid'>
                 <div class='row'>
+                  
                   <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=price"+"'"%> >价格排序</a></div>
                   <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=heat"+"'"%> >热度排序</a></div>
                   <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=comment"+"'"%> >评分排序</a></div>
                   <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=star"+"'"%> >星级排序</a></div>
                 </div>
               <div class='row text-center'>
+
                  <h1><div class='col-md-4' font-color="gray">出发地</div>
                  <div class='col-md-4' font-color="gray">目的地</div>
                  <div class='col-md-4' font-color="gray">价格</div></h1>
@@ -76,7 +78,7 @@
                                             <label>身份证号</label>
                                             <input type="text" class="form-control" id="ID" placeholder="身份证号" name='ID'>
                                         </div>
-                                        <div class="span4 text-center">
+                                        <!--div class="span4 text-center">
                                             <div class="form-group">
                                                 <label for=<%-"'"+"dtp_input"+i+"'"%> class="col-md-2 control-label">出发日期</label>
                                                 <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
@@ -90,7 +92,7 @@
                                                 </div>
                                                 <input type="hidden" id=<%-"'"+"dtp_input"+i+"'"%> value="" name='Depart_time'/><br/>
                                             </div>
-                                        </div>
+                                        </div-->
                                         <div class=' span7 text-center'><button type='submit' class='btn'>确认预定</button></div>
                                     </form>
                                 </div>
