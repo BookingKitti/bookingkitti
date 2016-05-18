@@ -3,11 +3,11 @@ var mysql = require("mysql");
 var pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'yahan520', //'lucas95123',
+    password: '', //'lucas95123',
     database: 'kitty',
 });
 
-exports.query = function(sql, callback, req, res) {
+exports.query = function(sql, callback) {
     pool.getConnection(function(err, conn) {
         if (err) {
             callback(err, null, null);

@@ -40,8 +40,8 @@ function createGaussianPyramids(path, fileName, callback) {
  *@param req, request
  *@param res, response
  *@param callback(qerr, req, res)
- *err is the error message, if it is null, there is no error
  *for callback param:
+ *err is the error message, if it is null, there is no error
  *req is the request
  *res is the response
  */
@@ -64,8 +64,8 @@ exports.add_hotel_info = function(req, res, callback) {
  *@param req, request
  *@param res, response
  *@param callback(err, req, res)
- *err is the error message, if it is null, there is no error
  *for callback param:
+ *err is the error message, if it is null, there is no error
  *req is the request
  *res is the response
  */
@@ -89,8 +89,8 @@ exports.add_airticket_info = function(req, res, callback) {
  *@param req, request
  *@param res, response
  *@param callback(err, req, res)
- *err is the error message, if it is null, there is no error
  *for callback param:
+ *err is the error message, if it is null, there is no error
  *req is the request
  *res is the response
  */
@@ -191,14 +191,14 @@ exports.upload_hotel_photo = function(req, res, callback) {
 }
 
 /*@brief delete a hotel
-*@param req, request
-*@param res, response
-*@param callback(err, req, res)
-*for callback param:
-*req is the request
-*res is the response
-#qerr is the query error
-*/
+ *@param req, request
+ *@param res, response
+ *@param callback(err,req,res)
+ *for callback param:
+ *qerr is the query error
+ *req is the request
+ *res is the response
+ */
 exports.delete_hotel_info = function(req, res, callback) {
     if (req.query.Hotel_ID == null) {
         callback("Hotel_ID is null");
@@ -210,14 +210,14 @@ exports.delete_hotel_info = function(req, res, callback) {
 }
 
 /*@brief delete an airticket
-*@param req, request
-*@param res, response
-*@param callback(req, res, qerr)
-*for callback param:
-*req is the request
-*res is the response
-#qerr is the query error
-*/
+ *@param req, request
+ *@param res, response
+ *@param callback(err,req,res)
+ *for callback param:
+ *qerr is the query error
+ *req is the request
+ *res is the response
+ */
 exports.delete_airticket_info = function(req, res, callback) {
     if (req.query.AirTicket_ID == null) {
         callback("Hotel_ID is null");
@@ -229,14 +229,64 @@ exports.delete_airticket_info = function(req, res, callback) {
 }
 
 /*@brief update a hotel info
-*@param req, request
-*@param res, response
-*@param callback(req, res, qerr)
-*for callback param:
-*req is the request
-*res is the response
-#qerr is the query error
-*/
-exports.update_hotel_info = function(req, res, callback) {
-    console.log('update_hotel_info');
+ *@param req, request
+ *@param res, response
+ *@param callback(err)
+ *for callback param:
+ *err is the query error
+ */
+exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, callback) {
+    var sql = 'update HotelInfo set ';
+    if (Hotel_Name != null)
+        sql += 'Hotel_Name=' + '\'' + Hotel_Name + '\', ';
+    if (Province != null)
+        sql += 'Province=' + '\'' + Province + '\', ';
+    if (City != null)
+        sql += 'City=' + '\'' + City + '\', ';
+    if (Address != null)
+        sql += 'Address=' + '\'' + Address + '\', ';
+    if (Stars != null)
+        sql += 'Stars=' + Stars + ', ';
+    if (Description != null)
+        sql += 'Description=' + '\'' + Description + '\', '
+    if (PhoneNumber != null)
+        sql += 'PhoneNumber=' + '\'' + PhoneNumber + '\' ';
+    sql += 'where Hotel_ID=' + Hotel_ID + ';'
+    searchManager.query(sql, function(qerr) {
+        console.log(qerr);
+        callback(qerr);
+    })
+}
+
+/*@brief update an airticket info
+ *@param req, request
+ *@param res, response
+ *@param callback(err)
+ *for callback param:
+ *err is the query error
+ */
+exports.update_airticket_info = function(Airticket_ID, Departure, Airport, Destination, Depart_time, Arrive_time, Total, Available, Price, callback) {
+    var sql = 'update TicketsInfo set ';
+    if (Departure != null)
+        sql += 'Departure=' + '\'' + Departure + '\', ';
+    if (Airport != null)
+        sql += 'Airport=' + '\'' + Airport + '\', ';
+    if (Destination != null)
+        sql += 'Destination=' + '\'' + Destination + '\', ';
+    if (Depart_time != null)
+        sql += 'Depart_time=' + '\'' + Depart_time + '\', ';
+    if (Arrive_time != null)
+        sql += 'Arrive_time=' + '\'' + Arrive_time + '\', ';
+    if (Total != null)
+        sql += 'Total=' + Total + ', ';
+    if (Available != null)
+        sql += 'Available=' + Total + ', ';
+    if (Price != null)
+        sql += 'Price=' + Price + ' ';
+    sql += 'where Airticket_ID=' + Airticket_ID + ';'
+    console.log(sql);
+    searchManager.query(sql, function(qerr) {
+        console.log(qerr);
+        callback(qerr);
+    })
 }

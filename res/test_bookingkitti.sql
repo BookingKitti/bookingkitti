@@ -24,3 +24,5 @@ insert into RoomInfo values(2, '总统三卧室别墅', '2016/05/10', 12, 57500.
 insert into RoomType values(1,'豪华村庄套房','适合pppaaa',10);
 insert into RoomType values(1,'村庄别墅','适合ppp',10);
 insert into RoomType values(2,'泉浴按摩池别墅','真舒服！',10);
+
+insert into TicketsInfo values(null, '杭州', '萧山', '深圳', '2016-6-1 13:00', '2016-6-1 14:30', 230, 230, 480);
