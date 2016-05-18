@@ -52,13 +52,11 @@ var change_room_data = function(hotel_id, type, room_date_from, room_data_to, ca
           callback(qerr, vals, fields);
     });
 }
-
-var change_airticket_data = function(departure, airport, destination, depart_time, arrive_time, callback) {
+//delete the airport 5/18
+var change_airticket_data = function(departure, destination, depart_time, arrive_time, callback) {
     var sql = "update TicketsInfo set Available = Available - 1 where";
     if (departure != null)
       sql = sql + " Departure=  '" + departure + "' ";
-    if (airport != null)
-      sql = sql + " and Airport= '" + airport + "' ";
     if (destination != null)
       sql = sql + " and Destination= '" + destination + "' ";
     if (depart_time != null)
@@ -98,7 +96,7 @@ exports.create_order_hotel = function(hotel_id, type, room_date_from, room_data_
   });
 }
 
-exports.create_order_ariticket = function(departure, airport, destination, depart_time, arrive_time, callback){
+exports.create_order_ariticket = function(departure, destination, depart_time, arrive_time, callback){
   change_airticket_data(departure, airport, destination, depart_time, arrive_time, function(qerr, vals, fields){
     //result=result;
     if(qerr)
@@ -108,9 +106,8 @@ exports.create_order_ariticket = function(departure, airport, destination, depar
   });
   //var final_qerr;
   //var final_vals;
-  var sql="select Departure,Airport,Destination,Depart_time,Arrive_time,Price from TicketsInfo where "
+  var sql="select Departure,Destination,Depart_time,Arrive_time,Price from TicketsInfo where "
   + " Departure=  '" + departure + "' "
-  + " and Airport= '" + airport + "' "
   + " and Destination= '" + destination + "' "
   + " and Depart_time= '" + depart_time + "' "
   + " and Arrive_time= '" + arrive_time + "' ;";
