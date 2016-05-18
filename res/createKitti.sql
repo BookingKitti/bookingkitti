@@ -1,5 +1,6 @@
 create table TicketsInfo(
   AirTicket_ID int primary key auto_increment,
+  Flight_Company varchar(50),
   Flight_No char(6) not null,
   Departure varchar(50) not null,
   #Airport varchar(50) not null,
