@@ -169,13 +169,12 @@ router.post('/searchHotel', function(req, res) {
         req.body.date_checkin == "" ? null : req.body.date_checkin,
         req.body.date_checkout == "" ? null : req.body.date_checkout,
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-        null,
-        null,
-        function(qerr, vals, fields) {
+        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,null,null,
+        function(qerr, vals, fields, search_ID) {//还需要修改
             res.render('SearchHotelResults', {
                 tabChoose: 0,
                 data: vals,
+                searchID:search_ID,
                 imgpath: filepath,
                 price: minprice
             })
