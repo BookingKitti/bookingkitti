@@ -10,7 +10,9 @@ var sql_history = [];
 //callback的参数表最后加一项: 搜索请求ID
 exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, callback) {
 
-    var sql = "select * from HotelInfo where ";
+    var sql = "select * from HotelInfo natural join (select Hotel_ID, min(Price) \
+    as Min_Price from RoomInfo group by Hotel_ID) natural join (select Hotel_ID, \
+      min(File_Pos) as A_File_Pos from HotelPics group by Hotel_ID) as G where ";
 
     var cond_list = [];
 
@@ -47,7 +49,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
     //if user did not input any filter condition, just delete "where" in sql sentence
     if (cond_list.length == 0)
-        sql = "select * from HotelInfo ";
+        sql = "select * from HotelInfo natural join (select Hotel_ID, min(Price) as Min_Price from RoomInfo group by Hotel_ID) as S natural join (select Hotel_ID, min(File_Pos) as A_File_Pos from HotelPics group by Hotel_ID) as G ";
     else
         sql = sql + cond_list[0];
 
@@ -59,6 +61,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
     sql_history[sql_history.length] = sql;
 
+console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
 
         //callback的参数表最后加一项: 搜索请求ID
@@ -71,9 +74,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 exports.sort_hotel = function(req_id, sort_attr, asc_flag, callback) {
 
     var sql = sql_history[req_id] + " order by " + sort_attr + sort_order[asc_flag];
-    if (sort_attr == "Price") {
-        sql = "select * from (" + sql_history[req_id] + ") as T natural join (select Hotel_ID, min(Price) as Min_Price from RoomInfo group by Hotel_ID) as S;"
-    }
+    console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
