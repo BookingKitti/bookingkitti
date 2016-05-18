@@ -23,14 +23,6 @@ create table UserAccount(
   AccountID int primary key auto_increment
 ) DEFAULT CHARSET=utf8;
 
-create table TicketsComments(
-  AirTickets_ID int,
-  Score float not null,
-  Account_ID int not null,
-  Comments text not null,
-  foreign key(Account_ID) references UserAccount(AccountID)
-) DEFAULT CHARSET=utf8;
-
 create table HotelInfo(
   Hotel_ID int primary key auto_increment,
   Hotel_Name varchar(20) not null,
@@ -115,13 +107,6 @@ CREATE TRIGGER trig_ticketsinfo_check BEFORE INSERT ON TicketsInfo
 FOR EACH ROW BEGIN
 IF NEW.Total < 0 || NEW.Available < 0 || NEW.Price < 0 THEN
 insert into TicketsInfo values('1');#set a random error sql sentence to generate an error
-END IF;
-END //
-
-CREATE TRIGGER trig_ticketscomments_check BEFORE INSERT ON TicketsComments
-FOR EACH ROW BEGIN
-IF NEW.Score <= 0 || NEW.Score > 5.0 THEN
-insert into TicketsComments values('1');#set a random error sql sentence to generate an error
 END IF;
 END //
 
