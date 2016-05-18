@@ -519,8 +519,8 @@ router.get('/admin', function(req, res) {
 });
 
 router.post('/addHotel', function(req, res) {
-    adminManager.add_hotel_info(req, res, function(err, req, res) {
-        adminManager.upload_hotel_photo(req, res, function() {
+    adminManager.upload_hotel_photo(req, res, function(err, req, res) {
+        adminManager.add_hotel_info(req, res, function(err, req, res) {
             filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
                 req.body.combobox_province == "" ? null : req.body.combobox_province,
                 req.body.combobox_city == "" ? null : req.body.combobox_city,
@@ -543,7 +543,27 @@ router.post('/addHotel', function(req, res) {
 })
 
 router.post('/addRoom', function(req, res) {
-    adminManager.
+    adminManager.add_room_info(req, res, function(err, req, res) {
+        adminManager.upload_room_photo(req, res, function(err, req, res) {
+            filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+                req.body.combobox_province == "" ? null : req.body.combobox_province,
+                req.body.combobox_city == "" ? null : req.body.combobox_city,
+                req.body.textfield_address == "" ? null : req.body.textfield_address,
+                req.body.date_checkin == "" ? null : req.body.date_checkin,
+                req.body.date_checkout == "" ? null : req.body.date_checkout,
+                req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+                req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+                function(qerr, vals, fields, search_ID) { //还需要修改
+                    res.render('HotelManage', {
+                        tabChoose: 0,
+                        data: vals,
+                        searchID: search_ID,
+                        imgpath: filepath,
+                        price: minprice
+                    })
+                });
+        });
+    })
 })
 
 router.get('/hotelDetailManage', showAdminDetail);

@@ -263,7 +263,7 @@ exports.upload_hotel_photo = function(req, res, callback) {
         }
 
         var Hotel_ID = 1;
-        searchManager.query('select count(Hotel_ID) from RoomPics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
+        searchManager.query('select count(Hotel_ID) from HotelPics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
             console.log(vals[0]);
             var count = vals[0]['count(Hotel_ID)'] / 4;
             var directoryName = 'Hotel_' + Hotel_ID + '/';
