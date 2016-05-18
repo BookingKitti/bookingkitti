@@ -2,8 +2,12 @@ var searchManager = require('./searchManager');
 
 var sort_order = [" desc", " asc"];
 
-exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price,
-  sort_attr, hotel_asc_flag, callback) {
+//record the search history
+var sql_history = [];
+
+
+//callback的参数表最后加一项: 搜索请求ID
+exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, callback) {
 
     var sql = "select * from HotelInfo where ";
 
@@ -49,11 +53,23 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
     for (var i = 1; i < cond_list.length; i++) {
         sql += " and " + cond_list[i];
     }
-    //if user choose the sorting option
-    if (sort_attr != null) {
-        sql = sql + "order by " + sort_attr + sort_order[hotel_asc_flag];
-    }
-    sql = sql + ";";
+
+    //sql = sql + ";";
+
+    sql_history[sql_history.length] = sql;
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+
+        //callback的参数表最后加一项: 搜索请求ID
+        if (callback != null)
+            callback(qerr, vals, fields, sql_history.length - 1);
+    });
+}
+
+//req_id: 对哪个搜索请求进行排序   sort_attr: 排序属性名   asc_flag: 1-升序 0-降序
+exports.sort_hotel = function(req_id, sort_attr, asc_flag, callback) {
+
+    var sql = "select * from " + sql_history[req_id] + "order by " + sort_attr + sort_order[hotel_asc_flag];
 
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
@@ -61,7 +77,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
     });
 }
 
-exports.search_airticket_info = function(departure, destination, depart_time, l_price, h_price, sort_attr, air_asc_flag, callback) {
+exports.search_airticket_info = function(departure, destination, depart_time, l_price, h_price, callback) {
     var sql = "select * from TicketsInfo where ";
 
     var cond_list = [];
@@ -90,13 +106,18 @@ exports.search_airticket_info = function(departure, destination, depart_time, l_
     for (var i = 1; i < cond_list.length; i++) {
         sql += " and " + cond_list[i];
     }
-    //if user choose the sorting option
-    if (sort_attr != null) {
-        sql = sql + "order by " + sort_attr + sort_order[hotel_asc_flag];
-        //change the order flag
-        hotel_asc_flag = 1 - hotel_asc_flag;
-    }
-    sql = sql + ";";
+
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+        if (callback != null)
+            callback(qerr, vals, fields);
+    });
+}
+
+//req_id: 对哪个搜索请求进行排序   sort_attr: 排序属性名   asc_flag: 1-升序 0-降序
+exports.sort_airticket = function(req_id, sort_attr, asc_flag, callback) {
+
+    var sql = "select * from " + sql_history[req_id] + "order by " + sort_attr + sort_order[hotel_asc_flag];
 
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
