@@ -1,3 +1,6 @@
+drop database if exists kitty;
+create database kitty;
+
 create table TicketsInfo(
   AirTicket_ID int primary key auto_increment,
   Flight_Company varchar(50),
@@ -37,6 +40,7 @@ create table HotelInfo(
   Description text not null,
   PhoneNumber varchar(20) not null,
   Discount decimal(3, 2),
+  Score float,
   Heat int
 ) DEFAULT CHARSET=utf8;
 
