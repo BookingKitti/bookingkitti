@@ -89,11 +89,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% if (RoomInfo!=null){for (var i=0;i<RoomInfo.length;i++){%>
+                                        <% if (typeof RoomInfo!='undefined'){for (var i=0;i<RoomInfo.length;i++){%>
                                             <tr class="info">
                                                 <td>
 
-                                                    <div class='col-md-3'><img src=<%- "'"+RoomImg[i].File_Pos+ "'" %> height='80px'></div>
+                                                    <div class='col-md-3'><img src=<% if (typeof RoomImg != ' undefined') {%><%- "'"+RoomImg[i].File_Pos+ "'" %><%}%> height='80px'></div>
                                                     <div class='col-md-3' style="font-size:15px;">
                                                         <%- RoomInfo[i].Type %>
                                                     </div>
@@ -122,7 +122,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <ul class="list-group">
-                                            <% if (Comment!=null){for (var i=0;i<Comment.length;i++){ %>
+                                            <% if (typeof Comment!='undefined'){for (var i=0;i<Comment.length;i++){ %>
                                                 <li class="list-group-item">
                                                     <%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %>
                                                 </li>
