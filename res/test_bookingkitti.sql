@@ -23,6 +23,16 @@ insert into RoomInfo values(2, '豪华水悦别墅', '2016/05/10', 12, 4096.0);
 insert into RoomInfo values(2, '泉浴按摩池别墅', '2016/05/10', 12, 5658.0);
 insert into RoomInfo values(2, '总统三卧室别墅', '2016/05/10', 12, 57500.0);
 
+insert into RoomInfo values(3, '水悦阁套房', '2016/05/10', 2, 2182.0);
+insert into RoomInfo values(3, '豪华水悦别墅', '2016/05/10', 6, 1096.0);
+insert into RoomInfo values(3, '泉浴按摩池别墅', '2016/05/10', 8, 2658.0);
+insert into RoomInfo values(3, '总统三卧室别墅', '2016/05/10', 10, 7500.0);
+
+insert into RoomInfo values(4, '水悦阁套房', '2016/05/10', 11, 2682.0);
+insert into RoomInfo values(4, '豪华水悦别墅', '2016/05/10', 12, 4096.0);
+insert into RoomInfo values(4, '泉浴按摩池别墅', '2016/05/10', 13, 1658.0);
+insert into RoomInfo values(4, '总统三卧室别墅', '2016/05/10', 14, 5750.0);
+
 insert into RoomType values(1,'豪华村庄套房','适合度假！！',10);
 insert into RoomType values(1,'村庄别墅','适合度假啊！',10);
 insert into RoomType values(2,'泉浴按摩池别墅','真舒服！',10);

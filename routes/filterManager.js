@@ -73,6 +73,9 @@ console.log(sql);
 //req_id: 对哪个搜索请求进行排序   sort_attr: 排序属性名   asc_flag: 1-升序 0-降序
 exports.sort_hotel = function(req_id, sort_attr, asc_flag, callback) {
 
+    if (sort_attr == "Price") {
+        sort_attr = "Min_Price";
+    }
     var sql = sql_history[req_id] + " order by " + sort_attr + sort_order[asc_flag];
     console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
