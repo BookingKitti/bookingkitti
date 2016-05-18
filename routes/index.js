@@ -20,13 +20,33 @@ var showDetail = function(req, res) {
     var data_room_image;
     var count = 0;
     var min, max;
+    bookingManager.get_room_pics(req.query.Hotel_ID, function(qerr, vals) {
+        data_room_image = vals;
+        count++;
+        if (qerr) {
+            console.log('Fatal error: Cannot get hotel info');
+        } else {
+            if (count == 5) {
+                res.render('HotelDetail', {
+                    tabChoose: 0,
+                    HotelInfo: data_hotel,
+                    RoomInfo: data_room,
+                    Price: min + "-" + max,
+                    Comment: data_comment,
+                    url: req.originalUrl,
+                    FilePos: data_image,
+                    RoomImg: data_room_image
+                });
+            }
+        }
+    })
     searchManager.query('select * from HotelPics where Hotel_ID=' + req.query.Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
         data_image = vals;
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get hotel info');
         } else {
-            if (count == 4) {
+            if (count == 5) {
                 res.render('HotelDetail', {
                     tabChoose: 0,
                     HotelInfo: data_hotel,
@@ -47,7 +67,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
-                if (count == 4) {
+                if (count == 5) {
                     res.render('HotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
@@ -70,6 +90,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
+                console.log(vals);
                 min = vals[0]['avg(Price)'];
                 max = vals[0]['avg(Price)'];
                 for (var i = 0; i < vals.length; i++) {
@@ -80,7 +101,7 @@ var showDetail = function(req, res) {
                         min = vals[i]['avg(Price)'];
                     }
                 }
-                if (count == 4) {
+                if (count == 5) {
                     res.render('HotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
@@ -101,7 +122,7 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                if (count == 4) {
+                if (count == 5) {
                     res.render('HotelDetail', {
                         tabChoose: 0,
                         HotelInfo: data_hotel,
@@ -148,11 +169,30 @@ router.get('/test', function(req, res, next) {
     })
 
 })
-
 router.get('/SearchHotelResults', function(req, res, next) {
-    console.log('SearchHotelResults');
-})
+    console.log('SearchHotelResults'); //debug
+    console.log(req.query.SearchID);
+    console.log(req.query.SortBy);
+    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
 
+    minprice = [3340, 2134, 2445, 1232];
+    //req.body.
+    //if(req.query.SortBy == "" )
+    filterManager.sort_hotel(req.query.SearchID, req.query.SortBy, 0,
+        function(qerr, vals, fields) { //还需要修改
+            if (qerr) {
+                console.log("database error in sort of index");
+                return;
+            }
+            res.render('SearchHotelResults', {
+                tabChoose: 0,
+                data: vals,
+                searchID: req.query.SearchID,
+                imgpath: filepath,
+                price: minprice
+            })
+        });
+})
 router.get('/', defaultPage);
 
 /*@brief GET search page
@@ -169,25 +209,30 @@ router.post('/searchHotel', function(req, res) {
     filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
 
     minprice = [3340, 2134, 2445, 1232];
+    //req.body.
+    //if(req.query.SortBy == "" )
+    {
+        filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+            req.body.combobox_province == "" ? null : req.body.combobox_province,
+            req.body.combobox_city == "" ? null : req.body.combobox_city,
+            req.body.textfield_address == "" ? null : req.body.textfield_address,
+            req.body.date_checkin == "" ? null : req.body.date_checkin,
+            req.body.date_checkout == "" ? null : req.body.date_checkout,
+            req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+            req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+            function(qerr, vals, fields, search_ID) { //还需要修改
+                res.render('SearchHotelResults', {
+                    tabChoose: 0,
+                    data: vals,
+                    searchID: search_ID,
+                    imgpath: filepath,
+                    price: minprice
+                })
+            });
+    }
+    console.log(req.query.searchID);
+    console.log(req.query.SortBy);
 
-    filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
-        req.body.combobox_province == "" ? null : req.body.combobox_province,
-        req.body.combobox_city == "" ? null : req.body.combobox_city,
-        req.body.textfield_address == "" ? null : req.body.textfield_address,
-        req.body.date_checkin == "" ? null : req.body.date_checkin,
-        req.body.date_checkout == "" ? null : req.body.date_checkout,
-        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-        null,
-        null,
-        function(qerr, vals, fields) {
-            res.render('SearchHotelResults', {
-                tabChoose: 0,
-                data: vals,
-                imgpath: filepath,
-                price: minprice
-            })
-        });
 });
 
 /*@brief POST searchTicket page
@@ -201,11 +246,10 @@ router.post('/searchTicket', function(req, res) {
         req.body.Depart_time == "" ? null : req.body.Depart_time,
         req.body.minprice == "" ? null : req.body.minprice,
         req.body.maxprice == "" ? null : req.body.maxprice,
-        null,
-        null,
-        function(qerr, vals, fields) {
+        function(qerr, vals, fields, search_ID) {
             res.render('SearchTicketsResults', {
                 tabChoose: 0,
+                searchID: search_ID,
                 data: vals
             })
         });
