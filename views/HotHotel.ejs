@@ -11,10 +11,10 @@
                             <a href=<%- "'./hotelDetail?Hotel_ID="+HotHotel[i].Hotel_ID+"'" %> class="label label-danger biglabel" rel="tooltip" title="预定">立即预定</a>
                         </p>
                     </div>
-                    <img src=<%-"'"+HotHotelPic[i]+"'" %> alt=<%- "热门酒店"+i%>  width=300 height=300>
+                    <img src=<%-"'"+ HotHotel[i].File_Pos +"'" %> alt=<%- "热门酒店"+i%>  width=300 height=300>
                 </div>
                 <p>
-                    <%-HotHotel[i].HotelInfo%>
+                    评分：<%-HotHotel[i].Score%>
                 </p>
             </div>
         <%}%>
@@ -31,10 +31,10 @@
                         <a href=<%- "'"+"'./hotelDetail?Hotel_ID="+DiscountHotel[i].Hotel_ID+"'" %> class="label label-danger biglabel size=20" rel="tooltip" title="预定">立即预定</a>
                     </p>
                 </div>
-                <img src=<%-"'"+DiscountHotelPic[i]+"'" %> alt=<%- "打折酒店"+i%> width=300 height=300>
+                <img src=<%-"'"+ DiscountHotel[i].File_Pos +"'" %> alt=<%- "打折酒店"+i%> width=300 height=300>
             </div>
             <p>
-                <%-DiscountHotel[i].HotelInfo%>
+                劲爆折扣：<%-DiscountHotel[i].Discount%>
             </p>
         </div>
     <%}%>

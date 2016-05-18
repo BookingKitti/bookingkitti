@@ -5,6 +5,7 @@ var filterManager = require('./filterManager');
 var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
+var hotManager = require('./hotManager');
 
 var defaultPage = function(req, res) {
     res.render('Search', {
@@ -173,7 +174,42 @@ router.get('/SearchHotelResults',function(req,res,next){
       })
   });
 })
-router.get('/', defaultPage);
+router.get('/', function(req, res, next) {
+    console.log("root router");
+    count = 0;
+    var hot_hotel;
+    var dis_hotel;
+    hotManager.select_discounted_hotel(
+        function(qerr, vals, fields) { //还需要修改
+            if (qerr) {
+                console.log("database error in root of index");
+                return;
+            }
+            dis_hotel = vals;
+            count++;
+            if (count == 2) {
+                res.render('Search', {
+                    HotHotel: hot_hotel,
+                    DiscountHotel: dis_hotel
+                })
+            }
+        });
+    hotManager.select_hot_hotel(
+        function(qerr, vals, fields) { //还需要修改
+            if (qerr) {
+                console.log("database error in root of index");
+                return;
+            }
+            hot_hotel = vals;
+            count++;
+            if (count == 2) {
+                res.render('Search', {
+                    HotHotel: hot_hotel,
+                    DiscountHotel: dis_hotel
+                })
+            }
+        });
+});
 
 /*@brief GET search page
  *render search.ejs

@@ -1,7 +1,23 @@
 var searchManager = require('./searchManager');
 
 exports.select_discounted_hotel = function(callback) {
-    var sql = "select * from HotelInfo where Discount < 1.0";
+  var sql = "select HotelInfo.Hotel_ID,Hotel_Name,Province,\
+  City,Address,Stars,PhoneNumber,Discount,Score,Heat,max(File_Pos)\
+  from HotelPics,HotelInfo where HotelInfo.Hotel_ID=HotelPics.Hotel_ID\
+  and Discount < 1.0 group by HotelInfo.Hotel_ID;";
+    searchManager.query(sql, function(qerr, vals, fields) {
+
+      console.log(sql);
+        if (callback != null)
+            callback(qerr, vals, fields);
+    });
+}
+
+exports.select_hot_hotel = function(callback) {
+    var sql = "select HotelInfo.Hotel_ID,Hotel_Name,Province,\
+    City,Address,Stars,PhoneNumber,Discount,Score,Heat,max(File_Pos)\
+    from HotelPics,HotelInfo where HotelInfo.Hotel_ID=HotelPics.Hotel_ID\
+    and Score > 3.0 group by HotelInfo.Hotel_ID;";
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
@@ -17,5 +33,5 @@ exports.select_discounted_airticket = function(callback) {
 }
 
 exports.update_hotel_heat = function() {
-    
+
 }
