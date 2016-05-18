@@ -71,7 +71,9 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 exports.sort_hotel = function(req_id, sort_attr, asc_flag, callback) {
 
     var sql = sql_history[req_id] + " order by " + sort_attr + sort_order[asc_flag];
-console.log(sql);
+    if (sort_attr == "Price") {
+        sql = "select * from (" + sql_history[req_id] + ") as T natural join (select Hotel_ID, min(Price) as Min_Price from RoomInfo group by Hotel_ID) as S;"
+    }
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);

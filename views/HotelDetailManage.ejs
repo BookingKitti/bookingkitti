@@ -1,118 +1,162 @@
 <!DOCTYPE html>
+<form name="serachinfo" method="post" action="./SearchHotel">
 <html lang='zh-CN'>
 
     <head>
         <% include bootstrap_base.html %>
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     </head>
 
+
     <body class='nav-md'>
+
         <div class='container body'>
-            <div class='main_container'>
-                <% include guideline.ejs %>
-                <div class='right_col container'>
-                    <div class="container-fluid">
-                        <h1><%- HotelInfo[0].Hotel_Name %></h1>
-                        <div class='row'>
-                            <div class='col-md-4 col-xs-12'>
-                                <div class="item">
-                                    <img alt="" src=<%- '"'+FilePos[0]+'"' %> class='img-thumbnail' height=100 width=100/>
-                                    <a href=<%- "'/DeleteHotelImage?HotelID="+Hotel_ID+'&&ImageID='+FilePos[0]+"'" %>>
-                                        <button type="">删除</button>
-                                    </a>
+            <div class="main_container">
+              <% include guideline.ejs %>
+              <div class='right_col' role='main'>
+                <div class='container-fluid'>
+                <div class='row'>
+                <div class='col-md-4'>
+                  <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
+                </div>
+                </div>
+                <br>
+                <div class='row'>
+                    <div class='col-md-4 col-xs-12'>
+                        <div class="carousel slide" id="carousel">
+
+                            <ol class="carousel-indicators">
+                                <li class="active" data-slide-to="0" data-target="#carousel"></li>
+                                <% for (var i=1;i<FilePos.length;i++){ %>
+                                    <li data-slide-to=<%-'"'+i+'"'%> data-target="#carousel"></li>
+                                <%}%>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img alt="" src=<%- '"'+FilePos[0].File_Pos+'"' %> class='img-thumbnail' height=400 width=400/>
                                 </div>
                                 <% for (var i=1;i<FilePos.length;i++){%>
                                     <div class='item'>
-                                        <img alt="" src=<%- '"'+FilePos[i]+'"'%> class='img-thumbnail' height=100 width=100/>
+                                        <img alt="" src=<%- '"'+FilePos[i].File_Pos+'"'%> class='img-thumbnail' height=400 width=400/>
                                     </div>
                                 <%}%>
-
                             </div>
-                            <div class='col-md-8 col-xs-12'>
-                            <li class='list-group-item'>
-                                酒店名：
-                                <%= HotelInfo[0].Hotel_Name %>
-                                <br>
-                                <%= HotelInfo[0].City %>--
-                                <%= HotelInfo[0].Province  %>
-                            </li>
-                        </div>
-
-                    </div>
-                    <div class='row-fluid'>
-                        <div class="span6">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    价格区间：
-                                    <%= Price %>
-                                    <br>
-                                    联系方式：
-                                    <%= HotelInfo[0].PhoneNumber %>
-                                </li>
-                            </ul>
+                            <a data-slide="prev" href="#carousel" class="left carousel-control">‹</a>
+                            <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
                         </div>
                     </div>
-
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <%-'<form class="form" name="BookHotel" method="post" action='+"'"+url+"'>" %>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            房间类型
-                                        </th>
-                                        <th>
-                                            房间价格
-                                        </th>
-                                        <th>
-                                            房间数量
-                                        </th>
-                                        <th>
-                                            预定
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% for (var i=0;i<RoomInfo.length;i++){%>
-                                        <tr class="info">
-                                            <td>
-                                                <%- RoomInfo[i].Type %>
-                                            </td>
-                                            <td>
-                                                <%- RoomInfo[i].Price %>
-                                            </td>
-                                            <td>
-                                                <%- RoomInfo[i].Available%>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="RoomOrder" value=1>
-                                            </td>
-                                        </tr>
-                                    <%}%>
-                                </tbody>
-                            </table>
-                            <div class="span7 text-center">
-                                <button type="submit" class="btn">预定</button>
-                            </div>
-                        </form>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <ul class="list-group">
-                                    <% for (var i=0;i<Comment.length;i++){ %>
-                                        <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
-                                    <%}%>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class='col-md-8 col-xs-12'>
+                    <div class='row'>
+                      <div class='col-md-4'>
+                        <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
+                      </div>
                     </div>
+                    <br>
+                    <div class='row'>
+                      <div class='col-md-4'>
+                        <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].City %>>
+                      </div>
+                      <div class='col-md-4'>
+                        <input class="form-control" type="text" name="data" value =   <%- HotelInfo[0].Province  %>>
+                      </div>
+                    </div>
+                    <br>
+                    <div class='row'>
+                      <div class='col-md-12'>
+                        <textarea class="form-control" rows="6" name="data"><%- HotelInfo[0].Description %></textarea>
+                      </div>
+                    </div>
+                    <br>
                 </div>
 
             </div>
+            <div class='row-fluid'>
+                <div class="span6">
+                  <div class='row'>
+                    <div class='col-md-3'>
+                      <input class="form-control" type="text" name="data" value = <%- Price %>>
+                    </div>
+                  </div>
+                  <br>
+                  <div class='row'>
+                    <div class='col-md-3'>
+                      <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].PhoneNumber %>>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                  <div class='col-md-6'>
+                                    房间类型
+                                  </div>
+                                </th>
+                                <th>
+                                  <div class='col-md-6'>
+                                    房间价格
+                                  </div>
+                                </th>
+                                <th>
+                                  <div class='col-md-6'>
+                                    预定
+                                  </div>
+                                </th>
+                                <th>
+                                  <div class='col-md-9'>
+                                  <button type="button" color='red' class="btn btn-danger btn-block" data-toggle="modal" data-target=<%- "'#Add_Room'" %>>
+                                    add
+                                  </button>
+                                </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (var i=0;i<RoomInfo.length;i++){%>
+                                <tr class="info">
+                                    <td>
+                                      <div class='col-md-9'>
+                                        <input class="form-control" type="text" name="data" value = <%- RoomInfo[i].Type %>>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class='col-md-6'>
+                                        <input class="form-control" type="text" name="data" value = <%- RoomInfo[i]['avg(Price)'] %>>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class='col-md-6'>
+                                        <input class="form-control" type="text" name="data" value = <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class='col-md-6'>
+                                        <button type="button" color='red' class="btn btn-danger" >
+                                            delete
+                                        </button>
+                                      </div>
+                                    </td>
+                                </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='row'>
+
+            </div>
+          </div>
+          </div>
+            <% include footer.html %>
         </div>
-        <% include footer.html %>
     </div>
-</div>
-
+<% include Add_Room %>
 </body>
-
+</form>
 </html>

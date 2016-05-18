@@ -1,159 +1,160 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
 
-    <head>
-        <% include bootstrap_base.html %>
+<head>
+    <% include bootstrap_base.html %>
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-    </head>
+</head>
 
 
-    <body class='nav-md'>
+<body class='nav-md'>
 
-        <div class='container body'>
-            <div class="main_container">
-              <% include guideline.ejs %>
-              <div class='right_col' role='main'>
-                <div class='container-fluid'>
-                <h1><%- HotelInfo[0].Hotel_Name %></h1>
-                <div class='row'>
-                    <div class='col-md-4 col-xs-12'>
-                        <div class="carousel slide" id="carousel">
+    <div class='container body'>
+        <div class="main_container">
+            <% include guideline.ejs %>
+                <div class='right_col' role='main'>
+                    <div class='container-fluid'>
+                        <h1><%- HotelInfo[0].Hotel_Name %></h1>
+                        <div class='row'>
+                            <div class='col-md-4 col-xs-12'>
+                                <div class="carousel slide" id="carousel">
 
-                            <ol class="carousel-indicators">
-                                <li class="active" data-slide-to="0" data-target="#carousel"></li>
-                                <% for (var i=1;i<FilePos.length;i++){ %>
-                                    <li data-slide-to=<%-'"'+i+'"'%> data-target="#carousel"></li>
-                                <%}%>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img alt="" src=<%- '"'+FilePos[0].File_Pos+'"' %> class='img-thumbnail' height=400 width=400/>
-                                </div>
-                                <% for (var i=1;i<FilePos.length;i++){%>
-                                    <div class='item'>
-                                        <img alt="" src=<%- '"'+FilePos[i].File_Pos+'"'%> class='img-thumbnail' height=400 width=400/>
+                                    <ol class="carousel-indicators">
+                                        <li class="active" data-slide-to="0" data-target="#carousel"></li>
+                                        <% for (var i=1;i<FilePos.length;i++){ %>
+                                            <li data-slide-to=<%- '"'+i+ '"'%> data-target="#carousel"></li>
+                                            <%}%>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img alt="" src=<%- '"'+FilePos[0].File_Pos+ '"' %> class='img-thumbnail' height=400 width=450/>
+                                        </div>
+                                        <% for (var i=1;i<FilePos.length;i++){%>
+                                            <div class='item'>
+                                                <img alt="" src=<%- '"'+FilePos[i].File_Pos+ '"'%> class='img-thumbnail' height=400 width=400/>
+                                            </div>
+                                            <%}%>
                                     </div>
-                                <%}%>
+                                    <a data-slide="prev" href="#carousel" class="left carousel-control">‹</a>
+                                    <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
+                                </div>
                             </div>
-                            <a data-slide="prev" href="#carousel" class="left carousel-control">‹</a>
-                            <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
-                        </div>
-                    </div>
-                    <div class='col-md-8 col-xs-12'>
-                    <div class='row'>
-                    <span class='list-group-item'>
+                            <div class='col-md-8 col-xs-12'>
+                                <div class='row'>
+                                    <span class='list-group-item'>
                         酒店名：
                         <%- HotelInfo[0].Hotel_Name %>
                         <br>
                         <%- HotelInfo[0].City %>--
                         <%- HotelInfo[0].Province  %>
                     </span>
-                    </div>
-                    <div class='row'>
-                      <span class='list-group-item'>详细信息：<br>
+                                </div>
+                                <div class='row'>
+                                    <span class='list-group-item'>详细信息：<br>
                       <%- HotelInfo[0].Description %></span>
-                    </div>
-                </div>
+                                </div>
+                            </div>
 
-            </div>
-            <div class='row-fluid'>
-                <div class="span6">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            价格区间：
-                            <%- Price %>
-                            <br>
-                            联系方式：
-                            <%- HotelInfo[0].PhoneNumber %>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                        </div>
+                        <br>
+                        <div class='row'>
+                            <div class="span6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        价格区间：
+                                        <%- Price %>
+                                            <br> 联系方式：
+                                            <%- HotelInfo[0].PhoneNumber %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-            <div class="row-fluid">
-                <div class="span12">
+                        <div class="row">
+                            <div class="span12">
 
-                    <table class="table">
-                        <thead>
-                            <tr class='text-center'>
+                                <table class="table">
+                                    <thead>
+                                        <tr class='text-center'>
+                                            <th>
+                                                房间类型
+                                            </th>
+                                            <th>
+                                                房间价格
+                                            </th>
+                                            <th>
+                                                预定
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (var i=0;i<RoomInfo.length;i++){%>
+                                            <tr class="info">
+                                                <td>
 
-                                <th>
-                                    房间类型
-                                </th>
-                                <th>
-                                    房间价格
-                                </th>
-                                <th>
-                                    预定
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for (var i=0;i<RoomInfo.length;i++){%>
-                                <tr class="info">
-                                    <td>
-
-                                        <div class='col-md-3'><img src=<%- "'"+RoomImg[i].File_Pos+"'" %> height='80px'></div>
-                                        <div class='col-md-3' style="font-size:15px;"><%- RoomInfo[i].Type %></div>
-                                    </td>
-                                    <td style='font-size:18px;'>
-                                        <%- RoomInfo[i]['avg(Price)'] %>
-                                    </td>
-                                    <td style='font-size:18px;'>
-                                        <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
-                                    </td>
-                                    <td style='font-size:18px;'>
-                                      <% if (RoomInfo[i]['min(Available)']){%>
-                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+"Modal"+i+"'"%> >
-                                            预定
-                                        </button>
-                                        <%}else{
+                                                    <div class='col-md-3'><img src=<%- "'"+RoomImg[i].File_Pos+ "'" %> height='80px'></div>
+                                                    <div class='col-md-3' style="font-size:15px;">
+                                                        <%- RoomInfo[i].Type %>
+                                                    </div>
+                                                </td>
+                                                <td style='font-size:18px;'>
+                                                    <%- RoomInfo[i]['avg(Price)'] %>
+                                                </td>
+                                                <td style='font-size:18px;'>
+                                                    <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
+                                                </td>
+                                                <td style='font-size:18px;'>
+                                                    <% if (RoomInfo[i]['min(Available)']){%>
+                                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+ "Modal"+i+ "'"%> > 预定
+                                                        </button>
+                                                        <%}else{
                                         %>
-                                        <button type="button" class="btn" color="gray" disabled="disabled">预定</button>
-                                        <%}%>
-                                    </td>
-                                </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
-                    <div class="span7 text-center"></div>
+                                                            <button type="button" class="btn" color="gray" disabled="disabled">预定</button>
+                                                            <%}%>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                    </tbody>
+                                </table>
+                                <div class="span7 text-center"></div>
 
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <ul class="list-group">
-                                <% for (var i=0;i<Comment.length;i++){ %>
-                                    <li class="list-group-item"><%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %></li>
-                                <%}%>
-                            </ul>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="list-group">
+                                            <% for (var i=0;i<Comment.length;i++){ %>
+                                                <li class="list-group-item">
+                                                    <%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %>
+                                                </li>
+                                                <%}%>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <% include CommentOfHotel %>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class='row-fluid'>
-                      <% include CommentOfHotel %>
-                    </div>
                 </div>
-            </div>
-          </div>
-          </div>
-            <% include footer.html %>
+                <% include footer.html %>
         </div>
     </div>
     <% include ModalHotelBooking %>
 
-    <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-    <script type="text/javascript">
-
-        $('.form_date').datetimepicker({
-            language: 'zh-CN',
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
-        });
-    </script>
+        <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+        <script type="text/javascript">
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+        </script>
 </body>
 
 </html>
