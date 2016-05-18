@@ -75,7 +75,8 @@
 
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr class='text-center'>
+
                                 <th>
                                     房间类型
                                 </th>
@@ -91,15 +92,17 @@
                             <% for (var i=0;i<RoomInfo.length;i++){%>
                                 <tr class="info">
                                     <td>
-                                        <%- RoomInfo[i].Type %>
+
+                                        <div class='col-md-3'><img src=<%- "'"+RoomImg[i]+"'" %> height='80px'></div>
+                                        <div class='col-md-3' style="font-size:15px;"><%- RoomInfo[i].Type %></div>
                                     </td>
-                                    <td>
+                                    <td style='font-size:18px;'>
                                         <%- RoomInfo[i]['avg(Price)'] %>
                                     </td>
-                                    <td>
+                                    <td style='font-size:18px;'>
                                         <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
                                     </td>
-                                    <td>
+                                    <td style='font-size:18px;'>
                                       <% if (RoomInfo[i]['min(Available)']){%>
                                         <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+"Modal"+i+"'"%> >
                                             预定
@@ -125,7 +128,7 @@
                         </div>
                     </div>
                     <div class='row-fluid'>
-                      <% include CommentOfHotel%>
+                      <% include CommentOfHotel %>
                     </div>
                 </div>
             </div>

@@ -133,15 +133,21 @@ router.get('/test',function(req,res,next){
   vals[0].HotelInfo=vals[1].HotelInfo=vals[2].HotelInfo='来自保加利亚的好酒店'
   vals[0].Hotel_Name=vals[1].Hotel_Name=vals[2].Hotel_Name='XON'
   console.log(vals);
-  res.render('Search',{
+  res.render('SearchHotelResults',{
     HotHotelPic:filepath,
     DiscountHotelPic:filepath,
     HotHotel:vals,
-    DiscountHotel:vals
+    DiscountHotel:vals,
+    imgpath:filepath,
+    price:vals,
+    data:vals,
+    searchID:1
   })
 
 })
-
+router.get('/SearchHotelResults',function(req,res,next){
+  console.log('SearchHotelResults');
+})
 router.get('/', defaultPage);
 
 /*@brief GET search page

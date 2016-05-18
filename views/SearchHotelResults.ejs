@@ -11,11 +11,33 @@
 
   <div class='right_col' role='main'>
     <div class='container-fluid'>
+      <div class="tabbable" id="tabs-273106">
+          <ul class="nav nav-tabs">
+              <li class="active">
+                  <a href="#panel-419013" data-toggle="tab">酒店</a>
+              </li>
+              <li>
+                  <a href="#panel-75657" data-toggle="tab">机票</a>
+              </li>
+          </ul>
+          <div class="tab-content">
+              <div class="tab-pane active" id="panel-419013">
+                  <p>
+                      <% include SearchHotel.ejs %>
+                  </p>
+              </div>
+              <div class="tab-pane" id="panel-75657">
+                  <p>
+                      <% include SearchTickets.ejs %>
+                  </p>
+              </div>
+          </div>
+      </div>
       <div class='row'>
-        <div class='col-md-2'><a herf=''>价格排序</a></div>
-        <div class='col-md-2'><a herf=''>热度排序</a></div>
-        <div class='col-md-2'><a herf=''>评分排序</a></div>
-        <div class='col-md-2'><a herf=''>星级排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=price"+"'"%> >价格排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=heat"+"'"%> >热度排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=comment"+"'"%> >评分排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=star"+"'"%> >星级排序</a></div>
       </div>
       <div class='row'>
       <ul class='list-group'>

@@ -1,14 +1,14 @@
 <HTML>
 
-<head>
-    <% include bootstrap_base.html %>
+    <head>
+        <% include bootstrap_base.html %>
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-</head>
+    </head>
 
-<body class='nav-md'>
-    <div class='container body'>
-        <div class="main_container">
-            <% include guideline.ejs %>
+    <body class='nav-md'>
+        <div class='container body'>
+            <div class="main_container">
+                <% include guideline.ejs %>
                 <div class="right_col" role="main">
                     <div class="container-fluid text-center">
                         <div class="tabbable" id="tabs-273106">
@@ -37,11 +37,11 @@
 
                     </div>
 
-                    <% include footerContent.html %>
                 </div>
-                  <% include footer.html %>
+                <% include footerContent.html %>
+                <% include footer.html %>
+            </div>
         </div>
-    </div>
 
         <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
         <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
@@ -58,6 +58,6 @@
             });
         </script>
 
-</body>
+    </body>
 
 </html>
