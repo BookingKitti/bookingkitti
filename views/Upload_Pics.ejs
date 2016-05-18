@@ -1,4 +1,4 @@
-<form name="Upload_Pics" method="post" action="/uploadPics">
+<form class="form-signin" role="form" action=<%- "'"+url+ "'" %> method="post" enctype='multipart/form-data'>
     <div class="modal fade" id=<%- "'Upload_Pics'"%> tabindex="-1" role="dialog" aria-labelledby=
         <%-"'ModalLabel'"%> >
             <div class="modal-dialog">
@@ -11,9 +11,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-10">
+
+                            <fieldset>
                                 <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
-                            </div>
+                                <br/>
+                            </fieldset>
+
                         </div>
                         <br>
                     </div>

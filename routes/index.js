@@ -34,7 +34,7 @@ var showAdminDetail = function(req, res) {
                     RoomInfo: data_room,
                     Price: min + "-" + max,
                     Comment: data_comment,
-                    url: req.originalUrl,
+                    url: "/uploadHotelPics?Hotel_ID="+data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image
                 });
@@ -54,7 +54,7 @@ var showAdminDetail = function(req, res) {
                     RoomInfo: data_room,
                     Price: min + "-" + max,
                     Comment: data_comment,
-                    url: req.originalUrl,
+                    url: "/uploadHotelPics?Hotel_ID="+data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image
                 });
@@ -75,7 +75,7 @@ var showAdminDetail = function(req, res) {
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl,
+                        url: "/uploadHotelPics?Hotel_ID="+data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
                     });
@@ -114,7 +114,7 @@ var showAdminDetail = function(req, res) {
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl,
+                        url: "/uploadHotelPics?Hotel_ID="+data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
                     });
@@ -135,7 +135,7 @@ var showAdminDetail = function(req, res) {
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl,
+                        url: "/uploadHotelPics?Hotel_ID="+data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
                     });
@@ -528,10 +528,16 @@ router.post('/addRoom', function(req, res) {
 router.get('/deleteHotel', function(req, res) {
     adminManager.delete_hotel_info(req, res, function(qerr, req, res) {
         searchPage(req, res);
-    });
+    })
 })
 
 router.get('/hotelDetailManage', showAdminDetail);
+
+router.post('/uploadHotelPics', function(req, res) {
+    adminManager.upload_hotel_photo(req, res, function(qerr, req, res) {
+        showAdminDetail(req, res);
+    })
+})
 
 router.get('/order', function(req, res) {
     res.render('Order', {
@@ -553,15 +559,5 @@ router.post('/order', function(req, res) {
                 res.send('添加成功');
         });
 });
-
-router.post('/orderupload', function(req, res) {
-    adminManager.upload_hotel_photo(req, res, function(qerr, req, res) {
-        res.locals.success = '上传成功';
-        res.render('Order', {
-            tabChoose: 1
-        });
-    });
-})
-
 
 module.exports = router;
