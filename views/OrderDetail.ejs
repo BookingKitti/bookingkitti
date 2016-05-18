@@ -5,23 +5,45 @@
         <% include bootstrap_base.html %>
     </head>
 
-    <% include guideline.ejs %>
+    <body class='nav-md'>
+        <div class='container body'>
+            <div class="main_container">
+                <% include guideline.ejs %>
+                <div class='right_col' role='main'>
+                    <br><br><br>
+                    <div class='container text-center'>
+                        <div class="panel panel_primary">
+                            <div class='panel panel-heading'>
+                                <h1 class="panel-title" style='font-size:35px;color:#CC6666;'>订单确认</h1>
+                            </div>
+                            <div class='panel panel-body'>
+                              <div class='row'>
+                                <div class='col-md-8'>
+                                  <div class='span12'><h3>酒店名：  <%- HotelName %></h3></div><br>
+                                  <div class='span12'><h4>入住人:  <%- CheckInName %></h4></div><br>
+                                  <div class='span12' style='font-size:15px;'>房间类型：  <%- RoomType %></div><br>
+                                  <div class='span12' style='font-size:16px'>入住:  <%- CheckInDate %></div><br>
+                                  <div class='span12'>至</div><br>
+                                  <div class='span12' style='font-size:16px'>离店:  <%- CheckOutDate %></div>
+                                </div>
+                                <div class='col-md-4'>
+                                  <div class='span12'><img src=<%- "'"+RoomImg+"'" %> class='thumbnail' ></div>
+                                </div>
+                              </div><br>
+                              <div class='span12'>
+                                <div class='span12' style='font-size:36px;color:red;'>订单总额：<%- TotalPrice %></div>
+                              </div>
+                          </div>
 
-    <body>
-        <div class='main-container'>
-            <div class='container-fluid'>
-                <div class='span12 text-center'>
-                    <h1 style="color:purple;">订单确认</h1>
-                </div>
-                <div class='span12 text-center'>
-                    <div class='order-box'>
-                        <span>hahah</span>
+                          <div class='span12'>
+                              <button type="submit" class="btn btn-primary">确认提交</button>
+                          </div>
+                        </div>
                     </div>
-                    <br>
-                    <div class='span12 text-center'>
-                        <button type="submit" style="" class="btn-primary">确认提交</button>
-                    </div>
+
                 </div>
+                <%include footerContent.html %>
+
                 <% include footer.html %>
             </div>
         </div>
