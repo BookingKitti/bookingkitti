@@ -17,6 +17,7 @@ var showDetail = function(req, res) {
     var data_room;
     var data_comment;
     var data_image;
+    var data_room_image;
     var count = 0;
     var min, max;
     searchManager.query('select * from HotelPics where Hotel_ID=' + req.query.Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
@@ -33,7 +34,8 @@ var showDetail = function(req, res) {
                     Price: min + "-" + max,
                     Comment: data_comment,
                     url: req.originalUrl,
-                    FilePos: data_image
+                    FilePos: data_image,
+                    RoomImg: data_room_image
                 });
             }
         }
@@ -53,14 +55,15 @@ var showDetail = function(req, res) {
                         Price: min + "-" + max,
                         Comment: data_comment,
                         url: req.originalUrl,
-                        FilePos: data_image
+                        FilePos: data_image,
+                        RoomImg: data_room_image
                     });
                 }
             }
         });
-    Date_From="2016/5/10";
-    Date_To="2016/5/11";
-    bookingManager.get_room_info(req.query.Hotel_ID,Date_From,Date_To,
+    Date_From = "2016/5/10";
+    Date_To = "2016/5/11";
+    bookingManager.get_room_info(req.query.Hotel_ID, Date_From, Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
             count++;
@@ -85,7 +88,8 @@ var showDetail = function(req, res) {
                         Price: min + "-" + max,
                         Comment: data_comment,
                         url: req.originalUrl,
-                        FilePos: data_image
+                        FilePos: data_image,
+                        RoomImg: data_room_image
                     });
                 }
             }
@@ -105,7 +109,8 @@ var showDetail = function(req, res) {
                         Price: min + "-" + max,
                         Comment: data_comment,
                         url: req.originalUrl,
-                        FilePos: data_image
+                        FilePos: data_image,
+                        RoomImg: data_room_image
                     });
                 }
             }
@@ -115,39 +120,39 @@ var showDetail = function(req, res) {
 /*@brief GET home page which is default search page
  *render search.ejs
  */
- function yaowang(){
-  this.HotelInfo = 'name';
-  this.Hotel_ID = 'age';
-  this.Hotel_Name = 'location';
+function yaowang() {
+    this.HotelInfo = 'name';
+    this.Hotel_ID = 'age';
+    this.Hotel_Name = 'location';
 }
-router.get('/test',function(req,res,next){
-  console.log("test");
-  filepath=['avatar/Hotel_1/small/150x150_0.png'
-  ,'avatar/Hotel_2/small/150x150_0.png'
-  ,'avatar/Hotel_3/small/150x150_0.png'];
-  var vals=new Array();
-  vals[0]=new yaowang();
-  vals[1]=new yaowang();
-  vals[2]=new yaowang();
-  vals[0].Hotel_ID=vals[1].Hotel_ID=vals[2].Hotel_ID=1
-  vals[0].HotelInfo=vals[1].HotelInfo=vals[2].HotelInfo='来自保加利亚的好酒店'
-  vals[0].Hotel_Name=vals[1].Hotel_Name=vals[2].Hotel_Name='XON'
-  console.log(vals);
-  res.render('SearchHotelResults',{
-    HotHotelPic:filepath,
-    DiscountHotelPic:filepath,
-    HotHotel:vals,
-    DiscountHotel:vals,
-    imgpath:filepath,
-    price:vals,
-    data:vals,
-    searchID:1
-  })
+router.get('/test', function(req, res, next) {
+    console.log("test");
+    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png'];
+    var vals = new Array();
+    vals[0] = new yaowang();
+    vals[1] = new yaowang();
+    vals[2] = new yaowang();
+    vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
+    vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
+    vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
+    console.log(vals);
+    res.render('SearchHotelResults', {
+        HotHotelPic: filepath,
+        DiscountHotelPic: filepath,
+        HotHotel: vals,
+        DiscountHotel: vals,
+        imgpath: filepath,
+        price: vals,
+        data: vals,
+        searchID: 1
+    })
 
 })
-router.get('/SearchHotelResults',function(req,res,next){
-  console.log('SearchHotelResults');
+
+router.get('/SearchHotelResults', function(req, res, next) {
+    console.log('SearchHotelResults');
 })
+
 router.get('/', defaultPage);
 
 /*@brief GET search page
@@ -161,12 +166,9 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
-    filepath=['avatar/Hotel_1/small/150x150_0.png'
-    ,'avatar/Hotel_2/small/150x150_0.png'
-    ,'avatar/Hotel_3/small/150x150_0.png'
-    ,'avatar/Hotel_4/small/150x150_0.png'];
+    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
 
-    minprice=[3340, 2134, 2445, 1232];
+    minprice = [3340, 2134, 2445, 1232];
 
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
