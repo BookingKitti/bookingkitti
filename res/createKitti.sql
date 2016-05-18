@@ -1,6 +1,6 @@
 drop database if exists kitty;
 create database kitty;
-
+use kitty;
 create table TicketsInfo(
   AirTicket_ID int primary key auto_increment,
   Flight_Company varchar(50),
