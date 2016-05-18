@@ -125,7 +125,7 @@ exports.sort_airticket = function(req_id, sort_attr, asc_flag, callback) {
             callback(qerr, vals, fields);
     });
 }
-
+/*
 var searchManager = require('./searchManager');
 
 var sort_order = [" desc", " asc"];
@@ -230,4 +230,4 @@ exports.search_airticket_info = function(departure, destination, depart_time, l_
         if (callback != null)
             callback(qerr, vals, fields);
     });
-}
+}*/
