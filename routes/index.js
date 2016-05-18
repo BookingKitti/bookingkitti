@@ -162,8 +162,6 @@ router.get('/test', function(req, res, next) {
         DiscountHotelPic: filepath,
         HotHotel: vals,
         DiscountHotel: vals,
-        imgpath: filepath,
-        price: vals,
         data: vals,
         searchID: 1
     })
@@ -173,9 +171,6 @@ router.get('/SearchHotelResults', function(req, res, next) {
     console.log('SearchHotelResults'); //debug
     console.log(req.query.SearchID);
     console.log(req.query.SortBy);
-    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
-
-    minprice = [3340, 2134, 2445, 1232];
     //req.body.
     //if(req.query.SortBy == "" )
     filterManager.sort_hotel(req.query.SearchID, req.query.SortBy, 0,
@@ -187,9 +182,7 @@ router.get('/SearchHotelResults', function(req, res, next) {
             res.render('SearchHotelResults', {
                 tabChoose: 0,
                 data: vals,
-                searchID: req.query.SearchID,
-                imgpath: filepath,
-                price: minprice
+                searchID: req.query.SearchID
             })
         });
 })
@@ -259,9 +252,7 @@ router.post('/searchHotel', function(req, res) {
                 res.render('SearchHotelResults', {
                     tabChoose: 0,
                     data: vals,
-                    searchID: search_ID,
-                    imgpath: filepath,
-                    price: minprice
+                    searchID: search_ID
                 })
             });
     }
