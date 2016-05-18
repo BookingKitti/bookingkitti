@@ -54,7 +54,29 @@ exports.add_hotel_info = function(req, res, callback) {
     sql += ' \'' + req.body.Address + '\',';
     sql += ' ' + req.body.Stars + ',';
     sql += ' \'' + req.body.Description + '\',';
-    sql += ' \'' + req.body.PhoneNumber + '\')';
+    sql += ' \'' + req.body.PhoneNumber + '\',';
+    sql += ' ' + req.body.Discount + ' ';
+    sql += ' ,0,0)';
+    searchManager.query(sql, function(err) {
+        callback(err, req, res);
+    });
+}
+
+/*@brief add a room in a hotel
+ *@param req, request
+ *@param res, response
+ *@param callback(qerr, req, res)
+ *for callback param:
+ *err is the error message, if it is null, there is no error
+ *req is the request
+ *res is the response
+ */
+exports.add_room_info = function(req, res, callback) {
+    var sql = 'insert into RoomType values(';
+    sql += req.query.Hotel_ID+ ',';
+    sql += ' \'' + req.body.Type + '\',';
+    sql += ' \'' + req.body.Details + '\',';
+    sql += ' ' + req.body.Total + ')';
     searchManager.query(sql, function(err) {
         callback(err, req, res);
     });
@@ -94,6 +116,111 @@ exports.add_airticket_info = function(req, res, callback) {
  *req is the request
  *res is the response
  */
+exports.upload_room_photo = function(req, res, callback) {
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.uploadDir = 'public' + AVATAR_UPLOAD_FOLDER;
+    form.keepExtensions = true;
+    form.maxFieldsSize = 2 * 1024 * 1024;
+
+    form.parse(req, function(err, fields, files) {
+
+        if (err) {
+            res.locals.error = err;
+            console.log(err);
+            res.render('order', {
+                tabChoose: 0
+            });
+        }
+
+        var extName = '';
+        switch (files.fulAvatar.type) {
+            case 'image/pjpeg':
+                extName = 'jpg';
+                break;
+            case 'image/jpeg':
+                extName = 'jpg';
+                break;
+            case 'image/png':
+                extName = 'png';
+                break;
+            case 'image/x-png':
+                extName = 'png';
+                break;
+        }
+
+        if (extName.length == 0) {
+            res.locals.error = '只支持png和jpg格式图片';
+            res.render('order', {
+                tabChoose: 0
+            });
+            return;
+        }
+
+        var Hotel_ID = 1;
+        searchManager.query('select count(Hotel_ID) from RoomTypePics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
+            var count = vals[0]['count(Hotel_ID)'] / 4;
+            var directoryName = 'Hotel_' + Hotel_ID + '/';
+            var fileName = count + '.' + extName;
+            var newPath = form.uploadDir + directoryName + fileName;
+            var rename = function() {
+                fs.rename(files.fulAvatar.path, newPath, function() {
+                    createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
+                        searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                            function(qerr) {
+                                if (qerr) {
+                                    return;
+                                }
+                                searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
+                                    function(qerr) {
+                                        if (qerr) {
+                                            return;
+                                        }
+                                        searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
+                                            function(qerr) {
+                                                if (qerr) {
+                                                    return;
+                                                }
+                                                searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
+                                                    function(qerr) {
+                                                        if (qerr) {
+                                                            return;
+                                                        }
+                                                        callback(qerr, req, res);
+                                                    });
+                                            });
+                                    });
+                            });
+                    });
+                });
+            }
+            fs.exists(form.uploadDir + directoryName, function(result) {
+                if (result == false) {
+                    fs.mkdir(form.uploadDir + directoryName, function() {
+                        fs.mkdir(form.uploadDir + directoryName + 'small', function() {
+                            fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
+                                fs.mkdir(form.uploadDir + directoryName + 'large', rename)
+                            })
+                        })
+                    })
+                } else {
+                    rename();
+                }
+            })
+        })
+    });
+}
+
+/*@brief
+ *@param req, request
+ *@param res, response
+ *@param callback(err, req, res)
+ *for callback param:
+ *err is the error message, if it is null, there is no error
+ *req is the request
+ *res is the response
+ */
+
 exports.upload_hotel_photo = function(req, res, callback) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';

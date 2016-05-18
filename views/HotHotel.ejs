@@ -4,29 +4,33 @@
     <div class='row'>
         <% for (var i=0;i<HotHotel.length;i++){ %>
             <div class='col-md-4'>
+              <div class='panel panel-default'>
                 <div class="thumbnail">
                     <div class="caption">
-                        <h1><%- HotHotel[i].Hotel_Name  %></h1>
+                        <h2><%- HotHotel[i].Hotel_Name  %></h2>
                         <p>
                             <a href=<%- "'./hotelDetail?Hotel_ID="+HotHotel[i].Hotel_ID+"'" %> class="label label-danger biglabel" rel="tooltip" title="预定">立即预定</a>
                         </p>
                     </div>
                     <img src=<%-"'"+ HotHotel[i].File_Pos +"'" %> alt=<%- "热门酒店"+i%>  width=300 height=300>
                 </div>
-                <p>
-                    评分：<%-HotHotel[i].Score%>
+                <p style="font-size:10px; color:red">
+                    <%-HotHotel[i].Score%>分
                 </p>
             </div>
+          </div>
         <%}%>
     </div>
 
 <!--一共显示六个打折和热门酒店-->
 <div class='row'>
+
     <%for (var i=0;i<DiscountHotel.length;i++){%>
-        <div class='col-md-4'>
+      <div class='col-md-4'>
+        <div class='panel panel-default'>
             <div class="thumbnail" >
                 <div class="caption">
-                    <h1><%- DiscountHotel[i].Hotel_Name  %></h1>
+                    <h2><%- DiscountHotel[i].Hotel_Name  %></h2>
                     <p>
                         <a href=<%- "'"+"'./hotelDetail?Hotel_ID="+DiscountHotel[i].Hotel_ID+"'" %> class="label label-danger biglabel size=20" rel="tooltip" title="预定">立即预定</a>
                     </p>
@@ -37,6 +41,7 @@
                 劲爆折扣：<%-DiscountHotel[i].Discount%>
             </p>
         </div>
+      </div>
     <%}%>
 </div>
 </div>
