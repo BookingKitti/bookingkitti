@@ -35,17 +35,15 @@ exports.get_airticket_info = function(airticket_id, callback) {
 var change_room_data = function(hotel_id, type, room_date_from, room_data_to, callback) {
     var sql = "update RoomInfo set Available = Available - 1 where ";
     if (hotel_id != null)
-      sql = sql + " Hotel_ID= " + hotel_id + " ";
+        sql = sql + " Hotel_ID= " + hotel_id + " ";
     if (type != null)
-      sql = sql + " and Type=  '" + type + "' ";
+        sql = sql + " and Type=  '" + type + "' ";
     sql = sql + " and Room_date between '" + room_date_from + "' ";
     sql = sql + " and '" + room_data_to + "' ";
-    if (sql == "update RoomInfo set Available = Available - 1 where ")
-    {
+    if (sql == "update RoomInfo set Available = Available - 1 where ") {
         sql = "update RoomInfo set Available = Available - 1;";
-    }
-    else
-      sql = sql + ";";
+    } else
+        sql = sql + ";";
 
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
