@@ -24,6 +24,17 @@ exports.get_room_info = function(hotel_id, room_date_from, room_data_to, callbac
     });
 }
 
+exports.get_room_pics = function(hotel_id, callback) {
+
+    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" ;";
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+        if (callback != null)
+
+        callback(qerr, vals, fields);
+    });
+}
+
 //need to change
 exports.get_airticket_info = function(airticket_id, callback) {
     var sql = "select * from TicketsInfo where AirTicket_ID= " + airticket_id + " ;";
