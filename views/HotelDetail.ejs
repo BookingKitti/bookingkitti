@@ -18,26 +18,26 @@
                         <div class='row'>
                             <div class='col-md-4 col-xs-12'>
                                 <div class="carousel slide" id="carousel">
-                                  <% if (typeof FilePos !='undefined'){ %>
-                                    <ol class="carousel-indicators">
-                                        <li class="active" data-slide-to="0" data-target="#carousel"></li>
-                                        <% for (var i=1;i<FilePos.length;i++){ %>
-                                            <li data-slide-to=<%- '"'+i+ '"'%> data-target="#carousel"></li>
-                                            <%}%>
-                                    </ol>
-                                    <div class="carousel-inner">
-                                        <div class="item active">
-                                            <img alt="" src=<%- '"'+FilePos[0].File_Pos+ '"' %> class='img-thumbnail' height=400 width=450/>
-                                        </div>
-                                        <% for (var i=1;i<FilePos.length;i++){%>
-                                            <div class='item'>
-                                                <img alt="" src=<%- '"'+FilePos[i].File_Pos+ '"'%> class='img-thumbnail' height=400 width=400/>
+                                    <% if (typeof FilePos !='undefined'){ %>
+                                        <ol class="carousel-indicators">
+                                            <li class="active" data-slide-to="0" data-target="#carousel"></li>
+                                            <% for (var i=1;i<FilePos.length;i++){ %>
+                                                <li data-slide-to=<%- '"'+i+ '"'%> data-target="#carousel"></li>
+                                                <%}%>
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <div class="item active">
+                                                <img alt="" src=<%- '"'+FilePos[0].File_Pos+ '"' %> class='img-thumbnail' height=400 width=450/>
                                             </div>
-                                            <%}%>
-                                    </div>
-                                    <a data-slide="prev" href="#carousel" class="left carousel-control">‹</a>
-                                    <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
-                                    <%}%>
+                                            <% for (var i=1;i<FilePos.length;i++){%>
+                                                <div class='item'>
+                                                    <img alt="" src=<%- '"'+FilePos[i].File_Pos+ '"'%> class='img-thumbnail' height=400 width=400/>
+                                                </div>
+                                                <%}%>
+                                        </div>
+                                        <a data-slide="prev" href="#carousel" class="left carousel-control">‹</a>
+                                        <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
+                                        <%}%>
                                 </div>
                             </div>
                             <div class='col-md-8 col-xs-12'>
