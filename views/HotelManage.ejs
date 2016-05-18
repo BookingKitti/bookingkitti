@@ -36,17 +36,13 @@
       </div>
 
       <div class='row'>
-        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=price"+"'"%> >价格排序</a></div>
-        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=heat"+"'"%> >热度排序</a></div>
-        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=comment"+"'"%> >评分排序</a></div>
-        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=star"+"'"%> >星级排序</a></div>
-        <div class='col-md-1 col-md-offset-7'><button type="add" class="btn btn-danger btn-block" data-toggle="modal" data-target=<%- "'#Add_Hotel'" %>>Add</button></div>
+        <div class='col-md-1 col-md-offset-11'><button type="add" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Add_Hotel'" %>>添加</button></div>
       </div>
       <div class='row'>
       <ul class='list-group'>
         <% for (var i=0;i<data.length;i++){ %>
           <div class='row'>
-          <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
+          <%- "<a class='list-group-item' href='./hotelDetailManage?Hotel_ID="+data[i].Hotel_ID+"'>"+
           "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
           "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
           "<div class='col-md-2'> "+data[i].City+"</div></div><br>"+

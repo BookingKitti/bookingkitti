@@ -1,67 +1,73 @@
-<form name="Add_Hotel" method="post" action="./SearchHotel">
-<div class="modal fade" id=<%-"'Add_Hotel'"%> tabindex="-1" role="dialog" aria-labelledby=<%-"'ModalLabel'"%> >
-  <div class="modal-dialog">
-       <div class="modal-content">
-          <div class="modal-header">
-             <button type="button" class="close"
-                data-dismiss="modal" aria-hidden="true">
-                   &times;
-             </button>
-             <h4 class="modal-title" id="myModalLabel">
+<form name="Add_Hotel" method="post" action="/addHotel">
+    <div class="modal fade" id=<%- "'Add_Hotel'"%> tabindex="-1" role="dialog" aria-labelledby=
+        <%-"'ModalLabel'"%> >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
                 Add Hotel
              </h4>
-          </div>
-          <div class="modal-body">
-             <div class = "row">
-               <div class = "col-md-3">
-                 <input type="text" name="hotel_name" class="form-control" placeholder="name"/>
-               </div>
-             </div>
-             <br>
-             <div class = "row">
-               <div class = "col-md-3">
-                 <input type="text" name="Province" class="form-control" placeholder="Province"/>
-               </div>
-               <div class = "col-md-3">
-                 <input type="text" name="City" class="form-control" placeholder="City"/>
-               </div>
-               <div class = "col-md-3">
-                 <input type="text" name="Address" class="form-control" placeholder="Address"/>
-               </div>
-             </div>
-             <br>
-             <div class = "row">
-               <div class = "col-md-3">
-                 <input type="text" name="Star" class="form-control" placeholder="Star"/>
-               </div>
-             </div>
-             <br>
-             <div class = "row">
-               <div class = "col-md-10">
-                 <textarea class="form-control" rows="6" name="data" placeholder="Description"></textarea>
-               </div>
-             </div>
-             <br>
-             <div class = "row">
-               <div class = "col-md-3">
-                 <input type="text" name="PhoneNumber" class="form-control" placeholder="PhoneNumber"/>
-               </div>
-             </div>
-             <br>
-             <div class = "row">
-               <div class = "col-md-3">
-                 <input type="text" name="Discount" class="form-control" placeholder="Discount"/>
-               </div>
-             </div>
-             <br>
-          </div>
-          <div class="modal-footer">
-             <button type="submit" class="btn btn-primary">
-                提交
-             </button>
-          </div>
-       </div>
-</div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Hotel_Name" class="form-control" required="required" placeholder="name" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Province" class="form-control" required="required" placeholder="Province" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="City" class="form-control" required="required" placeholder="City" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Address" class="form-control" required="required" placeholder="Address" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="number" name="Stars" class="form-control" max=5 min=1 required="required" placeholder="Star" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="6" name="Description" required="required" placeholder="Description"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="PhoneNumber" class="form-control" required="required" placeholder="PhoneNumber" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Discount" class="form-control" required="required" placeholder="Discount" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-</div>
+    </div>
 </form>

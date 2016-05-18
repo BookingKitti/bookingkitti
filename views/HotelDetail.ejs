@@ -18,7 +18,7 @@
                         <div class='row'>
                             <div class='col-md-4 col-xs-12'>
                                 <div class="carousel slide" id="carousel">
-
+                                  <% if (typeof FilePos =='undefined'){ %>
                                     <ol class="carousel-indicators">
                                         <li class="active" data-slide-to="0" data-target="#carousel"></li>
                                         <% for (var i=1;i<FilePos.length;i++){ %>
@@ -37,6 +37,7 @@
                                     </div>
                                     <a data-slide="prev" href="#carousel" class="left carousel-control">‹</a>
                                     <a data-slide="next" href="#carousel" class="right carousel-control">›</a>
+                                    <%}%>
                                 </div>
                             </div>
                             <div class='col-md-8 col-xs-12'>
@@ -88,7 +89,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% for (var i=0;i<RoomInfo.length;i++){%>
+                                        <% if (RoomInfo!=null){for (var i=0;i<RoomInfo.length;i++){%>
                                             <tr class="info">
                                                 <td>
 
@@ -113,7 +114,7 @@
                                                             <%}%>
                                                 </td>
                                             </tr>
-                                            <%}%>
+                                            <%}}%>
                                     </tbody>
                                 </table>
                                 <div class="span7 text-center"></div>
@@ -121,11 +122,11 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <ul class="list-group">
-                                            <% for (var i=0;i<Comment.length;i++){ %>
+                                            <% if (Comment!=null){for (var i=0;i<Comment.length;i++){ %>
                                                 <li class="list-group-item">
                                                     <%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %>
                                                 </li>
-                                                <%}%>
+                                                <%}}%>
                                         </ul>
                                     </div>
                                 </div>

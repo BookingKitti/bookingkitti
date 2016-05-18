@@ -13,6 +13,137 @@ var defaultPage = function(req, res) {
     });
 }
 
+var showAdminDetail = function(req, res) {
+    var data_hotel;
+    var data_room;
+    var data_comment;
+    var data_image;
+    var data_room_image;
+    var count = 0;
+    var min, max;
+    bookingManager.get_room_pics(req.query.Hotel_ID, function(qerr, vals) {
+        data_room_image = vals;
+        count++;
+        if (qerr) {
+            console.log('Fatal error: Cannot get room pics');
+        } else {
+            if (count == 5) {
+                res.render('HotelDetailManage', {
+                    tabChoose: 0,
+                    HotelInfo: data_hotel,
+                    RoomInfo: data_room,
+                    Price: min + "-" + max,
+                    Comment: data_comment,
+                    url: req.originalUrl,
+                    FilePos: data_image,
+                    RoomImg: data_room_image
+                });
+            }
+        }
+    })
+    searchManager.query('select * from HotelPics where Hotel_ID=' + req.query.Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
+        data_image = vals;
+        count++;
+        if (qerr) {
+            console.log('Fatal error: Cannot get hotel info');
+        } else {
+            if (count == 5) {
+                res.render('HotelDetailManage', {
+                    tabChoose: 0,
+                    HotelInfo: data_hotel,
+                    RoomInfo: data_room,
+                    Price: min + "-" + max,
+                    Comment: data_comment,
+                    url: req.originalUrl,
+                    FilePos: data_image,
+                    RoomImg: data_room_image
+                });
+            }
+        }
+    })
+    bookingManager.get_hotel_info(req.query.Hotel_ID,
+        function(qerr, vals, fields) {
+            data_hotel = vals;
+            count++;
+            if (qerr) {
+                console.log('Fatal error: Cannot get hotel info');
+            } else {
+                if (count == 5) {
+                    res.render('HotelDetailManage', {
+                        tabChoose: 0,
+                        HotelInfo: data_hotel,
+                        RoomInfo: data_room,
+                        Price: min + "-" + max,
+                        Comment: data_comment,
+                        url: req.originalUrl,
+                        FilePos: data_image,
+                        RoomImg: data_room_image
+                    });
+                }
+            }
+        });
+    Date_From = "2016/5/10";
+    Date_To = "2016/5/11";
+    bookingManager.get_room_info(req.query.Hotel_ID, Date_From, Date_To,
+        function(qerr, vals, fields) {
+            data_room = vals;
+            count++;
+            if (qerr) {
+                console.log('Fatal error: cannot get room info');
+            } else {
+                console.log(vals[0]);
+                if (vals[0] == undefined) {
+                    min = 0;
+                    max = 0;
+                } else {
+                    min = vals[0]['avg(Price)'];
+                    max = vals[0]['avg(Price)'];
+                    for (var i = 0; i < vals.length; i++) {
+                        if (vals[i]['avg(Price)'] > max) {
+                            max = vals[i]['avg(Price)'];
+                        }
+                        if (vals[i]['avg(Price)'] < min) {
+                            min = vals[i]['avg(Price)'];
+                        }
+                    }
+                }
+                if (count == 5) {
+                    res.render('HotelDetailManage', {
+                        tabChoose: 0,
+                        HotelInfo: data_hotel,
+                        RoomInfo: data_room,
+                        Price: min + "-" + max,
+                        Comment: data_comment,
+                        url: req.originalUrl,
+                        FilePos: data_image,
+                        RoomImg: data_room_image
+                    });
+                }
+            }
+        });
+    commentManager.get_hotel_comment(req.query.Hotel_ID,
+        function(qerr, vals, fields) {
+            data_comment = vals;
+            count++;
+            if (qerr) {
+                console.log('Fatal error: cannot get room info');
+            } else {
+                if (count == 5) {
+                    res.render('HotelDetailManage', {
+                        tabChoose: 0,
+                        HotelInfo: data_hotel,
+                        RoomInfo: data_room,
+                        Price: min + "-" + max,
+                        Comment: data_comment,
+                        url: req.originalUrl,
+                        FilePos: data_image,
+                        RoomImg: data_room_image
+                    });
+                }
+            }
+        });
+};
+
 var showDetail = function(req, res) {
     var data_hotel;
     var data_room;
@@ -91,14 +222,20 @@ var showDetail = function(req, res) {
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                min = vals[0]['avg(Price)'];
-                max = vals[0]['avg(Price)'];
-                for (var i = 0; i < vals.length; i++) {
-                    if (vals[i]['avg(Price)'] > max) {
-                        max = vals[i]['avg(Price)'];
-                    }
-                    if (vals[i]['avg(Price)'] < min) {
-                        min = vals[i]['avg(Price)'];
+                console.log(vals[0]);
+                if (vals[0] == undefined) {
+                    min = 0;
+                    max = 0;
+                } else {
+                    min = vals[0]['avg(Price)'];
+                    max = vals[0]['avg(Price)'];
+                    for (var i = 0; i < vals.length; i++) {
+                        if (vals[i]['avg(Price)'] > max) {
+                            max = vals[i]['avg(Price)'];
+                        }
+                        if (vals[i]['avg(Price)'] < min) {
+                            min = vals[i]['avg(Price)'];
+                        }
                     }
                 }
                 if (count == 5) {
@@ -359,30 +496,57 @@ router.post('/bookHotel', function(req, res) {
 
 router.get('/admin', function(req, res) {
     filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
-
     minprice = [3340, 2134, 2445, 1232];
     //req.body.
     //if(req.query.SortBy == "" )
-    {
-        filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
-            req.body.combobox_province == "" ? null : req.body.combobox_province,
-            req.body.combobox_city == "" ? null : req.body.combobox_city,
-            req.body.textfield_address == "" ? null : req.body.textfield_address,
-            req.body.date_checkin == "" ? null : req.body.date_checkin,
-            req.body.date_checkout == "" ? null : req.body.date_checkout,
-            req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-            req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-            function(qerr, vals, fields, search_ID) { //还需要修改
-                res.render('HotelManage', {
-                    tabChoose: 0,
-                    data: vals,
-                    searchID: search_ID,
-                    imgpath: filepath,
-                    price: minprice
-                })
-            });
-    }
+    filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+        req.body.combobox_province == "" ? null : req.body.combobox_province,
+        req.body.combobox_city == "" ? null : req.body.combobox_city,
+        req.body.textfield_address == "" ? null : req.body.textfield_address,
+        req.body.date_checkin == "" ? null : req.body.date_checkin,
+        req.body.date_checkout == "" ? null : req.body.date_checkout,
+        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+        function(qerr, vals, fields, search_ID) { //还需要修改
+            res.render('HotelManage', {
+                tabChoose: 0,
+                data: vals,
+                searchID: search_ID,
+                imgpath: filepath,
+                price: minprice
+            })
+        });
 });
+
+router.post('/addHotel', function(req, res) {
+    adminManager.add_hotel_info(req, res, function(err, req, res) {
+        adminManager.upload_hotel_photo(req, res, function() {
+            filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+                req.body.combobox_province == "" ? null : req.body.combobox_province,
+                req.body.combobox_city == "" ? null : req.body.combobox_city,
+                req.body.textfield_address == "" ? null : req.body.textfield_address,
+                req.body.date_checkin == "" ? null : req.body.date_checkin,
+                req.body.date_checkout == "" ? null : req.body.date_checkout,
+                req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+                req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+                function(qerr, vals, fields, search_ID) { //还需要修改
+                    res.render('HotelManage', {
+                        tabChoose: 0,
+                        data: vals,
+                        searchID: search_ID,
+                        imgpath: filepath,
+                        price: minprice
+                    })
+                });
+        });
+    })
+})
+
+router.post('/addRoom', function(req, res) {
+    adminManager.
+})
+
+router.get('/hotelDetailManage', showAdminDetail);
 
 router.get('/order', function(req, res) {
     res.render('Order', {
