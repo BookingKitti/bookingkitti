@@ -377,6 +377,7 @@ exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Addre
     if (PhoneNumber != null)
         sql += 'PhoneNumber=' + '\'' + PhoneNumber + '\' ';
     sql += 'where Hotel_ID=' + Hotel_ID + ';'
+    console.log(sql);
     searchManager.query(sql, function(qerr) {
         console.log(qerr);
         callback(qerr);

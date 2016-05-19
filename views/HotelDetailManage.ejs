@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<form name="serachinfo" method="post" action="./SearchHotel">
+<form name="serachinfo" method="post" action=<%-"'"+"./updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
 <html lang='zh-CN'>
 
     <head>
@@ -52,22 +52,22 @@
                     <div class='col-md-8 col-xs-12'>
                     <div class='row'>
                       <div class='col-md-4'>
-                        <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
+                        <input class="form-control" type="text" name="Hotel_Name" value = <%- HotelInfo[0].Hotel_Name %>>
                       </div>
                     </div>
                     <br>
                     <div class='row'>
                       <div class='col-md-4'>
-                        <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].City %>>
+                        <input class="form-control" type="text" name="City" value = <%- HotelInfo[0].City %>>
                       </div>
                       <div class='col-md-4'>
-                        <input class="form-control" type="text" name="data" value =   <%- HotelInfo[0].Province  %>>
+                        <input class="form-control" type="text" name="Province" value =   <%- HotelInfo[0].Province  %>>
                       </div>
                     </div>
                     <br>
                     <div class='row'>
                       <div class='col-md-12'>
-                        <textarea class="form-control" rows="6" name="data"><%- HotelInfo[0].Description %></textarea>
+                        <textarea class="form-control" rows="6" name="Description"><%- HotelInfo[0].Description %></textarea>
                       </div>
                     </div>
                     <br>
@@ -79,13 +79,13 @@
                 <div class="span6">
                   <div class='row'>
                     <div class='col-md-4'>
-                      <input class="form-control" type="text" name="data" value = <%- Price %> >
+                      <input class="form-control" type="text" name="Price" value = <%- Price %> >
                     </div>
                   </div>
                   <br>
                   <div class='row'>
                     <div class='col-md-4'>
-                      <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].PhoneNumber %> >
+                      <input class="form-control" type="text" name="PhoneNumber" value = <%- HotelInfo[0].PhoneNumber %> >
                     </div>
                   </div>
                   <br>
@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class='row'>
-
+              <input type='submit' class='btn btn-success btn-block' value='提交修改'/>
             </div>
           </div>
           </div>
