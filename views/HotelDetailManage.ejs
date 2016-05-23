@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<form name="serachinfo" method="post" action="./SearchHotel">
+<form name="serachinfo" method="post" action=<%-"'"+"./updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
 <html lang='zh-CN'>
 
     <head>
@@ -19,12 +19,15 @@
                 <div class='col-md-4'>
                   <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
                 </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Upload_Pics'" %>>添加图片</button>
+                </div>
                 </div>
                 <br>
                 <div class='row'>
                     <div class='col-md-4 col-xs-12'>
                         <div class="carousel slide" id="carousel">
-                          <%if (typeof FilePos == "undefined"){%>
+                          <%if (typeof FilePos != "undefined"){%>
                             <ol class="carousel-indicators">
                                 <li class="active" data-slide-to="0" data-target="#carousel"></li>
                                 <% for (var i=1;i<FilePos.length;i++){ %>
@@ -49,39 +52,40 @@
                     <div class='col-md-8 col-xs-12'>
                     <div class='row'>
                       <div class='col-md-4'>
-                        <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
+                        <input class="form-control" type="text" name="Hotel_Name" value = <%- HotelInfo[0].Hotel_Name %>>
                       </div>
                     </div>
                     <br>
                     <div class='row'>
                       <div class='col-md-4'>
-                        <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].City %>>
+                        <input class="form-control" type="text" name="City" value = <%- HotelInfo[0].City %>>
                       </div>
                       <div class='col-md-4'>
-                        <input class="form-control" type="text" name="data" value =   <%- HotelInfo[0].Province  %>>
+                        <input class="form-control" type="text" name="Province" value =   <%- HotelInfo[0].Province  %>>
                       </div>
                     </div>
                     <br>
                     <div class='row'>
                       <div class='col-md-12'>
-                        <textarea class="form-control" rows="6" name="data"><%- HotelInfo[0].Description %></textarea>
+                        <textarea class="form-control" rows="6" name="Description"><%- HotelInfo[0].Description %></textarea>
                       </div>
                     </div>
                     <br>
                 </div>
 
             </div>
+            <br>
             <div class='row-fluid'>
                 <div class="span6">
                   <div class='row'>
-                    <div class='col-md-3'>
-                      <input class="form-control" type="text" name="data" value = <%- Price %> >
+                    <div class='col-md-4'>
+                      <input class="form-control" type="text" name="Price" value = <%- Price %> >
                     </div>
                   </div>
                   <br>
                   <div class='row'>
-                    <div class='col-md-3'>
-                      <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].PhoneNumber %> >
+                    <div class='col-md-4'>
+                      <input class="form-control" type="text" name="PhoneNumber" value = <%- HotelInfo[0].PhoneNumber %> >
                     </div>
                   </div>
                   <br>
@@ -111,7 +115,7 @@
                                 </th>
                                 <th>
                                   <div class='col-md-9'>
-                                  <button type="button" color='red' class="btn btn-danger btn-block" data-toggle="modal" data-target=<%- "'#Add_Room'" %>>
+                                  <button type="button" color='red' class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Add_Room'" %>>
                                     add
                                   </button>
                                 </div>
@@ -120,7 +124,7 @@
                         </thead>
                         <tbody>
 
-                            <% if (typeof RoomInfo == "undefined"){for (var i=0;i<RoomInfo.length;i++){%>
+                            <% if (typeof RoomInfo != "undefined"){for (var i=0;i<RoomInfo.length;i++){%>
                                 <tr class="info">
                                     <td>
                                       <div class='col-md-9'>
@@ -151,7 +155,7 @@
                 </div>
             </div>
             <div class='row'>
-
+              <input type='submit' class='btn btn-success btn-block' value='提交修改'/>
             </div>
           </div>
           </div>
@@ -159,6 +163,7 @@
         </div>
     </div>
 <% include Add_Room %>
+<% include Upload_Pics %>
 </body>
 </form>
 </html>

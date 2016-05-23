@@ -13,7 +13,7 @@ var defaultPage = function(req, res) {
     });
 }
 
-var showAdminDetail = function(req, res) {
+var showAdminDetail = function(req, res, Hotel_ID) {
     var data_hotel;
     var data_room;
     var data_comment;
@@ -21,8 +21,9 @@ var showAdminDetail = function(req, res) {
     var data_room_image;
     var count = 0;
     var min, max;
-    bookingManager.get_room_pics(req.query.Hotel_ID, function(qerr, vals) {
+    bookingManager.get_room_pics(Hotel_ID, function(qerr, vals) {
         data_room_image = vals;
+        console.log(data_room_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get room pics');
@@ -34,15 +35,16 @@ var showAdminDetail = function(req, res) {
                     RoomInfo: data_room,
                     Price: min + "-" + max,
                     Comment: data_comment,
-                    url: req.originalUrl,
+                    url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image
                 });
             }
         }
     })
-    searchManager.query('select * from HotelPics where Hotel_ID=' + req.query.Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
+    searchManager.query('select * from HotelPics where Hotel_ID=' + Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
         data_image = vals;
+        console.log(data_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get hotel info');
@@ -54,16 +56,17 @@ var showAdminDetail = function(req, res) {
                     RoomInfo: data_room,
                     Price: min + "-" + max,
                     Comment: data_comment,
-                    url: req.originalUrl,
+                    url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image
                 });
             }
         }
     })
-    bookingManager.get_hotel_info(req.query.Hotel_ID,
+    bookingManager.get_hotel_info(Hotel_ID,
         function(qerr, vals, fields) {
             data_hotel = vals;
+            console.log(data_hotel);
             count++;
             if (qerr) {
                 console.log('Fatal error: Cannot get hotel info');
@@ -75,7 +78,7 @@ var showAdminDetail = function(req, res) {
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl,
+                        url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
                     });
@@ -84,9 +87,10 @@ var showAdminDetail = function(req, res) {
         });
     Date_From = "2016/5/10";
     Date_To = "2016/5/11";
-    bookingManager.get_room_info(req.query.Hotel_ID, Date_From, Date_To,
+    bookingManager.get_room_info(Hotel_ID, Date_From, Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
+            console.log(data_room);
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
@@ -114,16 +118,17 @@ var showAdminDetail = function(req, res) {
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl,
+                        url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
                     });
                 }
             }
         });
-    commentManager.get_hotel_comment(req.query.Hotel_ID,
+    commentManager.get_hotel_comment(Hotel_ID,
         function(qerr, vals, fields) {
             data_comment = vals;
+            console.log(data_comment);
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
@@ -135,7 +140,7 @@ var showAdminDetail = function(req, res) {
                         RoomInfo: data_room,
                         Price: min + "-" + max,
                         Comment: data_comment,
-                        url: req.originalUrl,
+                        url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
                     });
@@ -386,6 +391,8 @@ router.post('/searchHotel', function(req, res) {
             req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
             req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
             function(qerr, vals, fields, search_ID) { //还需要修改
+                console.log("searchResults:");
+                console.log(vals);
                 res.render('SearchHotelResults', {
                     tabChoose: 0,
                     data: vals,
@@ -410,6 +417,8 @@ router.post('/searchTicket', function(req, res) {
         req.body.minprice == "" ? null : req.body.minprice,
         req.body.maxprice == "" ? null : req.body.maxprice,
         function(qerr, vals, fields, search_ID) {
+            console.log("searchResults:");
+            console.log(vals);
             res.render('SearchTicketsResults', {
                 tabChoose: 0,
                 searchID: search_ID,
@@ -445,7 +454,8 @@ router.get('/comment', function(req, res) {
  *return the comments of the hotel
  */
 router.post('/comment', function(req, res, next) {
-    commentManager.add_hotel_comment(1,
+    console.log("In commentManager");
+    commentManager.add_hotel_comment(req.query.Hotel_ID,
         parseFloat(req.body.rating),
         1,
         req.body.content == "" ? null : req.body.content,
@@ -455,7 +465,6 @@ router.post('/comment', function(req, res, next) {
                 res.send('Comment failed');
             } else {
                 console.log('Comment succeed');
-                req.query.Hotel_ID = 1;
                 showDetail(req, res);
             }
         });
@@ -485,12 +494,30 @@ router.post('/bookHotel', function(req, res) {
         });
 })
 
-router.get('/admin', function(req, res) {
-    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
-    minprice = [3340, 2134, 2445, 1232];
-    //req.body.
-    //if(req.query.SortBy == "" )
+var searchPage = function(req, res) {
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+        req.body.combobox_province == "" ? null : req.body.combobox_province,
+        req.body.combobox_city == "" ? null : req.body.combobox_city,
+        req.body.textfield_address == "" ? null : req.body.textfield_address,
+        req.body.date_checkin == "" ? null : req.body.date_checkin,
+        req.body.date_checkout == "" ? null : req.body.date_checkout,
+        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+        function(qerr, vals, fields, search_ID) { //还需要修改
+            console.log(filepath);
+            res.render('HotelManage', {
+                tabChoose: 0,
+                data: vals,
+                searchID: search_ID,
+                imgpath: filepath,
+                price: minprice
+            })
+        });
+}
+
+var adminSearchPage = function(req, res) {
+    console.log("In admin searchManager");
+    filterManager.search_admin_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
         req.body.textfield_address == "" ? null : req.body.textfield_address,
@@ -507,57 +534,66 @@ router.get('/admin', function(req, res) {
                 price: minprice
             })
         });
+}
+
+router.get('/admin', function(req, res) {
+    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
+    minprice = [3340, 2134, 2445, 1232];
+    //req.body.
+    //if(req.query.SortBy == "" )
+    searchPage(req, res);
 });
 
 router.post('/addHotel', function(req, res) {
-    adminManager.upload_hotel_photo(req, res, function(err, req, res) {
-        adminManager.add_hotel_info(req, res, function(err, req, res) {
-            filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
-                req.body.combobox_province == "" ? null : req.body.combobox_province,
-                req.body.combobox_city == "" ? null : req.body.combobox_city,
-                req.body.textfield_address == "" ? null : req.body.textfield_address,
-                req.body.date_checkin == "" ? null : req.body.date_checkin,
-                req.body.date_checkout == "" ? null : req.body.date_checkout,
-                req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-                req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-                function(qerr, vals, fields, search_ID) { //还需要修改
-                    res.render('HotelManage', {
-                        tabChoose: 0,
-                        data: vals,
-                        searchID: search_ID,
-                        imgpath: filepath,
-                        price: minprice
-                    })
-                });
-        });
+    adminManager.add_hotel_info(req, res, function(err, req, res) {
+        searchManager.query('select count(Hotel_ID) from HotelInfo', function(qerr, vals) {
+            console.log(qerr);
+            console.log(vals);
+            var count = vals[0]['count(Hotel_ID)'] - 1;
+            console.log(count);
+            showAdminDetail(req, res, count);
+        })
     })
 })
 
 router.post('/addRoom', function(req, res) {
     adminManager.add_room_info(req, res, function(err, req, res) {
-        adminManager.upload_room_photo(req, res, function(err, req, res) {
-            filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
-                req.body.combobox_province == "" ? null : req.body.combobox_province,
-                req.body.combobox_city == "" ? null : req.body.combobox_city,
-                req.body.textfield_address == "" ? null : req.body.textfield_address,
-                req.body.date_checkin == "" ? null : req.body.date_checkin,
-                req.body.date_checkout == "" ? null : req.body.date_checkout,
-                req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-                req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-                function(qerr, vals, fields, search_ID) { //还需要修改
-                    res.render('HotelManage', {
-                        tabChoose: 0,
-                        data: vals,
-                        searchID: search_ID,
-                        imgpath: filepath,
-                        price: minprice
-                    })
-                });
-        });
+
     })
 })
 
-router.get('/hotelDetailManage', showAdminDetail);
+router.get('/deleteHotel', function(req, res) {
+    adminManager.delete_hotel_info(req, res, function(qerr, req, res) {
+        searchPage(req, res);
+    })
+})
+
+router.post('/updateHotel', function(req, res) {
+    console.log(req.body);
+    console.log("query");
+    console.log(req.query);
+    adminManager.update_hotel_info(req.query.Hotel_ID,
+        req.body.Hotel_Name,
+        req.body.Province,
+        req.body.City,
+        req.body.Address,
+        req.body.Stars,
+        req.body.Description,
+        req.body.PhoneNumber,
+        function(qerr, req, res) {
+            showAdminDetail(req, res, req.query.Hotel_ID);
+        });
+})
+
+router.get('/hotelDetailManage', function(req, res) {
+    showAdminDetail(req, res, req.query.Hotel_ID);
+});
+
+router.post('/uploadHotelPics', function(req, res) {
+    adminManager.upload_hotel_photo(req, res, function(qerr, req, res) {
+        showAdminDetail(req, res, req.query.Hotel_ID);
+    })
+})
 
 router.get('/order', function(req, res) {
     res.render('Order', {
@@ -579,15 +615,5 @@ router.post('/order', function(req, res) {
                 res.send('添加成功');
         });
 });
-
-router.post('/orderupload', function(req, res) {
-    adminManager.upload_hotel_photo(req, res, function(qerr, req, res) {
-        res.locals.success = '上传成功';
-        res.render('Order', {
-            tabChoose: 1
-        });
-    });
-})
-
 
 module.exports = router;
