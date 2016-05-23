@@ -11,7 +11,7 @@ var sql_history = [];
 exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, callback) {
 
     var sql = "select * from HotelInfo natural join (select Hotel_ID, min(Price) \
-    as Min_Price from RoomInfo group by Hotel_ID) natural join (select Hotel_ID, \
+    as Min_Price from RoomInfo group by Hotel_ID) as T natural join (select Hotel_ID, \
       min(File_Pos) as A_File_Pos from HotelPics group by Hotel_ID) as G where ";
 
     var cond_list = [];
