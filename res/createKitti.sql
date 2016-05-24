@@ -43,7 +43,7 @@ create table RoomType(
  Details text not null,
  Total int not null,
  primary key (Hotel_ID, Type),
- foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+ foreign key(Hotel_ID) references HotelInfo(Hotel_ID) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 create table RoomInfo(
@@ -53,14 +53,14 @@ create table RoomInfo(
  Available int,
  Price float,
  primary key (Hotel_ID, Type, Room_date),
- foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+ foreign key(Hotel_ID) references HotelInfo(Hotel_ID) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 create table HotelPics(
 	Hotel_ID int,
 	File_Pos varchar(40),
 	primary key (Hotel_ID, File_Pos),
-	foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+	foreign key(Hotel_ID) references HotelInfo(Hotel_ID) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 
@@ -69,7 +69,7 @@ create table RoomTypePics(
 	Type char(100),
 	File_Pos varchar(40),
 	primary key (Hotel_ID, Type, File_Pos),
-	foreign key(Hotel_ID, Type) references RoomType(Hotel_ID, Type)
+	foreign key(Hotel_ID, Type) references RoomType(Hotel_ID, Type) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 create table HotelComments(
@@ -78,8 +78,8 @@ create table HotelComments(
   Scores float,
   Account_ID int,
   Comments text,
-  foreign key(Account_ID) references UserAccount(AccountID),
-  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+  foreign key(Account_ID) references UserAccount(AccountID) on delete cascade,
+  foreign key(Hotel_ID) references HotelInfo(Hotel_ID) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 
@@ -89,7 +89,7 @@ create table HotelOrderHistory(
   Finish_Time datetime,
   price float,
   primary key (User_ID, Hotel_ID, Finish_Time),
-  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+  foreign key(Hotel_ID) references HotelInfo(Hotel_ID) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 create table AirTicketOrderHistory(
@@ -98,7 +98,7 @@ create table AirTicketOrderHistory(
   Finish_Time datetime,
   price float,
   primary key (User_ID, AirTicket_ID, Finish_Time),
-  foreign key(AirTicket_ID) references TicketsInfo(AirTicket_ID)
+  foreign key(AirTicket_ID) references TicketsInfo(AirTicket_ID) on delete cascade
 ) DEFAULT CHARSET=utf8;
 
 
