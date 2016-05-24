@@ -157,31 +157,30 @@ exports.upload_room_photo = function(req, res, callback) {
             return;
         }
 
-        var Hotel_ID = 1;
-        searchManager.query('select count(Hotel_ID) from RoomTypePics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
+        searchManager.query('select count(Hotel_ID) from RoomTypePics where Hotel_ID=' + req.query.Hotel_ID, function(qerr, vals) {
             var count = vals[0]['count(Hotel_ID)'] / 4;
-            var directoryName = 'Hotel_' + Hotel_ID + '/';
+            var directoryName = 'Hotel_' + req.query.Hotel_ID + '/';
             var fileName = count + '.' + extName;
             var newPath = form.uploadDir + directoryName + fileName;
             var rename = function() {
                 fs.rename(files.fulAvatar.path, newPath, function() {
                     createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
-                        searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                        searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
                             function(qerr) {
                                 if (qerr) {
                                     return;
                                 }
-                                searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
+                                searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
                                     function(qerr) {
                                         if (qerr) {
                                             return;
                                         }
-                                        searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
+                                        searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
                                             function(qerr) {
                                                 if (qerr) {
                                                     return;
                                                 }
-                                                searchManager.query('insert into RoomTypePics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
+                                                searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
                                                     function(qerr) {
                                                         if (qerr) {
                                                             return;
@@ -262,32 +261,31 @@ exports.upload_hotel_photo = function(req, res, callback) {
             return;
         }
 
-        var Hotel_ID = 1;
-        searchManager.query('select count(Hotel_ID) from HotelPics where Hotel_ID=' + Hotel_ID, function(qerr, vals) {
+        searchManager.query('select count(Hotel_ID) from HotelPics where Hotel_ID=' + req.query.Hotel_ID, function(qerr, vals) {
             console.log(vals[0]);
             var count = vals[0]['count(Hotel_ID)'] / 4;
-            var directoryName = 'Hotel_' + Hotel_ID + '/';
+            var directoryName = 'Hotel_' + req.query.Hotel_ID + '/';
             var fileName = count + '.' + extName;
             var newPath = form.uploadDir + directoryName + fileName;
             var rename = function() {
                 fs.rename(files.fulAvatar.path, newPath, function() {
                     createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
-                        searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                        searchManager.query('insert into HotelPics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
                             function(qerr) {
                                 if (qerr) {
                                     return;
                                 }
-                                searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
+                                searchManager.query('insert into HotelPics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
                                     function(qerr) {
                                         if (qerr) {
                                             return;
                                         }
-                                        searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
+                                        searchManager.query('insert into HotelPics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
                                             function(qerr) {
                                                 if (qerr) {
                                                     return;
                                                 }
-                                                searchManager.query('insert into HotelPics values(' + Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
+                                                searchManager.query('insert into HotelPics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
                                                     function(qerr) {
                                                         if (qerr) {
                                                             return;
@@ -379,6 +377,7 @@ exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Addre
     if (PhoneNumber != null)
         sql += 'PhoneNumber=' + '\'' + PhoneNumber + '\' ';
     sql += 'where Hotel_ID=' + Hotel_ID + ';'
+    console.log(sql);
     searchManager.query(sql, function(qerr) {
         console.log(qerr);
         callback(qerr);

@@ -35,7 +35,7 @@ function createGaussianPyramids(path, fileName, callback) {
 }
 
 exports.add_hotel_comment = function(Hotel_ID, Scores, Account_ID, Comments, callback) {
-    searchManager.query("insert into HotelComments values(" + Hotel_ID + "," + Scores + "," +
+    searchManager.query("insert into HotelComments values(null," + Hotel_ID + "," + Scores + "," +
         Account_ID + "," + "'" + Comments + "'" + ");", callback);
 };
 

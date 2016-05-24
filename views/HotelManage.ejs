@@ -47,7 +47,7 @@
           "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
           "<div class='col-md-2'> "+data[i].City+"</div></div><br>"+
           "<div class='row'>详细地址: "+data[i].Address+"</div><br>"+
-          "<div class='row'>评分: "+data[i].Rating+"</div></div>"+
+          "<div class='row'>评分: "+data[i].Score+"</div></div>"+
           "<div class='col-md-3'><h3>"+price[i]+"起</h3><br>热度: "+data[i].Heat+"</div>"+
           "</div>"
           %>
@@ -55,7 +55,7 @@
       </div>
       <br>
       <div class='row'>
-        <div class='col-md-2 col-md-offset-10'><a class='btn btn-danger btn-block' href=<%- "'./DeleteHotel?Hotel_ID="+data[i].Hotel_ID+"'" %> >删除</a></div>
+        <div class='col-md-2 col-md-offset-10'><a class='btn btn-danger btn-block' href=<%- "'./deleteHotel?Hotel_ID="+data[i].Hotel_ID+"'" %> >删除</a></div>
       </div>
         <br>
           <%}%>
