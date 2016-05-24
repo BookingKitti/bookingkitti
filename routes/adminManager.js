@@ -360,7 +360,7 @@ exports.delete_airticket_info = function(req, res, callback) {
  *for callback param:
  *err is the query error
  */
-exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, callback) {
+exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Address, Stars, Description, PhoneNumber, req,res, callback) {
     var sql = 'update HotelInfo set ';
     if (Hotel_Name != null)
         sql += 'Hotel_Name=' + '\'' + Hotel_Name + '\', ';
@@ -380,7 +380,7 @@ exports.update_hotel_info = function(Hotel_ID, Hotel_Name, Province, City, Addre
     console.log(sql);
     searchManager.query(sql, function(qerr) {
         console.log(qerr);
-        callback(qerr);
+        callback(qerr, req, res);
     })
 }
 
