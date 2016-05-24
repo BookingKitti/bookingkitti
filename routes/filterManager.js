@@ -68,7 +68,7 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
         //callback的参数表最后加一项: 搜索请求ID
         if (callback != null)
-            callback(qerr, vals, fields, sql_history.length - 1);
+            callback(qerr, vals, fields, search_id);
     });
 }
 
@@ -123,7 +123,7 @@ exports.search_airticket_info = function(departure, destination, depart_time, l_
 
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
-            callback(qerr, vals, fields);
+            callback(qerr, vals, fields, search_id);
     });
 }
 
@@ -131,6 +131,9 @@ exports.search_airticket_info = function(departure, destination, depart_time, l_
 exports.sort_airticket = function(req_id, sort_attr, asc_flag, callback) {
 
     var sql = sql_history[req_id] + " order by " + sort_attr + sort_order[asc_flag];
+
+
+//console.log("FUCK"+sql);
 
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
