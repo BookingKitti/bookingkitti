@@ -64,7 +64,6 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
     sql_history[search_id] = sql;
 
-    console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
 
         //callback的参数表最后加一项: 搜索请求ID

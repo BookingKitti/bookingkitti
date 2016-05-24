@@ -82,9 +82,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                 }
             }
         });
-    bookingManager.get_room_info(Hotel_ID, req.session.Date_From, req.session.Data_From,
+    bookingManager.get_room_info(Hotel_ID, req.session.Date_From, req.session.Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
+            console.log(data_room);
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
@@ -210,7 +211,7 @@ var showDetail = function(req, res) {
                 }
             }
         });
-    bookingManager.get_room_info(req.query.Hotel_ID, req.session.Date_From, req.session.Data_From,
+    bookingManager.get_room_info(req.query.Hotel_ID, req.session.Date_From, req.session.Date_To,
         function(qerr, vals, fields) {
             data_room = vals;
             count++;
@@ -362,9 +363,9 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
-      console.log(req.body);
-    req.session.Date_From=req.body.date_checkin;
-    req.session.Date_To=req.body.date_checkout;
+    console.log(req.body);
+    req.session.Date_From = req.body.date_checkin;
+    req.session.Date_To = req.body.date_checkout;
     console.log(req.session);
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
@@ -519,10 +520,7 @@ router.get('/admin', function(req, res) {
 
 router.post('/addHotel', function(req, res) {
     adminManager.add_hotel_info(req, res, function(err, req, res) {
-        searchManager.query('select count(Hotel_ID) from HotelInfo', function(qerr, vals) {
-            var count = vals[0]['count(Hotel_ID)'] - 1;
-            showAdminDetail(req, res, count);
-        })
+        searchPage(req,res);
     })
 })
 
