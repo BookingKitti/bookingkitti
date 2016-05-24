@@ -1,5 +1,5 @@
-<form name="Add_Hotel" method="post" action="/addHotel">
-    <div class="modal fade" id=<%- "'Add_Hotel'"%> tabindex="-1" role="dialog" aria-labelledby=
+<form name="Add_Tickets" method="post" action="/addTickets">
+    <div class="modal fade" id=<%- "'Add_Ticket'"%> tabindex="-1" role="dialog" aria-labelledby=
         <%-"'ModalLabel'"%> >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -8,43 +8,52 @@
                             &times;
                         </button>
                         <h4 class="modal-title" id="myModalLabel">
-                Add Hotel
+                Add Ticket
              </h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="text" name="Hotel_Name" class="form-control" required="required" placeholder="name" />
+                                <input type="text" name="Flight_Company" class="form-control" required="required" placeholder="Flight Company" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Flight_No" class="form-control" required="required" placeholder="Flight No" />
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="text" name="Province" class="form-control" required="required" placeholder="Province" />
+                                <input type="text" name="Departure" class="form-control" required="required" placeholder="Departure" />
                             </div>
                             <div class="col-md-3">
-                                <input type="text" name="City" class="form-control" required="required" placeholder="City" />
+                                <input type="text" name="Stopover" class="form-control" required="required" placeholder="Stopover" />
                             </div>
                             <div class="col-md-3">
-                                <input type="text" name="Address" class="form-control" required="required" placeholder="Address" />
+                                <input type="text" name="Destination" class="form-control" required="required" placeholder="Destination" />
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="number" name="Stars" class="form-control" max=5 min=1 required="required" placeholder="Star" />
+                                <input type="text" name="Depart_time" class="form-control" required="required" placeholder="Depart time" />
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <textarea class="form-control" rows="6" name="Description" required="required" placeholder="Description"></textarea>
+                            <div class="col-md-3">
+                                <input type="text" name="Stopover_time" class="form-control" required="required" placeholder="Stopover time" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Arrive_time" class="form-control" required="required" placeholder="Arrive time" />
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="text" name="PhoneNumber" class="form-control" required="required" placeholder="PhoneNumber" />
+                                <input type="text" name="Total" class="form-control" required="required" placeholder="Total" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Price" class="form-control" required="required" placeholder="Price" />
                             </div>
                         </div>
                         <br>
