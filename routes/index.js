@@ -417,8 +417,13 @@ router.post('/searchTicket', function(req, res) {
         req.body.minprice == "" ? null : req.body.minprice,
         req.body.maxprice == "" ? null : req.body.maxprice,
         function(qerr, vals, fields, search_ID) {
-            console.log("searchResults:");
-            console.log(vals);
+            //console.log("searchResults:");
+            //console.log(vals);
+            //var tuple=vals.Depart_time;
+//console.log(vals.Depart_time);
+
+
+
             res.render('SearchTicketsResults', {
                 tabChoose: 0,
                 searchID: search_ID,
