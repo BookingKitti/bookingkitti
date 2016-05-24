@@ -580,9 +580,7 @@ router.post('/updateHotel', function(req, res) {
         req.body.Stars,
         req.body.Description,
         req.body.PhoneNumber,
-        req,
-        res,
-        function(qerr, req, res) {
+        function(qerr) {
             showAdminDetail(req, res, req.query.Hotel_ID);
         });
 })
