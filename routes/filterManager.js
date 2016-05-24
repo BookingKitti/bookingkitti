@@ -10,6 +10,9 @@ var sql_history = [];
 //callback的参数表最后加一项: 搜索请求ID
 exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, date_out, l_price, h_price, callback) {
 
+    //allocate a search id
+    var search_id = sql_history.length;
+
     var sql = "select * from HotelInfo natural join (select Hotel_ID, min(Price) \
     as Min_Price from RoomInfo group by Hotel_ID) as T natural join (select Hotel_ID, \
       File_Pos from HotelPics where File_Pos like '%small/150x150_0.%') as G where ";
@@ -59,9 +62,9 @@ exports.search_hotel_info = function(hotel_name, province, city, addr, date_in, 
 
     //sql = sql + ";";
 
-    sql_history[sql_history.length] = sql;
+    sql_history[search_id] = sql;
 
-console.log(sql);
+    console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
 
         //callback的参数表最后加一项: 搜索请求ID
@@ -85,6 +88,9 @@ exports.sort_hotel = function(req_id, sort_attr, asc_flag, callback) {
 }
 
 exports.search_airticket_info = function(departure, destination, depart_time, l_price, h_price, callback) {
+
+    var search_id = sql_history.length;
+
     var sql = "select * from TicketsInfo where ";
 
     var cond_list = [];
@@ -114,7 +120,8 @@ exports.search_airticket_info = function(departure, destination, depart_time, l_
         sql += " and " + cond_list[i];
     }
 
-
+    sql_history[search_id] = sql;
+    
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
