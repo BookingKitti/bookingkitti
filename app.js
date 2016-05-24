@@ -26,7 +26,7 @@ app.use(session(
   {
       secret:'landscape',
       name:'connect.sid',
-      cookie:{maxAge:80000},
+      cookie:{maxAge:140000},
       resave:false,
       saveUninitialized:true,
   }

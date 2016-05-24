@@ -374,6 +374,7 @@ router.get('/search', defaultPage);
 router.post('/searchHotel', function(req, res) {
     req.session.Date_From=req.body.data_checkin;
     req.session.Date_To=req.body.data_checkout;
+    console.log(req.session);
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
