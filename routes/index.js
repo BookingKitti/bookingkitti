@@ -85,9 +85,7 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                 }
             }
         });
-    Date_From = "2016/5/10";
-    Date_To = "2016/5/11";
-    bookingManager.get_room_info(Hotel_ID, Date_From, Date_To,
+    bookingManager.get_room_info(Hotel_ID, req.session.Date_From, req.session.Data_From,
         function(qerr, vals, fields) {
             data_room = vals;
             console.log(data_room);
@@ -218,9 +216,7 @@ var showDetail = function(req, res) {
                 }
             }
         });
-    Date_From = "2016/5/10";
-    Date_To = "2016/5/11";
-    bookingManager.get_room_info(req.query.Hotel_ID, Date_From, Date_To,
+    bookingManager.get_room_info(req.query.Hotel_ID, req.session.Date_From, req.session.Data_From,
         function(qerr, vals, fields) {
             data_room = vals;
             count++;
@@ -376,33 +372,26 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
-    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
-
-    minprice = [3340, 2134, 2445, 1232];
-    //req.body.
-    //if(req.query.SortBy == "" )
-    {
-        filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
-            req.body.combobox_province == "" ? null : req.body.combobox_province,
-            req.body.combobox_city == "" ? null : req.body.combobox_city,
-            req.body.textfield_address == "" ? null : req.body.textfield_address,
-            req.body.date_checkin == "" ? null : req.body.date_checkin,
-            req.body.date_checkout == "" ? null : req.body.date_checkout,
-            req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-            req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-            function(qerr, vals, fields, search_ID) { //还需要修改
-                console.log("searchResults:");
-                console.log(vals);
-                res.render('SearchHotelResults', {
-                    tabChoose: 0,
-                    data: vals,
-                    searchID: search_ID
-                })
-            });
-    }
-    console.log(req.query.searchID);
-    console.log(req.query.SortBy);
-
+    req.session.Date_From=req.body.data_checkin;
+    req.session.Date_To=req.body.data_checkout;
+    console.log(req.session);
+    filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+        req.body.combobox_province == "" ? null : req.body.combobox_province,
+        req.body.combobox_city == "" ? null : req.body.combobox_city,
+        req.body.textfield_address == "" ? null : req.body.textfield_address,
+        req.body.date_checkin == "" ? null : req.body.date_checkin,
+        req.body.date_checkout == "" ? null : req.body.date_checkout,
+        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
+        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+        function(qerr, vals, fields, search_ID) { //还需要修改
+            console.log("searchResults:");
+            console.log(vals);
+            res.render('SearchHotelResults', {
+                tabChoose: 0,
+                data: vals,
+                searchID: search_ID
+            })
+        });
 });
 
 /*@brief POST searchTicket page
@@ -420,7 +409,7 @@ router.post('/searchTicket', function(req, res) {
             //console.log("searchResults:");
             //console.log(vals);
             //var tuple=vals.Depart_time;
-//console.log(vals.Depart_time);
+            //console.log(vals.Depart_time);
 
 
 
@@ -585,7 +574,7 @@ router.post('/updateHotel', function(req, res) {
         req.body.Stars,
         req.body.Description,
         req.body.PhoneNumber,
-        function(qerr, req, res) {
+        function(qerr) {
             showAdminDetail(req, res, req.query.Hotel_ID);
         });
 })
