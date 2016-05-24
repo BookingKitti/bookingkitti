@@ -23,7 +23,6 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     var min, max;
     bookingManager.get_room_pics(Hotel_ID, function(qerr, vals) {
         data_room_image = vals;
-        console.log(data_room_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get room pics');
@@ -44,7 +43,6 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     })
     searchManager.query('select * from HotelPics where Hotel_ID=' + Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
         data_image = vals;
-        console.log(data_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get hotel info');
@@ -66,7 +64,6 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     bookingManager.get_hotel_info(Hotel_ID,
         function(qerr, vals, fields) {
             data_hotel = vals;
-            console.log(data_hotel);
             count++;
             if (qerr) {
                 console.log('Fatal error: Cannot get hotel info');
@@ -88,12 +85,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     bookingManager.get_room_info(Hotel_ID, req.session.Date_From, req.session.Data_From,
         function(qerr, vals, fields) {
             data_room = vals;
-            console.log(data_room);
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
             } else {
-                console.log(vals[0]);
                 if (vals[0] == undefined) {
                     min = 0;
                     max = 0;
@@ -126,7 +121,6 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     commentManager.get_hotel_comment(Hotel_ID,
         function(qerr, vals, fields) {
             data_comment = vals;
-            console.log(data_comment);
             count++;
             if (qerr) {
                 console.log('Fatal error: cannot get room info');
@@ -294,7 +288,6 @@ router.get('/test', function(req, res, next) {
     vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
-    console.log(vals);
     res.render('SearchHotelResults', {
         HotHotelPic: filepath,
         DiscountHotelPic: filepath,
@@ -306,9 +299,6 @@ router.get('/test', function(req, res, next) {
 
 })
 router.get('/SearchHotelResults', function(req, res, next) {
-    console.log('SearchHotelResults'); //debug
-    console.log(req.query.SearchID);
-    console.log(req.query.SortBy);
     //req.body.
     //if(req.query.SortBy == "" )
     filterManager.sort_hotel(req.query.SearchID, req.query.SortBy, 0,
@@ -372,8 +362,9 @@ router.get('/search', defaultPage);
  *render searchResults.ejs
  */
 router.post('/searchHotel', function(req, res) {
-    req.session.Date_From=req.body.data_checkin;
-    req.session.Date_To=req.body.data_checkout;
+      console.log(req.body);
+    req.session.Date_From=req.body.date_checkin;
+    req.session.Date_To=req.body.date_checkout;
     console.log(req.session);
     filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
@@ -384,12 +375,12 @@ router.post('/searchHotel', function(req, res) {
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
         function(qerr, vals, fields, search_ID) { //还需要修改
-            console.log("searchResults:");
-            console.log(vals);
             res.render('SearchHotelResults', {
                 tabChoose: 0,
                 data: vals,
-                searchID: search_ID
+                searchID: search_ID,
+                date_from: req.session.Date_From,
+                date_to: req.session.Date_To
             })
         });
 });
@@ -406,13 +397,6 @@ router.post('/searchTicket', function(req, res) {
         req.body.minprice == "" ? null : req.body.minprice,
         req.body.maxprice == "" ? null : req.body.maxprice,
         function(qerr, vals, fields, search_ID) {
-            //console.log("searchResults:");
-            //console.log(vals);
-            //var tuple=vals.Depart_time;
-            //console.log(vals.Depart_time);
-
-
-
             res.render('SearchTicketsResults', {
                 tabChoose: 0,
                 searchID: search_ID,
@@ -431,7 +415,7 @@ router.get('/hotelDetail', showDetail);
  *handle the generating order post
  */
 router.post('/hotelDetail', function(req, res) {
-    console.log('Hotel Detail');
+
 });
 
 /*@brief GET comment page
@@ -448,7 +432,6 @@ router.get('/comment', function(req, res) {
  *return the comments of the hotel
  */
 router.post('/comment', function(req, res, next) {
-    console.log("In commentManager");
     commentManager.add_hotel_comment(req.query.Hotel_ID,
         parseFloat(req.body.rating),
         1,
@@ -475,8 +458,6 @@ router.get('/orderconfirm', function(req, res) {
 
 router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
-    console.log(req.body);
-    console.log(req.query);
     bookingManager.create_order_hotel(req.query.Hotel_ID,
         req.query.RoomType,
         req.body.date_checkin,
@@ -498,7 +479,6 @@ var searchPage = function(req, res) {
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
         function(qerr, vals, fields, search_ID) { //还需要修改
-            console.log(filepath);
             res.render('HotelManage', {
                 tabChoose: 0,
                 data: vals,
@@ -510,7 +490,6 @@ var searchPage = function(req, res) {
 }
 
 var adminSearchPage = function(req, res) {
-    console.log("In admin searchManager");
     filterManager.search_admin_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
@@ -541,10 +520,7 @@ router.get('/admin', function(req, res) {
 router.post('/addHotel', function(req, res) {
     adminManager.add_hotel_info(req, res, function(err, req, res) {
         searchManager.query('select count(Hotel_ID) from HotelInfo', function(qerr, vals) {
-            console.log(qerr);
-            console.log(vals);
             var count = vals[0]['count(Hotel_ID)'] - 1;
-            console.log(count);
             showAdminDetail(req, res, count);
         })
     })
@@ -563,9 +539,6 @@ router.get('/deleteHotel', function(req, res) {
 })
 
 router.post('/updateHotel', function(req, res) {
-    console.log(req.body);
-    console.log("query");
-    console.log(req.query);
     adminManager.update_hotel_info(req.query.Hotel_ID,
         req.body.Hotel_Name,
         req.body.Province,
@@ -588,26 +561,5 @@ router.post('/uploadHotelPics', function(req, res) {
         showAdminDetail(req, res, req.query.Hotel_ID);
     })
 })
-
-router.get('/order', function(req, res) {
-    res.render('Order', {
-        tabChoose: 1,
-        data: "<br>"
-    });
-});
-
-router.post('/order', function(req, res) {
-    for (var attribute in req.body) {
-        if (attribute == "") {
-            console.log("请填写必要信息");
-            res.render('Order');
-        }
-    }
-    adminManager.add_hotel_info(req, res,
-        function(qerr, req, res) {
-            if (!qerr)
-                res.send('添加成功');
-        });
-});
 
 module.exports = router;
