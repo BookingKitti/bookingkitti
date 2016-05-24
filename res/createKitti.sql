@@ -83,8 +83,23 @@ create table HotelComments(
 ) DEFAULT CHARSET=utf8;
 
 
+create table HotelOrderHistory(
+  User_ID int,
+  Hotel_ID int,
+  Finish_Time datetime,
+  price float,
+  primary key (User_ID, Hotel_ID, Finish_Time),
+  foreign key(Hotel_ID) references HotelInfo(Hotel_ID)
+) DEFAULT CHARSET=utf8;
 
-
+create table AirTicketOrderHistory(
+  User_ID int,
+  AirTicket_ID int,
+  Finish_Time datetime,
+  price float,
+  primary key (User_ID, AirTicket_ID, Finish_Time),
+  foreign key(AirTicket_ID) references TicketsInfo(AirTicket_ID)
+) DEFAULT CHARSET=utf8;
 
 
 
