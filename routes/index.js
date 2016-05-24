@@ -488,9 +488,7 @@ router.post('/bookHotel', function(req, res) {
         req.query.RoomType,
         req.body.date_checkin,
         req.body.date_checkout,
-        req,
-        res,
-        function(qerr, vals, fields, req, res) {
+        function(qerr, vals, fields) {
             showDetail(req, res)
         });
 })
