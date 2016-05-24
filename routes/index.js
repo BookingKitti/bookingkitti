@@ -324,6 +324,28 @@ router.get('/SearchHotelResults', function(req, res, next) {
             })
         });
 })
+
+router.get('/SearchTicketsResults', function(req, res, next) {
+    console.log('SearchTicketsResults'); //debug
+    console.log(req.query.SearchID);
+    console.log(req.query.SortBy);
+    //req.body.
+    //if(req.query.SortBy == "" )
+    filterManager.sort_airticket(req.query.SearchID, req.query.SortBy, 1,
+        function(qerr, vals, fields) { //还需要修改
+            if (qerr) {
+                console.log("database error in sort of index");
+                return;
+            }
+            res.render('SearchTicketsResults', {
+                tabChoose: 0,
+                data: vals,
+                searchID: req.query.SearchID
+            })
+        });
+})
+
+
 router.get('/', function(req, res, next) {
     console.log("root router");
     count = 0;
@@ -400,6 +422,9 @@ router.post('/searchHotel', function(req, res) {
  *render searchResults.ejs
  */
 router.post('/searchTicket', function(req, res) {
+
+
+console.log("CMNMMFWQNFQW");
     filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
         req.body.Destination == "" ? null : req.body.Destination,
         req.body.Depart_time == "" ? null : req.body.Depart_time,

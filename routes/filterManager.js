@@ -133,6 +133,9 @@ exports.sort_airticket = function(req_id, sort_attr, asc_flag, callback) {
 
     var sql = sql_history[req_id] + " order by " + sort_attr + sort_order[asc_flag];
 
+
+//console.log("FUCK"+sql);
+
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
             callback(qerr, vals, fields);
