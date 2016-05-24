@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<form name="serachinfo" method="post" action=<%-"'"+"./updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
+
 <html lang='zh-CN'>
 
     <head>
@@ -15,6 +15,7 @@
               <% include guideline.ejs %>
               <div class='right_col' role='main'>
                 <div class='container-fluid'>
+                  <form name="serachinfo" method="post" action=<%-"'"+"./updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
                 <div class='row'>
                 <div class='col-md-4'>
                   <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
@@ -136,7 +137,7 @@
                     </table>
                 </div>
             </div>
-
+</form>
           </div>
           </div>
             <% include footer.html %>
@@ -146,5 +147,5 @@
 <% include Upload_Pics %>
 <% include Modify_Room %>
 </body>
-</form>
+
 </html>
