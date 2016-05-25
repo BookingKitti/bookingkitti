@@ -512,16 +512,28 @@ router.post('/addHotel', function(req, res) {
     })
 })
 
-router.post('/addRoom', function(req, res) {
-    adminManager.add_room_info(req, res, function(err, req, res) {
-
-    })
-})
-
 router.get('/deleteHotel', function(req, res) {
     adminManager.delete_hotel_info(req, res, function(qerr, req, res) {
         adminSearchHotel(req, res);
     })
+})
+
+router.post('/addRoom', function(req, res) {
+    adminManager.add_room_info(req, res, function(err, req, res) {
+    })
+})
+
+router.get('/deleteRoom', function(req, res) {
+    adminManager.delete_room_type()
+})
+
+router.post('/modifyRoom', function(req, res) {
+  console.log(req.query.Hotel_ID);
+  console.log(req.query.RoomType);
+  console.log(req.body.date_start);
+  console.log(req.body.date_end);
+  console.log(req.body.Price);
+    //adminManager.modi
 })
 
 router.post('/updateHotel', function(req, res) {

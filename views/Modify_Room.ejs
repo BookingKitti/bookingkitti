@@ -2,37 +2,40 @@
     <% include bootstrap_base.html %>
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 </head>
-<form name="Modify_Room" method="post" action="./modifyRoom ">
 <% for (var it=0;it<RoomType.length;it++){ %>
 <div class="modal fade" id=<%- "'"+"Modify_Room"+it+"'"%> tabindex="-1" role="dialog" aria-labelledby=<%-"'ModalLabel'"%> >
   <div class="modal-dialog">
        <div class="modal-content">
+         <form name="Modify_Room" method="post" action=<%-"/modifyRoom?Hotel_ID="+RoomType[it].Hotel_ID+"&RoomType="+RoomType[it].Type%> >
           <div class="modal-header">
              <button type="button" class="close"
                 data-dismiss="modal" aria-hidden="true">
                    &times;
              </button>
              <h4 class="modal-title" id="myModalLabel">
-                Modify Room
+                修改房间
              </h4>
           </div>
           <div class="modal-body">
              <div class = "row">
                <div class = "col-md-3">
-                 <input type="text" name="Room_Type" class="form-control" value = <%- RoomTyoe[it].Type %> />
+                 <label>房间类型</label><br>
+                 <h5 style="color:black"><%- RoomType[it].Type %></h5>
                </div>
              </div>
              <br>
              <div class = "row">
                <div class = "col-md-3">
+                 <label>房间总数</label>
                  <input type="text" name="Total" class="form-control" value = <%- RoomType[it].Total %> />
                </div>
              </div>
              <br>
              <div class = "row">
                <div class="col-md-6">
+                 <label>开始时间</label>
                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
-                       <input class="form-control" type="text" value="" readonly placeholder="入住日期">
+                       <input class="form-control" type="text" value="" readonly placeholder="请输入开始日期">
                        <span class="input-group-addon">
                            <span class="glyphicon glyphicon-remove"></span>
                        </span>
@@ -40,12 +43,13 @@
                            <span class="glyphicon glyphicon-calendar"></span>
                        </span>
                    </div>
-                   <input type="hidden" id="dtp_input2" value="" name='date_checkin' />
+                   <input type="hidden" id="dtp_input2" value="" name='date_start' />
                    <br/>
                </div>
                <div class="col-md-6">
+                 <label>结束时间</label>
                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style="margin-bottom:0px">
-                       <input class="form-control" type="text" value="" readonly placeholder="离店日期">
+                       <input class="form-control" type="text" value="" readonly placeholder="请输入结束日期">
                        <span class="input-group-addon">
                            <span class="glyphicon glyphicon-remove"></span>
                        </span>
@@ -53,11 +57,12 @@
                            <span class="glyphicon glyphicon-calendar"></span>
                        </span>
                    </div>
-                   <input type="hidden" id="dtp_input3" value="" name='date_checkout' />
+                   <input type="hidden" id="dtp_input3" value="" name='date_end' />
                </div>
              </div>
              <div class = "row">
-               <div class = "col-md-3 col-md-offset-9">
+               <div class = "col-md-3">
+                 <label>价格</label>
                  <input type="text" name="Price" class="form-control" placeholder="Price"/>
                </div>
              </div>
@@ -68,12 +73,12 @@
                 提交
              </button>
           </div>
+          </form>
        </div>
 </div>
 
 </div>
 <%}%>
-</form>
 <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript">

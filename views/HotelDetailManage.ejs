@@ -94,15 +94,15 @@
                         <thead>
                             <tr>
 
-                                <th style="width: 74%;">
+                                <th style="width: 76%;">
                                     房间类型
                                 </th>
-                                <th style="width: 10%;">
-                                </th>
                                 <th style="width: 8%;">
                                 </th>
                                 <th style="width: 8%;">
-                                  <button type="button" color='red' class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Add_Room'" %>>
+                                </th>
+                                <th style="width: 8%;">
+                                  <button type="button" color='red' class="btn btn-success" data-toggle="modal" data-target=<%- "'#Add_Room'" %>>
                                     添加房间
                                   </button>
                                 </th>
@@ -110,28 +110,28 @@
                         </thead>
                         <tbody>
 
-                            <% if (typeof RoomType != "undefined"){for (var i=0;i<RoomInfo.length;i++){%>
+                            <% if (typeof RoomType != "undefined"){for (var i=0;i<RoomType.length;i++){%>
                                 <tr class="info">
 
-                                    <td style="width: 74%;">
+                                    <td style="width: 76%;">
                                       <div style="font-size:15px;">
                                           <%- RoomType[i].Type %>
                                       </div>
                                     </td>
-                                    <td style="width: 10%;">
-                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#Upload_Pics'" %>>
-                                            Add_image
+                                    <td style="width: 8%;">
+                                        <button type="button" color='red' class="btn btn-primary" data-toggle="modal" data-target=<%- "'#Upload_Pics'" %>>
+                                            添加图片
                                         </button>
                                     </td>
                                     <td style="width: 8%;">
-                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+ "Modify_Room"+i+ "'"%>>
-                                            Modify
+                                        <button type="button" color='red' class="btn btn-info" data-toggle="modal" data-target=<%- "'#"+ "Modify_Room"+i+ "'"%>>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;修改&nbsp;&nbsp;&nbsp;&nbsp;
                                         </button>
                                     </td>
                                     <td style="width: 8%;">
-                                        <button type="button" color='red' class="btn btn-danger" >
-                                            Delete
-                                        </button>
+                                        <a href=<%-"'/deleteRoom?Hotel_ID="+HotelInfo[0].Hotel_ID+"RoomType="+RoomType[i].Type+"'"%>> <button type="button" color='red' class="btn btn-danger" >
+                                            &nbsp;&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </button></a>
                                     </td>
 
                                 </tr>
