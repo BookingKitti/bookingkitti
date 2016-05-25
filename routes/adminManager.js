@@ -439,38 +439,45 @@ exports.delete_room_type = function (Hotel_ID, Type, callback) {
 * @modify: Price
 */
 
+function addDate(date, days) {
+    var d = new Date(date);
+    d.setDate(d.getDate() + days);
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    if(month < 10){
+        month = "0" + month;
+    }
+    if(day < 10) {
+        day = "0" + day;
+    }
+    var val = d.getFullYear() + "-" + month + "-" + day;
+    return val;
+}
 
 exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Available, Price, callback) {
 
-    function addDate(date, days) {
-        var d = new Date(date);
-        d.setDate(d.getDate()+days);
-        var month=d.getMonth()+1;
-        var day = d.getDate();
-        if(month<10){
-            month = "0"+month;
-        }
-        if(day < 10) {
-            day = "0"+day;
-        }
-        var val = d.getFullYear() + "-" + month + "-" + day;
-        return val;
+    //date = date + 1
+    var sql = "insert into RoomInfo (Hotel_ID, Type, Room_date, Available, Price) values ";
+    //+ ") on duplicate key update RoomInfo set Price = " + Price;
+
+    var insert_values = [];
+    console.log(Start_date);
+    console.log(End_date);
+    for (var date = Start_date; date <= End_date; date = addDate(date, 1)) {
+        console.log(date);
+        insert_values[insert_values.length] = " (" + Hotel_ID + ", '" + Type + "', '" + date + "', " + Available + ", " + Price + ") ";
     }
 
-    if (Price != null) {
-        var sql = "insert into RoomInfo (Hotel_ID, Type, Room_date, Available, Price) values(" + Hotel_ID + ", '" + Type + "', '" + Start_date + "', '" + End_date + "', " + Available + ", " + Price
-        + ") on duplicate key update RoomInfo set Price = " + Price;
-
-        var start = '2016-06-05';
-        var end = '2016-06-08';
-        var date = new Date(start);
-        for (var date = Start_date; date <= End_date; date = addDate(i, 1)) {
-            console.log(i);
-        }
-
-        searchManager.query(sql, function(qerr) {
-            callback(qerr);
-        });
+    for (var i = 0; i < insert_values.length - 1; i++) {
+        sql = sql + insert_values[i] + ", ";
     }
+
+    sql = sql + insert_values[insert_values.length - 1];
+
+    sql = sql + " on duplicate key update Price = " + Price;
+
+    searchManager.query(sql, function(qerr) {
+        callback(qerr);
+    });
 
 }
