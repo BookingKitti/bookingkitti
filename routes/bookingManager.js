@@ -26,7 +26,7 @@ exports.get_room_info = function(hotel_id, room_date_from, room_data_to, callbac
 
 exports.get_room_pics = function(hotel_id, callback) {
 
-    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" and File_Pos like '%small/150x150_%';";
+    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" and File_Pos like '%small/150x150_%' or File_Pos like '%zzefault%';";
     console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
