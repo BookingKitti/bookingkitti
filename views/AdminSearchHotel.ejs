@@ -1,0 +1,66 @@
+
+<form name="serachinfo" method="post" action="./adminSearchHotel">
+
+    <div class="container-fluid text-center">
+        <legend>搜索酒店</legend>
+        <div class="row-fluid">
+            <div class="col-md-4">
+                <div class="row-fluid">
+                    <div class="col-md-12">
+                        <label for="dtp_input2">入住日期</label>
+                        <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                            <input class="form-control" type="text" value="2016-5-11">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </span>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" name='date_checkin' />
+                        <br/>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="dtp_input3">离店日期</label>
+                        <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style="margin-bottom:0px">
+                            <input class="form-control" type="text" value="2016-5-12">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </span>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <input type="hidden" id="dtp_input3" value="" name='date_checkout' />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class='col-md-12' style='height:77px'>
+                      <% include AreaChoose %>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class="col-md-6">
+                        <label>酒店名</label>
+                        <input type="text" name="textfield_hotel_name" class='form-control' placeholder="输入酒店名" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>最低价格</label>
+                        <input type="text" name="textfield_minprice" class="form-control" placeholder="您能接受的最低的价格" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label>最高价格</label>
+                        <input type="text" name="textfield_maxprice" class="form-control" placeholder="能接受的最高价" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class='row text-center'>
+        <button type="submit" class="btn btn-primary btn-lg">提交</button>
+    </div>
+</form>

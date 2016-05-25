@@ -299,6 +299,7 @@ router.get('/test', function(req, res, next) {
     })
 
 })
+
 router.get('/SearchHotelResults', function(req, res, next) {
     //req.body.
     //if(req.query.SortBy == "" )
@@ -415,8 +416,6 @@ router.post('/searchHotel', function(req, res) {
  */
 router.post('/searchTicket', function(req, res) {
 
-
-console.log("CMNMMFWQNFQW");
     filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
         req.body.Destination == "" ? null : req.body.Destination,
         req.body.Depart_time == "" ? null : req.body.Depart_time,
@@ -493,27 +492,7 @@ router.post('/bookHotel', function(req, res) {
         });
 })
 
-var searchPage = function(req, res) {
-    filterManager.search_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
-        req.body.combobox_province == "" ? null : req.body.combobox_province,
-        req.body.combobox_city == "" ? null : req.body.combobox_city,
-        req.body.textfield_address == "" ? null : req.body.textfield_address,
-        req.body.date_checkin == "" ? null : req.body.date_checkin,
-        req.body.date_checkout == "" ? null : req.body.date_checkout,
-        req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
-        req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-        function(qerr, vals, fields, search_ID) { //还需要修改
-            res.render('HotelManage', {
-                tabChoose: 0,
-                data: vals,
-                searchID: search_ID,
-                imgpath: filepath,
-                price: minprice
-            })
-        });
-}
-
-var adminSearchPage = function(req, res) {
+var adminSearchHotel = function(req, res) {
     filterManager.search_admin_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
@@ -522,28 +501,40 @@ var adminSearchPage = function(req, res) {
         req.body.date_checkout == "" ? null : req.body.date_checkout,
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
-        function(qerr, vals, fields, search_ID) { //还需要修改
+        function(qerr, vals, fields) { //还需要修改
             res.render('HotelManage', {
                 tabChoose: 0,
                 data: vals,
-                searchID: search_ID,
-                imgpath: filepath,
-                price: minprice
             })
         });
 }
 
+var adminSearchTicket = function(req, res) {
+  filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
+      req.body.Destination == "" ? null : req.body.Destination,
+      req.body.Depart_time == "" ? null : req.body.Depart_time,
+      req.body.minprice == "" ? null : req.body.minprice,
+      req.body.maxprice == "" ? null : req.body.maxprice,
+      function(qerr, vals, fields, search_ID) {
+          res.render('TicketManage', {
+              tabChoose: 0,
+              searchID: search_ID,
+              data: vals
+          })
+      });
+}
+
 router.get('/admin', function(req, res) {
-    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png', 'avatar/Hotel_4/small/150x150_0.png'];
-    minprice = [3340, 2134, 2445, 1232];
-    //req.body.
-    //if(req.query.SortBy == "" )
-    searchPage(req, res);
+    adminSearchHotel(req, res);
 });
+
+router.post('/adminSearchHotel', adminSearchHotel);
+
+router.post('/adminSearchTicket', adminSearchTicket);
 
 router.post('/addHotel', function(req, res) {
     adminManager.add_hotel_info(req, res, function(err, req, res) {
-        searchPage(req,res);
+        adminSearchHotel(req,res);
     })
 })
 
@@ -555,7 +546,7 @@ router.post('/addRoom', function(req, res) {
 
 router.get('/deleteHotel', function(req, res) {
     adminManager.delete_hotel_info(req, res, function(qerr, req, res) {
-        searchPage(req, res);
+        adminiSearchHotel(req, res);
     })
 })
 

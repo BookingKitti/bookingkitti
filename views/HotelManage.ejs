@@ -24,12 +24,12 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="panel-419013">
                                     <p>
-                                        <% include SearchHotel.ejs %>
+                                        <% include AdminSearchHotel.ejs %>
                                     </p>
                                 </div>
                                 <div class="tab-pane" id="panel-75657">
                                     <p>
-                                        <% include SearchTickets.ejs %>
+                                        <% include AdminSearchTickets.ejs %>
                                     </p>
                                 </div>
                             </div>
@@ -45,12 +45,12 @@
                                 <% for (var i=0;i<data.length;i++){ %>
                                     <div class='row'>
                                         <%- "<a class='list-group-item' href='./hotelDetailManage?Hotel_ID="+data[i].Hotel_ID+"'>"+
-          "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
+          "<div class='row'><div class='col-md-3'><img src='"+data[i].File_Pos+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
           "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
           "<div class='col-md-2'> "+data[i].City+"</div></div><br>"+
           "<div class='row'>详细地址: "+data[i].Address+"</div><br>"+
           "<div class='row'>评分: "+data[i].Score+"</div></div>"+
-          "<div class='col-md-3'><h3>"+price[i]+"起</h3><br>热度: "+data[i].Heat+"</div>"+
+          "<div class='col-md-3'><h3>"+data[i].Min_Price+"起</h3><br>热度: "+data[i].Heat+"</div>"+
           "</div>"
           %>
                                             </a>
