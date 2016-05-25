@@ -16,7 +16,7 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
-                        <input type="hidden" id="dtp_input2" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin' />
+                        <input type="hidden" id="dtp_input2" value=<%-(typeof date_checkin!='undefined')?((typeof true_checkin=='undefined')?'"'+date_checkin+'"':'"'+true_checkin+'"'):"''"%> name='date_checkin' />
                         <br/>
                     </div>
                     <div class="col-md-12">
@@ -30,7 +30,7 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
-                        <input type="hidden" id="dtp_input3" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout' />
+                        <input type="hidden" id="dtp_input3" value=<%-(typeof date_checkout!='undefined')?((typeof true_checkout=='undefined')?'"'+date_checkout+'"':'"'+true_checkout+'"'):"''"%> name='date_checkout' />
                     </div>
                 </div>
             </div>

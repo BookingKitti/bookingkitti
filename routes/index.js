@@ -9,7 +9,8 @@ var hotManager = require('./hotManager');
 
 var defaultPage = function(req, res) {
     res.render('Search', {
-        tabChoose: 0
+        date_checkin:'26 五月 2016',
+        date_checkout:'26 五月 2016'
     });
 }
 
@@ -41,8 +42,6 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     })
     searchManager.query('select * from HotelPics where Hotel_ID=' + Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
         data_image = vals;
-        console.log("老子他妈要输出了");
-        console.log(data_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get hotel info');
@@ -350,7 +349,11 @@ router.get('/', function(req, res, next) {
             if (count == 2) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
-                    DiscountHotel: dis_hotel
+                    DiscountHotel: dis_hotel,
+                    date_checkin:'26 五月 2016',
+                    date_checkout:'27 五月 2016',
+                    true_checkin:'2016-05-26',
+                    true_checkout:'2016-05-27'
                 })
             }
         });
@@ -365,7 +368,11 @@ router.get('/', function(req, res, next) {
             if (count == 2) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
-                    DiscountHotel: dis_hotel
+                    DiscountHotel: dis_hotel,
+                    date_checkin:'26 五月 2016',
+                    date_checkout:'27 五月 2016',
+                    true_checkin:'2016-05-26',
+                    true_checkout:'2016-05-27'
                 })
             }
         });
@@ -567,15 +574,14 @@ router.get('/deleteRoom', function(req, res) {
 })
 
 router.post('/modifyRoom', function(req, res) {
-  console.log(req.query.Hotel_ID);
-  console.log(req.query.RoomType);
-  console.log(req.body.date_start);
-  console.log(req.body.date_end);
-  console.log(req.body.Price);
+    console.log("djiawudj");
+    console.log(req.body);
+    console.log(req.query);
   adminManager.update_room_info(req.query.Hotel_ID
     ,req.query.RoomType
     ,req.body.date_start
     ,req.body.date_end
+    ,req.query.Available
     ,req.body.Price
     ,function(err) {
     if(!err){

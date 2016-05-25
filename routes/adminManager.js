@@ -455,7 +455,6 @@ function addDate(date, days) {
 }
 
 exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Available, Price, callback) {
-
     //date = date + 1
     var sql = "insert into RoomInfo (Hotel_ID, Type, Room_date, Available, Price) values ";
     //+ ") on duplicate key update RoomInfo set Price = " + Price;
