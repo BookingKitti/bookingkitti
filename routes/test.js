@@ -1,25 +1,38 @@
-//var comments=require('./comment');
+var http = require('http');
 
-//comments.insert("1","1","1","fuck!!!");
-function addDate(date, days){
-    var d=new Date(date);
-    d.setDate(d.getDate()+days);
-    var month=d.getMonth()+1;
-    var day = d.getDate();
-    if(month<10){
-        month = "0"+month;
+var qs = require('querystring');
+
+var post_data = {
+    buyer: 123,
+    time: new Date().getTime()};//这是需要提交的数据
+
+
+var content = qs.stringify(post_data);
+
+var options = {
+    hostname: '121.42.175.1',
+    port: 10086,
+    path: '/a2/api/insertorder',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
-    if(day<10){
-        day = "0"+day;
-    }
-    var val = d.getFullYear()+"-"+month+"-"+day;
-    return val;
-}
+};
 
+var req = http.request(options, function (res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+    });
+});
 
-var sql = "(" + 1 + ", '" + "Type" + "', '" + "date" + "', " + 100 + ", " + 200 + ")";
-console.log(sql);
+req.on('error', function (e) {
+    console.log('problem with request: ' + e.message);
+});
 
-//var myDate = new Date('2016-06-05');
-//myDate = myDate + 1;
-//console.log(myDate.toLocaleDateString());
+// write data to request body
+req.write(content);
+
+req.end();
