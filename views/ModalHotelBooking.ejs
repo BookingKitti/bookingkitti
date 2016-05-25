@@ -55,7 +55,7 @@
                         <div class="form-group">
                             <label for=<%-"'"+"dtp_input2"+it+"'"%> class="col-md-2 control-label">入住日期</label>
                             <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field=<%-"'"+"dtp_input2"+it+"'"%> data-link-format="yyyy-mm-dd">
-                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <input class="form-control" size="16" type="text" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> readonly>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </span>
@@ -63,14 +63,14 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
-                            <input type="hidden" id=<%-"'"+"dtp_input2"+it+"'"%> value="" name='date_checkin'/><br/>
+                            <input type="hidden" id=<%-"'"+"dtp_input2"+it+"'"%> value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin'/><br/>
                         </div>
                     </div>
                     <div class="span4">
                         <div class="form-group">
                             <label for=<%-"'"+"dtp_input3"+it+"'"%> class="col-md-2 control-label">离店日期</label>
                             <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field=<%- "'"+"dtp_input3"+it+"'" %> data-link-format="yyyy-mm-dd">
-                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <input class="form-control" size="16" type="text" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> readonly>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </span>
@@ -78,7 +78,7 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
-                            <input type="hidden" id=<%- "'"+"dtp_input3"+it+"'" %> value="" name='date_checkout'/><br/>
+                            <input type="hidden" id=<%- "'"+"dtp_input3"+it+"'" %> value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout'/><br/>
                         </div>
                     </div>
 
