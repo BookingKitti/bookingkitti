@@ -24,15 +24,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(
   {
-      secret:'landscape',
-      name:'connect.sid',
-      cookie:{maxAge:140000},
+      secret:'paykitty',
+      name:'cookiespace',
+      cookie:{maxAge:6000},
       resave:false,
       saveUninitialized:true,
   }
 ));
 
-app.use('/', routes);
+app.use('/a3', routes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
