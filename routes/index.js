@@ -9,7 +9,7 @@ var hotManager = require('./hotManager');
 var path=require('path')
 router.use(express.static(path.join(__dirname, '../public')));
 var defaultPage = function(req, res) {
-    console.log(req.session);
+
     res.render('Search', {
         date_checkin:'26 五月 2016',
         date_checkout:'26 五月 2016'
@@ -336,7 +336,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    console.log("root router");
+    console.log("root router===================================");
+      console.log(req.session);
     count = 0;
     var hot_hotel;
     var dis_hotel;
