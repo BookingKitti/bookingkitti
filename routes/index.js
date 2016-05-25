@@ -289,8 +289,14 @@ router.get('/test', function(req, res, next) {
     vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
-    res.render('SearchHotelResults', {
-        HotHotelPic: filepath,
+    res.render('OrderDetail', {
+        OrderType:'Ticket',
+        Departure:'杭州',
+        Destination:'上海',
+        Depart_time:'2015-05-05',
+        RoomImg:"avatar/Hotel_1/small/150x150_0.png",
+        ID:'Azis',
+        TotalPrice:1000,
         DiscountHotelPic: filepath,
         HotHotel: vals,
         DiscountHotel: vals,
