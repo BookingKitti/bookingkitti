@@ -114,6 +114,7 @@
                                 <tr class="info">
 
                                     <td style="width: 76%;">
+                                      <div class='col-md-3'><img src=<% if (typeof RoomImg[i] != ' undefined') {%><%- "'"+RoomImg[i].File_Pos+ "'" %><%}%> height='80px'></div>
                                       <div style="font-size:15px;">
                                           <%- RoomType[i].Type %>
                                       </div>
@@ -129,7 +130,7 @@
                                         </button>
                                     </td>
                                     <td style="width: 8%;">
-                                        <a href=<%-"'/deleteRoom?Hotel_ID="+HotelInfo[0].Hotel_ID+"RoomType="+RoomType[i].Type+"'"%>> <button type="button" color='red' class="btn btn-danger" >
+                                        <a href=<%-"'/deleteRoom?Hotel_ID="+HotelInfo[0].Hotel_ID+"&RoomType="+RoomType[i].Type+"'"%>> <button type="button" color='red' class="btn btn-danger" >
                                             &nbsp;&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;&nbsp;
                                         </button></a>
                                     </td>

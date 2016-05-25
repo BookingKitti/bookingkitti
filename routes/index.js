@@ -20,6 +20,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     var data_room_image;
     var count = 0;
     bookingManager.get_room_pics(Hotel_ID, function(qerr, vals) {
+        for(var data in vals){
+          if(data.File_Pos=='undefined')
+            data.File_Pos='avatar/Hotel_ID1/small/150x150_0.png';
+        }
         data_room_image = vals;
         count++;
         if (qerr) {
@@ -519,12 +523,29 @@ router.get('/deleteHotel', function(req, res) {
 })
 
 router.post('/addRoom', function(req, res) {
-    adminManager.add_room_info(req, res, function(err, req, res) {
+    console.log(req.body);
+    console.log(req.query);
+    adminManager.add_room_type(req, function(err) {
+      if(!err){
+        showAdminDetail(req, res, req.query.Hotel_ID);
+      }
+      else{
+        console.log(err);
+      }
     })
 })
 
 router.get('/deleteRoom', function(req, res) {
-    adminManager.delete_room_type()
+    adminManager.delete_room_type(req.query.Hotel_ID,
+    req.query.RoomType,
+    function(err) {
+      if(!err){
+        showAdminDetail(req, res, req.query.Hotel_ID);
+      }
+      else{
+        console.log(err);
+      }
+  })
 })
 
 router.post('/modifyRoom', function(req, res) {
@@ -537,7 +558,15 @@ router.post('/modifyRoom', function(req, res) {
     ,req.query.RoomType
     ,req.body.date_start
     ,req.body.date_end
-    ,req.body.Price);
+    ,req.body.Price
+    ,function(err) {
+    if(!err){
+      showAdminDetail(req, res, req.query.Hotel_ID);
+    }
+    else {
+      console.log(err);
+    }
+  });
 })
 
 router.post('/updateHotel', function(req, res) {

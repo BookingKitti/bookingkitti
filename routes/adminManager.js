@@ -71,10 +71,10 @@ exports.add_hotel_info = function(req, res, callback) {
  *req is the request
  *res is the response
  */
-exports.add_room_info = function(req, callback) {
+exports.add_room_type = function(req, callback) {
     var sql = 'insert into RoomType values(';
     sql += req.query.Hotel_ID+ ',';
-    sql += ' \'' + req.body.Type + '\',';
+    sql += ' \'' + req.body.Room_Type + '\',';
     sql += ' \'' + req.body.Details + '\',';
     sql += ' ' + req.body.Total + ')';
     searchManager.query(sql, function(err) {
