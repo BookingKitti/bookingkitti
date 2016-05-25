@@ -6,7 +6,7 @@ var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 var hotManager = require('./hotManager');
-
+router.use(express.static(path.join(__dirname, '../public')));
 var defaultPage = function(req, res) {
     res.render('Search', {
         date_checkin:'26 五月 2016',
