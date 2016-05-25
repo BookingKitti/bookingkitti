@@ -633,4 +633,8 @@ router.post('/uploadHotelPics', function(req, res) {
     })
 })
 
+router.get('/avatar',function(req,res){
+
+  res.sendfile(req.originalUrl)
+})
 module.exports = router;
