@@ -187,12 +187,21 @@ exports.get_room_type = function(Hotel_ID, callback) {
 //item: Hotel_ID
 //status:
 //finish_time:
-exports.send_hotel_order_info = function (User_ID, Hotel_ID, price, res) {
+
+/*
+酒店Interface 1: 像M2发送订单详情post
+In:
+  User_ID --
+  Hotel_ID --
+  res --
+*/
+exports.send_hotel_order_info = function (User_ID, Hotel_ID, res) {
 
     //send post request: include six values
 
     var qs = require('querystring');
 
+    //JSON Format:
     var post_data = {
         buyer: User_ID,
         seller: 0, //default
@@ -234,9 +243,15 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, price, res) {
     req.end();
 }
 
+
+
+/*
+酒店Interface 2: 像M2发送某个酒店的详细信息，包括图片url
+In: Hotel_ID -- 酒店ID
+*/
 exports.send_hotel_detailed_info = function (Hotel_ID) {
 
-    var sql = "select * from HotelInfo natural join HotelPics where Hotel_ID = " + Hotel_ID;
+    var sql = "select * from HotelInfo natural join HotelPics where Hotel_ID = " + Hotel_ID + " limit 1";
 
     searchManager.query(sql, function(qerr, vals, fields) {
 
@@ -245,11 +260,11 @@ exports.send_hotel_detailed_info = function (Hotel_ID) {
         for (var index in vals) {
             var tuple = vals[index];
             var result = '';
-            var i = 0;
-            plist[i] = "";
-            for (var attribute in tuple){
-                plist[i] += (tuple[attribute] + "##");
-                i++;
+            //var i = 0;
+            //plist[] = "";
+            for (var attribute in tuple) {
+                plist[plist.length] = tuple[attribute];
+                //i++;
             }
             //末尾多出##
         }
@@ -269,6 +284,144 @@ exports.send_hotel_detailed_info = function (Hotel_ID) {
             Score: plist[9],//float,
             Heat: plist[10],//int
             File_Pos: plist[11]
+        };//这是需要提交的数据
+
+
+        var content = qs.stringify(post_data);
+
+        var options = {
+            hostname: '121.42.175.1',
+            port: 10086, //default
+            path: '/a2/api/insertorder',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+        };
+
+        var req = http.request(options, function (res) {
+            //console.log('STATUS: ' + res.statusCode);
+            //console.log('HEADERS: ' + JSON.stringify(res.headers));
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                console.log('BODY: ' + chunk);
+            });
+        });
+
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+
+        // write data to request body
+        req.write(content);
+
+        req.end();
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+机票Interface 1：像M2发送订单详情post
+*/
+exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res) {
+
+    //send post request: include six values
+
+    var qs = require('querystring');
+
+    //JSON Format:
+    var post_data = {
+        buyer: User_ID,
+        seller: 0, //default
+        orderAmount: 1, //default
+        orderItems: AirTicket_ID, //-------------------------------need to modify
+        orderStatus: 0, //default
+        time: toDate(new Date()) //format %Y %m %d %H %M %S
+    };//这是需要提交的数据
+
+
+    var content = qs.stringify(post_data);
+
+    var options = {
+        hostname: '121.42.175.1',
+        port: 10086, //default
+        path: '/a2/api/insertorder',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+    };
+
+    var req = http.request(options, function (res) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('BODY: ' + chunk);
+        });
+    });
+
+    req.on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+    // write data to request body
+    req.write(content);
+
+    req.end();
+}
+
+
+/*
+酒店Interface 2: 像M2发送某机票的详细信息
+In: AirTicket_ID -- 机票ID
+*/
+exports.send_hotel_detailed_info = function (AirTicket_ID) {
+
+    var sql = "select * from TicketsInfo where AirTicket_ID = " + AirTicket_ID;
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+
+        var plist = [];
+
+        for (var index in vals) {
+            var tuple = vals[index];
+            var result = '';
+            //var i = 0;
+            //plist[] = "";
+            for (var attribute in tuple) {
+                plist[plist.length] = tuple[attribute];
+                //i++;
+            }
+            //末尾多出##
+        }
+
+        var qs = require('querystring');
+
+        var post_data = {
+            AirTicket_ID:  plist[0],//int primary key auto_increment,
+            Flight_Company: plist[1],//varchar(20) not null,
+            Flight_No: plist[2],//varchar(20) not null,
+            Departure: plist[3],//varchar(20) not null,
+            Stopover: plist[4],//varchar(20) not null,
+            Destination: plist[5],//int not null,
+            Depart_time: plist[6],//text not null,
+            Stopover_time: plist[7],//varchar(20) not null,
+            Arrive_time: plist[8],//decimal(3, 2),
+            Total: plist[9],//float,
+            Available: plist[10],//int
+            Price: plist[11],
+            Discount: plist[12]
         };//这是需要提交的数据
 
 
