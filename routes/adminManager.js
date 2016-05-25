@@ -435,7 +435,7 @@ exports.delete_room_type = function (Hotel_ID, Type, callback) {
             var clause_sql = "delete from RoomInfo where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "'";
             searchManager.query(clause_sql, function(qerr) {
                 callback(qerr);
-            }
+            });
         }
         else {
             callback(qerr);
@@ -456,7 +456,7 @@ exports.update_room_info = function (Hotel_ID, Type, Room_date, Price, callback)
 
         searchManager.query(sql, function(qerr) {
             callback(qerr);
-        }
+        });
     }
 
 }
