@@ -461,10 +461,10 @@ exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Avail
     //+ ") on duplicate key update RoomInfo set Price = " + Price;
 
     var insert_values = [];
-    console.log(Start_date);
-    console.log(End_date);
+    //console.log(Start_date);
+    //console.log(End_date);
     for (var date = Start_date; date <= End_date; date = addDate(date, 1)) {
-        console.log(date);
+        //console.log(date);
         insert_values[insert_values.length] = " (" + Hotel_ID + ", '" + Type + "', '" + date + "', " + Available + ", " + Price + ") ";
     }
 
