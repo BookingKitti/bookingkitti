@@ -7,6 +7,7 @@ var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 var hotManager = require('./hotManager');
 var path=require('path')
+var session=require('express-session')
 router.use(express.static(path.join(__dirname, '../public')));
 router.use(session(
   {
