@@ -439,12 +439,34 @@ exports.delete_room_type = function (Hotel_ID, Type, callback) {
 * @modify: Price
 */
 
+
 exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Available, Price, callback) {
 
+    function addDate(date, days) {
+        var d = new Date(date);
+        d.setDate(d.getDate()+days);
+        var month=d.getMonth()+1;
+        var day = d.getDate();
+        if(month<10){
+            month = "0"+month;
+        }
+        if(day < 10) {
+            day = "0"+day;
+        }
+        var val = d.getFullYear() + "-" + month + "-" + day;
+        return val;
+    }
+
     if (Price != null) {
-        var sql = "insert into RoomInfo values(" + Hotel_ID + ", '" + Type + "', '" + Start_date + "', '" + End_date + "', " + Available + ", " + Price
+        var sql = "insert into RoomInfo (Hotel_ID, Type, Room_date, Available, Price) values(" + Hotel_ID + ", '" + Type + "', '" + Start_date + "', '" + End_date + "', " + Available + ", " + Price
         + ") on duplicate key update RoomInfo set Price = " + Price;
 
+        var start = '2016-06-05';
+        var end = '2016-06-08';
+        var date = new Date(start);
+        for (var date = Start_date; date <= End_date; date = addDate(i, 1)) {
+            console.log(i);
+        }
 
         searchManager.query(sql, function(qerr) {
             callback(qerr);

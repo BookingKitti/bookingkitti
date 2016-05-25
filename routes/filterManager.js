@@ -143,7 +143,7 @@ exports.search_admin_hotel_info=function(hotel_name, province, city, addr, date_
 	from (select * from HotelInfo left join (select Hotel_ID as TID, \
 	min(Price) as Min_Price from RoomInfo group by Hotel_ID) as T on HotelInfo.Hotel_ID = T.TID) as TA \
     left join (select Hotel_ID as GID, \
-      File_Pos from HotelPics where File_Pos like '%small/150x150_0.%') as G on TA.Hotel_ID = G.GID ";
+      File_Pos from HotelPics where File_Pos like '%small/150x150_0.%' or File_Pos like '%zzefault_room%' limit 1) as G on TA.Hotel_ID = G.GID ";
 
     console.log(sql);
   var cond_list = [];
