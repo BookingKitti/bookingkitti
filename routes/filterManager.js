@@ -189,13 +189,13 @@ exports.search_admin_hotel_info=function(hotel_name, province, city, addr, date_
 
   //sql = sql + ";";
 
-  sql_history[sql_history.length] = sql;
+  //sql_history[sql_history.length] = sql;
 
 console.log(sql);
   searchManager.query(sql, function(qerr, vals, fields) {
 
       //callback的参数表最后加一项: 搜索请求ID
       if (callback != null)
-          callback(qerr, vals, fields, sql_history.length - 1);
+          callback(qerr, vals, fields);
   });
 }
