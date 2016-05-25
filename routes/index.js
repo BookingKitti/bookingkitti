@@ -9,6 +9,7 @@ var hotManager = require('./hotManager');
 var path=require('path')
 router.use(express.static(path.join(__dirname, '../public')));
 var defaultPage = function(req, res) {
+    console.log(req.session);
     res.render('Search', {
         date_checkin:'26 五月 2016',
         date_checkout:'26 五月 2016'
