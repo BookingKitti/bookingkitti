@@ -36,27 +36,31 @@
           </div>
       </div>
       <div class='row'>
-        <div class='col-md-offset-8 col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Price"+"'"%> >价格排序</a></div>
+        <div class='col-md-offset-8 col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Stars"+"'"%> >星级排序</a></div>
         <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=heat"+"'"%> >热度排序</a></div>
         <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Score"+"'"%> >评分排序</a></div>
-        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Stars"+"'"%> >星级排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Price"+"'"%> >价格排序</a></div>
       </div>
       <div class='row'>
       <ul class='list-group'>
         <% for (var i=0;i<data.length;i++){ %>
-          <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
-          "<div class='row'><div class='col-md-3'><img src='"+data[i].File_Pos+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
-          "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
-          "<div class='col-md-2'> "+data[i].City+"</div><div class='col-md-3'>星级:"+data[i].Stars+"</div></div><br>"+
-          "<div class='row'>详细地址: "+data[i].Address+"</div><br>"+
-          "<div class='row'>评分: "+data[i].Score+"</div></div>"+
-          "<div class='col-md-3'><h3>"+data[i].Min_Price+"起</h3><br>热度: "+data[i].Heat+"</div>"+
-          "</div>" %>
 
-        </a>
-        <br>
+                  <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
+                  "<div class='row'><div class='col-md-3'><img src='"+data[i].File_Pos+"' class='img-rounded'></div>"+
+                      "<div class='col-md-5'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div><br>"+
+                           "<div class='row'>"+data[i].Province+" "+data[i].City+"</div>"+
+                          "<div class='row'>详细地址:&nbsp;&nbsp;"+data[i].Address+"</div><br>"+
+                      "</div>"+
+                      "<div class='col-md-1'><br><br><br>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+data[i].Stars+"星级</div>"+
+                      "<div class='col-md-1'><br><br><br>"+"&nbsp;&nbsp;&nbsp;&nbsp;热度:"+data[i].Heat+"</div>"+
+                      "<div class='col-md-1'><br><br><br>"+"&nbsp;&nbsp;&nbsp;&nbsp;评分:"+data[i].Score+"</div>"+
+                      "<div class='col-md-1'><br><br><br>"+"&nbsp;&nbsp;&nbsp;&nbsp;"+data[i].Min_Price+"起</div>"+
+                  "</div>" %>
 
-          <%}%>
+        	</a>
+                <br>
+        <%}%>
+
       </ul>
     </div>
   </div>

@@ -448,11 +448,12 @@ exports.delete_room_type = function (Hotel_ID, Type, callback) {
 * @modify: Price
 */
 
-exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Price, callback) {
+exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Available, Price, callback) {
 
     if (Price != null) {
-        var sql = "update RoomInfo set Price = " + Price
-        + " where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "' and Room_date between '" + Start_date + "' and '" + End_date + "'";
+        var sql = "insert into RoomInfo values(" + Hotel_ID + ", '" + Type + "', '" + Start_date + "', '" + End_date + "', " + Available + ", " + Price
+        + ") on duplicate key update RoomInfo set Price = " + Price;
+        
 
         searchManager.query(sql, function(qerr) {
             callback(qerr);

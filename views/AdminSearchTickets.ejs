@@ -1,3 +1,5 @@
+<% include bootstrap_base.html %>
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <div class="container-fluid text-center">
     <form name="serachinfo" method="post" action="./adminSearchTicket">
         <legend>搜索机票</legend>
@@ -7,7 +9,7 @@
                       <div class="col-md-12">
                           <label for="dtp_input2">出发日期</label>
                           <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
-                              <input class="form-control" size="16" type="text" value="" readonly placeholder="出发日期">
+                              <input class="form-control" size="16" type="text" value="">
                               <span class="input-group-addon">
                                   <span class="glyphicon glyphicon-remove"></span>
                               </span>
@@ -20,7 +22,7 @@
                      <div class="col-md-12">
                          <label for="dtp_input3">返程日期</label>
                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
-                             <input class="form-control" size="16" type="text" value="" readonly placeholder="返程日期">
+                             <input class="form-control" size="16" type="text" value="">
                              <span class="input-group-addon">
                                  <span class="glyphicon glyphicon-remove"></span>
                              </span>
@@ -57,4 +59,19 @@
         </div>
         <div class='row text-center'><button type="submit" class="btn btn-primary btn-lg">提交</button></div>
     </form>
+    <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    </script>
 </div>
