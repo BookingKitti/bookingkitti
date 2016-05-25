@@ -6,6 +6,7 @@ var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 var hotManager = require('./hotManager');
+var path=require('path')
 router.use(express.static(path.join(__dirname, '../public')));
 var defaultPage = function(req, res) {
     res.render('Search', {
