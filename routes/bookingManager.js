@@ -126,3 +126,15 @@ exports.create_order_ariticket = function(departure, destination, depart_time, a
       callback(qerr, vals, fields);
   });
 }
+
+//input: Hotel ID
+//return: Type(room)
+exports.get_room_type = function(Hotel_ID, callback) {
+    
+    var sql = "select * from RoomType where Hotel_ID = " + Hotel_ID;
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+      //console.log(qerr);
+        callback(qerr, vals, fields);
+    });
+}
