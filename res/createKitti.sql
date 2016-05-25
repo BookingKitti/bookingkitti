@@ -170,17 +170,9 @@ insert into TicketsInfo values('1');
 END IF;
 END //
 
-CREATE TRIGGER trig_roomtype_pics BEFORE INSERT ON RoomType
+CREATE TRIGGER trig_roomtype_pics AFTER INSERT ON RoomType
 FOR EACH ROW BEGIN
 insert into RoomTypePics values(NEW.Hotel_ID, NEW.Type, 'avatar/default_room.png');
-END IF;
 END //
 
-create table RoomTypePics(
-	Hotel_ID int,
-	Type char(100),
-	File_Pos varchar(40),
-	primary key (Hotel_ID, Type, File_Pos),
-	foreign key(Hotel_ID, Type) references RoomType(Hotel_ID, Type) on delete cascade
-) DEFAULT CHARSET=utf8;
 delimiter ;
