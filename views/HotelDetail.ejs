@@ -52,7 +52,37 @@
                                 </div>
                                 <div class='row'>
                                     <span class='list-group-item'>详细信息：<br>
-                      <%- HotelInfo[0].Description %></span>
+                      <%- HotelInfo[0].Description %></span><br>
+                                    <span>
+                                      <div class="col-md-6">
+                                          <label for="dtp_input2">入住日期</label>
+                                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                                              <input class="form-control" type="text" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> >
+                                              <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-remove"></span>
+                                              </span>
+                                              <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                          </div>
+                                          <input type="hidden" id="dtp_input2" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin' />
+                                          <br/>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <label for="dtp_input3">离店日期</label>
+                                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style="margin-bottom:0px">
+                                              <input class="form-control" type="text" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> >
+                                              <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-remove"></span>
+                                              </span>
+                                              <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                          </div>
+                                          <input type="hidden" id="dtp_input3" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout' />
+                                      </div>
+                                  </div>
+                                    </span>
                                 </div>
                             </div>
 
