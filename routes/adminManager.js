@@ -416,3 +416,47 @@ exports.update_airticket_info = function(Airticket_ID, Departure, Airport, Desti
         callback(qerr);
     })
 }
+
+/*@brief delete room type
+ *@param req, request
+ *@param res, response
+ *@param callback(err)
+ *for callback param:
+ *err is the query error
+ */
+
+exports.delete_room_type = function (Hotel_ID, Type, callback) {
+
+    var main_sql = "delete from RoomType where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "'";
+
+    searchManager.query(main_sql, function(qerr) {
+        console.log(qerr);
+        if (!qerr) {
+            var clause_sql = "delete from RoomInfo where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "'";
+            searchManager.query(clause_sql, function(qerr) {
+                callback(qerr);
+            }
+        }
+        else {
+            callback(qerr);
+        }
+    });
+}
+
+/*
+* @Hotel_ID, Type, Room_date: conditions
+* @modify: Price
+*/
+
+exports.update_room_info = function (Hotel_ID, Type, Room_date, Price, callback) {
+
+    if (Price != null) {
+        var sql = "update RoomInfo set Price = " + Price
+        + " where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "' and Room_date = '" + Room_date + "'";
+
+        searchManager.query(sql, function(qerr) {
+            callback(qerr);
+        }
+    }
+
+}
