@@ -16,12 +16,10 @@ function addDate(date, days){
     return val;
 }
 
-var start = '2016-06-05';
-var end = '2016-06-08';
-var date = new Date(start);
-for (var i = start; i <= end; i = addDate(i, 1)) {
-    console.log(i);
-}
+
+var sql = "(" + 1 + ", '" + "Type" + "', '" + "date" + "', " + 100 + ", " + 200 + ")";
+console.log(sql);
+
 //var myDate = new Date('2016-06-05');
 //myDate = myDate + 1;
 //console.log(myDate.toLocaleDateString());
