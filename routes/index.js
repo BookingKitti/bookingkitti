@@ -20,11 +20,9 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     var data_room_image;
     var count = 0;
     bookingManager.get_room_pics(Hotel_ID, function(qerr, vals) {
-        for(var data in vals){
-          if(data.File_Pos=='undefined')
-            data.File_Pos='avatar/Hotel_ID1/small/150x150_0.png';
-        }
         data_room_image = vals;
+        console.log("我要输出了哦");
+        console.log(vals);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get room pics');
@@ -42,6 +40,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     })
     searchManager.query('select * from HotelPics where Hotel_ID=' + Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
         data_image = vals;
+        console.log("老子他妈要输出了");
+        console.log(data_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get hotel info');
@@ -586,7 +586,7 @@ router.post('/updateHotel', function(req, res) {
 router.post('/uploadRoomPics', function(req, res) {
     adminManager.upload_room_photo(req, res, function(err, req, res) {
       // body...
-      console.log("Here jdiawjdi j");
+      console.log(err);
       showAdminDetail(req, res, req.query.Hotel_ID);
     })
 })
