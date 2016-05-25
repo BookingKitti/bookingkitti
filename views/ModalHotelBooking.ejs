@@ -12,7 +12,7 @@
                     <h4 class="modal-title" id="myModalLabel">预定<%- HotelInfo[0].Hotel_Name %></h4>
                 </div>
                 <div class="modal-body">
-                    <%-'<form class="form" name="/bookHotel" method="post" action='+"'./bookHotel?&&Hotel_ID="+HotelInfo[0].Hotel_ID+"&&RoomType="+RoomInfo[it].Type+"'>" %>
+                    <%-'<form class="form" name="/bookHotel" method="post" action='+"'bookHotel?&&Hotel_ID="+HotelInfo[0].Hotel_ID+"&&RoomType="+RoomInfo[it].Type+"'>" %>
                     <table class="table">
                         <thead>
                             <tr>

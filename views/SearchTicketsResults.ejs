@@ -102,7 +102,7 @@
                             </div>
                             <div id=<%-"'"+'collapse'+data[i].AirTicket_ID+"'" %> class="panel-collapse collapse in" role="tabpanel" aria-labelledby=<%-"'"+"heading"+i+"'" %>>
                                 <div class="panel-body">
-                                    <form method="post" action=<%- "'./bookAirticket?AirTicket_ID="+data[i].AirTicket_ID+"'" %> >
+                                    <form method="post" action=<%- "'bookAirticket?AirTicket_ID="+data[i].AirTicket_ID+"'" %> >
                                         <div class="form-group">
                                             <label>登机人姓名</label>
                                             <input type="text" class="form-control" id="CheckInText" placeholder="请输入登机人中文名" name='CheckInName'>

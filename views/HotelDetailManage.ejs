@@ -15,7 +15,7 @@
               <% include guideline.ejs %>
               <div class='right_col' role='main'>
                 <div class='container-fluid'>
-                  <form name="serachinfo" method="post" action=<%-"'"+"./updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
+                  <form name="serachinfo" method="post" action=<%-"'"+"updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
                 <div class='row'>
                 <div class='col-md-4'>
                   <input class="form-control" type="text" name="data" value = <%- HotelInfo[0].Hotel_Name %>>
