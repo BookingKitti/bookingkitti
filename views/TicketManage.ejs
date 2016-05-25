@@ -1,0 +1,111 @@
+<html>
+
+    <head>
+        <% include bootstrap_base.html %>
+          <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    </head>
+
+    <body class='nav-md'>
+      <div class='container body'>
+        <div class='main_container'>
+        <% include guideline.ejs %>
+        <div class='right_col' role='main'>
+            <div class='container-fluid'>
+              <div class="tabbable" id="tabs-273106">
+                  <ul class="nav nav-tabs">
+                      <li class="active">
+                          <a href="#panel-419013" data-toggle="tab">酒店</a>
+                      </li>
+                      <li>
+                          <a href="#panel-75657" data-toggle="tab">机票</a>
+                      </li>
+                  </ul>
+                  <div class="tab-content">
+                      <div class="tab-pane" id="panel-419013">
+                          <p>
+                              <% include SearchHotel %>
+                          </p>
+                      </div>
+                      <div class="tab-pane active" id="panel-75657">
+                          <p>
+                              <% include SearchTickets.ejs %>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+              <div class='container-fluid'>
+                <div class='row'>
+
+                  <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=price"+"'"%> >价格排序</a></div>
+                  <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=heat"+"'"%> >热度排序</a></div>
+                  <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=comment"+"'"%> >评分排序</a></div>
+                  <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchTicketsResults?"+"SearchID="+searchID+"&&SortBy=star"+"'"%> >星级排序</a></div>
+                </div>
+              <div class='row text-center'>
+
+                 <h1><div class='col-md-3' font-color="gray">出发地</div>
+                 <div class='col-md-3' font-color="gray">目的地</div>
+                 <div class='col-md-3' font-color="gray">价格</div></h1>
+                 <div class='col-md-1 col-md-offset-2'>
+                   <button type="add" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Add_Ticket'" %>>添加</button>
+                 </div>
+              </div>
+            </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <% for (var i=0;i<data.length;i++){%>
+                        <br>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id=<%-"heading"+i %> >
+                                <h4 class="panel-title">
+                                  <a role="button" data-toggle="collapse" data-parent="#accordion" href=<%-"'"+'#collapse'+data[i].AirTicket_ID+"'" %> aria-expanded="true" aria-controls=<%-"'"+'collapse'+data[i].AirTicket_ID+"'" %>>
+                                    <div class='row text-center'>
+                                        <div class='col-md-3'><%- data[i].Flight_Company+"--"+data[i].Flight_No %><h3><br><%- data[i].Departure%></h3><br>
+                                        <%- data[i].Airport %></div>
+                                        <div class='col-md-3' font-size=15>经停:<%- data[i].Stopover %></div>
+                                        <div class='col-md-3' font-size=17><h3><%- data[i].Destination %></h3></div>
+                                        <div class='col-md-3' font-size=17>
+                                          <br>
+                                          <div class = 'row'>
+                                            <div class='col-md-12'>
+                                              <h3><%- data[i].Price %>RMB</h3>
+                                            </div>
+                                          </div>
+                                          <br>
+                                            <div class = 'row'>
+                                              <div class='col-md-4 col-md-offset-8'>
+                                                <button type="delete" class="btn btn-danger" >delete</button>
+                                              </div>
+                                            </div>
+                                    </div></a>
+                                </h4>
+                            </div>
+
+                        </div>
+                        <!--<a class='list-group-item' href=<%- "'./SearchTicketsResults?AirTicket_ID="+data[i].AirTicket_ID+"'" %>></a>
+                        -->
+                    <%}%>
+
+                </div>
+            </div>
+          </div>
+          <% include footer.html %>
+          <% include Add_Tickets %>
+        </div>
+      </div>
+
+            <script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+            <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+            <script type="text/javascript">
+
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    weekStart: 1,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0
+                });
+            </script>
+        </body>

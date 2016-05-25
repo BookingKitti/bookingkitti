@@ -2,29 +2,81 @@
 
 <head>
     <% include bootstrap_base.html %>
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
 </head>
-  <% include guideline.ejs %>
-<body>
-  <div class='main-container'>
+
+<body class='nav-md'>
+  <div class='container body'>
+    <div class='main_container'>
+      <% include guideline.ejs %>
+
+  <div class='right_col' role='main'>
     <div class='container-fluid'>
-    <div class='span12'>
-      <ul class='list-group span4'>
+      <div class="tabbable" id="tabs-273106">
+          <ul class="nav nav-tabs">
+              <li class="active">
+                  <a href="#panel-419013" data-toggle="tab">酒店</a>
+              </li>
+              <li>
+                  <a href="#panel-75657" data-toggle="tab">机票</a>
+              </li>
+          </ul>
+          <div class="tab-content">
+              <div class="tab-pane active" id="panel-419013">
+                  <p>
+                      <% include SearchHotel.ejs %>
+                  </p>
+              </div>
+              <div class="tab-pane" id="panel-75657">
+                  <p>
+                      <% include SearchTickets.ejs %>
+                  </p>
+              </div>
+          </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-offset-8 col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Price"+"'"%> >价格排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=heat"+"'"%> >热度排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Score"+"'"%> >评分排序</a></div>
+        <div class='col-md-1'><a class='btn btn-sm' href=<%-"'./SearchHotelResults?"+"SearchID="+searchID+"&&SortBy=Stars"+"'"%> >星级排序</a></div>
+      </div>
+      <div class='row'>
+      <ul class='list-group'>
         <% for (var i=0;i<data.length;i++){ %>
           <%- "<a class='list-group-item' href='./hotelDetail?Hotel_ID="+data[i].Hotel_ID+"'>"+
-          "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
+          "<div class='row'><div class='col-md-3'><img src='"+data[i].File_Pos+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
           "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
-          "<div class='col-md-2'> "+data[i].City+"</div></div>"+
-          "<div class='row'>详细地址: "+data[i].Address+"</div></div>"+
-          "<div class='col-md-3'><h3>"+price[i]+"起</h3></div>"+
+          "<div class='col-md-2'> "+data[i].City+"</div><div class='col-md-3'>星级:"+data[i].Stars+"</div></div><br>"+
+          "<div class='row'>详细地址: "+data[i].Address+"</div><br>"+
+          "<div class='row'>评分: "+data[i].Score+"</div></div>"+
+          "<div class='col-md-3'><h3>"+data[i].Min_Price+"起</h3><br>热度: "+data[i].Heat+"</div>"+
           "</div>" %>
 
         </a>
         <br>
+
           <%}%>
       </ul>
     </div>
   </div>
 </div>
 <% include footer.html %>
+</div>
+</div>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    </script>
 </body>
 </html>

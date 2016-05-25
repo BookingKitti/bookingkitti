@@ -1,0 +1,77 @@
+<form name="Add_Tickets" method="post" action="/addTickets">
+    <div class="modal fade" id=<%- "'Add_Ticket'"%> tabindex="-1" role="dialog" aria-labelledby=
+        <%-"'ModalLabel'"%> >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                Add Ticket
+             </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Flight_Company" class="form-control" required="required" placeholder="Flight Company" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Flight_No" class="form-control" required="required" placeholder="Flight No" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Departure" class="form-control" required="required" placeholder="Departure" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Stopover" class="form-control" required="required" placeholder="Stopover" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Destination" class="form-control" required="required" placeholder="Destination" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Depart_time" class="form-control" required="required" placeholder="Depart time" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Stopover_time" class="form-control" required="required" placeholder="Stopover time" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="Arrive_time" class="form-control" required="required" placeholder="Arrive time" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Total" class="form-control" required="required" placeholder="Total" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Price" class="form-control" required="required" placeholder="Price" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="Discount" class="form-control" required="required" placeholder="Discount" />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" >
+                            submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+</form>

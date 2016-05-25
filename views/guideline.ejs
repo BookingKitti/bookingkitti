@@ -1,38 +1,94 @@
-<body style="background-color: white">
+<div class="col-md-3 left_col">
+  <div class="left_col scroll-view">
+    <div class="navbar nav_title" style="border: 0;">
+      <a href="home" class="site_title"><i class="fa fa-leaf"></i> <span> PayKitty</span></a>
+    </div>
+    <div class="clearfix"></div>
+    <!-- menu profile quick info -->
+    <div class="profile">
+      <div class="profile_pic">
+        <img src="img/profile.jpeg" alt="..." class="img-circle profile_img">
+      </div>
+      <div class="profile_info">
+        <span>welcome,</span>
+        <h2>诗伦</h2>
+      </div>
+    </div>
+    <!-- /menu profile quick info -->
+    <br />
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+      <div class="menu_section">
+        <h3>&nbsp</h3>
+        <ul class="nav side-menu">
+          <!--li><a><i class="fa fa-table"></i> 审计账单 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="home">今日账单</a>
+              </li>
+              <li><a href="archive">历史账单</a>
+              </li>
+              <li><a href="log">修改日志</a>
+              </li>
+            </ul>
+          </li>
+          <li><a><i class="fa fa-user"></i> 我的帐户 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="profile">账户信息</a>
+              </li>
+              <li><a href="settings">系统设置</a>
+              </li>
+              <li><a href="logout">登出</a>
+              </li>
+            </ul>
+          </li-->
+          <li><a><i class="fa fa-beer"></i> 出去走走 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="/">旅店与飞行器预定</a>
+              </li>
+              <li><a href="admin">管理员</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- /sidebar menu -->
+  </div>
+</div>
+<!-- top navigation -->
+<div class="top_nav">
 
-	<link rel="stylesheet" href="test.css">
-	<link rel="stylesheet" href="component.css">
+  <div class="nav_menu">
+    <nav class="" role="navigation">
+      <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+      </div>
 
-	<nav class="navbar navbar-fixed-top" role="navigation" style="background-color:#fd7b35;" name='topBox'>
-		<div>
-			<div class="navbar-header">
-				<a class="navbar-brand" style=" color: white; font-size: 40px;" href="#">Bookkitty</a>
-			</div>
-			<div>
-				<ul class="nav navbar-nav" style="float: right;">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <img src="img/profile.jpeg" alt="">诗伦
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+            <li><a href="profile">帐户信息</a>
+            </li>
+            <li>
+              <a href="settings">
+                <span class="badge bg-red pull-right">50%</span>
+                <span>设置</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;" onclick="audit_help();"><i class="fa fa-question-circle pull-right"></i>帮助</a>
+            </li>
+            <li><a href="logout"><i class="fa fa-sign-out pull-right"></i>登出</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-					<div class="dropdown">
-						<button class="dropbtn">用户 dsl</button>
-						<div class="dropdown-content">
-							<a href="http://www.runoob.com">我的订单</a>
-							<a href="http://www.runoob.com">账号管理</a>
-							<a href="http://www.runoob.com">退出登录</a>
-						</div>
-					</div>
-				</ul>
-			</div>
-
-	</nav>
-
-	<nav class="cbp-spmenu" name='LeftBox'>
-		<% var tabs=['搜索','订单','评价']
-		var tabHref=['./search','./order','./comment']
-		for (var i=0;i<tabs.length;i++)
-		{
-	%>
-			<%- ((i!=tabChoose)?"<a ":"<a style='border-left: 6px solid #fd7b35;'")+"href='"+tabHref[i]+"'>" %>
-				<%= tabs[i] %>
-					</a>
-					<%}%>
-
-	</nav>
+<!-- /top navigation -->

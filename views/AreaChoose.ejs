@@ -1,0 +1,62 @@
+    	<label>您想订哪里的酒店？</label>
+		<div class="form-group" style='margin-bottom:0px;'>
+
+			<div class="col-sm-4 col-md-4">
+				<select name="combobox_province" id="input_province" class="form-control">
+				</select>
+			</div>
+			<div class="col-sm-4 col-md-4">
+				<select name="combobox_city" id="input_city" class="form-control">
+				</select>
+			</div>
+      <div class='col-sm-4 col-md-4'>
+        <input name='textfield_address' class='form-control' placeholder="具体地址"/>
+		</div>
+	</div>
+
+
+<p>&nbsp;</p>
+<script type="text/javascript" src="js/pdata.js"></script>
+<script type="text/javascript">
+	$(function () {
+		var html = "<option value=''>== 请选择 ==</option>"; $("#input_city").append(html); $("#input_area").append(html);
+		$.each(pdata,function(idx,item){
+			if (parseInt(item.level) == 0) {
+   				html += "<option value='" + item.names + "' exid='" + item.code + "'>" + item.names + "</option>";
+   			}
+		});
+		$("#input_province").append(html);
+
+		$("#input_province").change(function(){
+			if ($(this).val() == "") return;
+			$("#input_city option").remove(); $("#input_area option").remove();
+			var code = $(this).find("option:selected").attr("exid"); code = code.substring(0,2);
+			var html = "<option value=''>== 请选择 ==</option>"; $("#input_area").append(html);
+			$.each(pdata,function(idx,item){
+				if (parseInt(item.level) == 1 && code == item.code.substring(0,2)) {
+	   				html += "<option value='" + item.names + "' exid='" + item.code + "'>" + item.names + "</option>";
+	   			}
+			});
+			$("#input_city").append(html);
+		});
+
+		$("#input_city").change(function(){
+			if ($(this).val() == "") return;
+			$("#input_area option").remove();
+			var code = $(this).find("option:selected").attr("exid"); code = code.substring(0,4);
+			var html = "<option value=''>== 请选择 ==</option>";
+			$.each(pdata,function(idx,item){
+				if (parseInt(item.level) == 2 && code == item.code.substring(0,4)) {
+	   				html += "<option value='" + item.names + "' exid='" + item.code + "'>" + item.names + "</option>";
+	   			}
+			});
+			$("#input_area").append(html);
+		});
+		//绑定
+		$("#input_province").val("浙江省");$("#input_province").change();
+		$("#input_city").val("杭州市");$("#input_city").change();
+		$("#input_area").val("罗湖区");
+
+	});
+</script>
+    <script src="/themes/hvt/js/ggtj.js" type="text/javascript"></script>

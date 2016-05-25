@@ -2,27 +2,74 @@
 
 <head>
     <% include bootstrap_base.html %>
+
 </head>
-  <% include guideline.ejs %>
-<body>
-  <div class='main-container'>
-    <div class='container-fluid'>
 
-      <ul class='list-group span4'>
-            <% for (var i=0;i<data.length;i++){ %>
-          <%- "<a class='list-group-item' href='./HotelManage?Hotel_ID="+data[i].Hotel_ID+"'>"+"<h4 font-color='purple' class='text-center'> "+data[i].Hotel_Name+"</h4>"+
-          "<div class='row'><div class='col-md-5'></div>\
-          <div class='col-md-1'>"+data[i].Province+"</div>"+
-          "<div class='col-md-1'> "+data[i].City+"</div></div>"+
-          "<div class='row text-center'>详细地址: "+data[i].Address+"</div>" %>
-          <a class='btn btn-danger btn-block' href=<%- "'./DeleteHotel?Hotel_ID="+data[i].Hotel_ID+"'" %> >删除</a>
-        </a>
-        <br>
-          <%}%>
-      </ul>
+<body class='nav-md'>
+    <div class='container body'>
+        <div class='main_container'>
+            <% include guideline.ejs %>
+
+                <div class='right_col' role='main'>
+                    <div class='container-fluid'>
+                        <div class="tabbable" id="tabs-273106">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#panel-419013" data-toggle="tab">酒店</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-75657" data-toggle="tab">机票</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="panel-419013">
+                                    <p>
+                                        <% include SearchHotel.ejs %>
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="panel-75657">
+                                    <p>
+                                        <% include SearchTickets.ejs %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='col-md-1 col-md-offset-11'>
+                                <button type="add" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Add_Hotel'" %>>添加</button>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <ul class='list-group'>
+                                <% for (var i=0;i<data.length;i++){ %>
+                                    <div class='row'>
+                                        <%- "<a class='list-group-item' href='./hotelDetailManage?Hotel_ID="+data[i].Hotel_ID+"'>"+
+          "<div class='row'><div class='col-md-3'><img src='"+imgpath[i]+"' class='img-rounded'></div>"+"<div class='col-md-6'><div class='row'><h4 font-color='purple'> "+data[i].Hotel_Name+"</h4></div>"+
+          "<div class='row'><div class='col-md-2'>"+data[i].Province+"</div>"+
+          "<div class='col-md-2'> "+data[i].City+"</div></div><br>"+
+          "<div class='row'>详细地址: "+data[i].Address+"</div><br>"+
+          "<div class='row'>评分: "+data[i].Score+"</div></div>"+
+          "<div class='col-md-3'><h3>"+price[i]+"起</h3><br>热度: "+data[i].Heat+"</div>"+
+          "</div>"
+          %>
+                                            </a>
+                                    </div>
+                                    <br>
+                                    <div class='row'>
+                                        <div class='col-md-2 col-md-offset-10'><a class='btn btn-danger btn-block' href=<%- "'./deleteHotel?Hotel_ID="+data[i].Hotel_ID+ "'" %> >删除</a></div>
+                                    </div>
+                                    <br>
+                                    <%}%>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <% include footer.html %>
+
+        </div>
     </div>
-  </div>
-
-<% include footer.html %>
+    <% include Add_Hotel %>
 </body>
+
 </html>

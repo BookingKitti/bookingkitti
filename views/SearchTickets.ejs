@@ -6,7 +6,7 @@
                   <div class="row-fluid">
                       <div class="col-md-12">
                           <label for="dtp_input2">出发日期</label>
-                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
                               <input class="form-control" size="16" type="text" value="" readonly placeholder="出发日期">
                               <span class="input-group-addon">
                                   <span class="glyphicon glyphicon-remove"></span>
@@ -19,7 +19,7 @@
                     </div>
                      <div class="col-md-12">
                          <label for="dtp_input3">返程日期</label>
-                         <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
+                         <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
                              <input class="form-control" size="16" type="text" value="" readonly placeholder="返程日期">
                              <span class="input-group-addon">
                                  <span class="glyphicon glyphicon-remove"></span>
@@ -45,15 +45,16 @@
                       </div>
                       <div class="col-md-6">
                           <label>最低价格</label>
-                          <input type="text" name="textfield_minprice" class='form-control' placeholder="最低价格"/>
+                          <input type="text" name="textfield_minprice" class='form-control' placeholder="最低价格" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
                       </div>
                       <div class="col-md-6">
                           <label>最高价格</label>
-                          <input type="text" name="textfield_maxprice" class='form-control' placeholder="最高价格"/><br/>
+                          <input type="text" name="textfield_maxprice" class='form-control' placeholder="最高价格" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/><br/>
                       </div>
                   </div>
               </div>
+
         </div>
-        <button type="submit" class="btn btn-primary btn-lg">提交</button>
+        <div class='row text-center'><button type="submit" class="btn btn-primary btn-lg">提交</button></div>
     </form>
 </div>
