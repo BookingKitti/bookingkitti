@@ -448,11 +448,11 @@ exports.delete_room_type = function (Hotel_ID, Type, callback) {
 * @modify: Price
 */
 
-exports.update_room_info = function (Hotel_ID, Type, Room_date, Price, callback) {
+exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Price, callback) {
 
     if (Price != null) {
         var sql = "update RoomInfo set Price = " + Price
-        + " where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "' and Room_date = '" + Room_date + "'";
+        + " where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "' and Room_date between '" + Start_date + "' and '" + End_date + "'";
 
         searchManager.query(sql, function(qerr) {
             callback(qerr);
