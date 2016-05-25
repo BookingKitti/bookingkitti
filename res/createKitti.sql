@@ -172,7 +172,7 @@ END //
 
 CREATE TRIGGER trig_roomtype_pics AFTER INSERT ON RoomType
 FOR EACH ROW BEGIN
-insert into RoomTypePics values(NEW.Hotel_ID, NEW.Type, 'avatar/default_room.png');
+insert into RoomTypePics values(NEW.Hotel_ID, NEW.Type, 'avatar/zzefault_room.png');
 END //
 
 delimiter ;
