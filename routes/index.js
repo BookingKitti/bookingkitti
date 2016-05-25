@@ -533,7 +533,11 @@ router.post('/modifyRoom', function(req, res) {
   console.log(req.body.date_start);
   console.log(req.body.date_end);
   console.log(req.body.Price);
-    //adminManager.modi
+  adminManager.update_room_info(req.query.Hotel_ID
+    ,req.query.RoomType
+    ,req.body.date_start
+    ,req.body.date_end
+    ,req.body.Price);
 })
 
 router.post('/updateHotel', function(req, res) {
