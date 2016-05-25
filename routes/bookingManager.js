@@ -193,6 +193,7 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, price, res) {
 
     var qs = require('querystring');
 
+    //JSON Format:
     var post_data = {
         buyer: User_ID,
         seller: 0, //default
@@ -236,7 +237,7 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, price, res) {
 
 exports.send_hotel_detailed_info = function (Hotel_ID) {
 
-    var sql = "select * from HotelInfo natural join HotelPics where Hotel_ID = " + Hotel_ID;
+    var sql = "select * from HotelInfo natural join HotelPics where Hotel_ID = " + Hotel_ID + " limit 1";
 
     searchManager.query(sql, function(qerr, vals, fields) {
 
@@ -245,11 +246,11 @@ exports.send_hotel_detailed_info = function (Hotel_ID) {
         for (var index in vals) {
             var tuple = vals[index];
             var result = '';
-            var i = 0;
-            plist[i] = "";
-            for (var attribute in tuple){
-                plist[i] += (tuple[attribute] + "##");
-                i++;
+            //var i = 0;
+            //plist[] = "";
+            for (var attribute in tuple) {
+                plist[plist.length] = tuple[attribute];
+                //i++;
             }
             //末尾多出##
         }
