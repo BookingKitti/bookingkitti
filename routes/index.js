@@ -586,6 +586,7 @@ router.post('/updateHotel', function(req, res) {
 router.post('/uploadRoomPics', function(req, res) {
     adminManager.upload_room_photo(req, res, function(err, req, res) {
       // body...
+      console.log("Here jdiawjdi j");
       showAdminDetail(req, res, req.query.Hotel_ID);
     })
 })
