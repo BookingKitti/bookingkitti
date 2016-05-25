@@ -83,26 +83,16 @@ var change_airticket_data = function(departure, destination, depart_time, arrive
     });
 }
 
-exports.create_order_hotel = function(hotel_id, type, room_date_from, room_data_to, req, res, callback){
+exports.create_order_hotel = function(hotel_id, type, room_date_from, room_data_to, callback){
   change_room_data(hotel_id, type, room_date_from, room_data_to, function(qerr, vals, fields){
     //result=result;
     if(qerr)
     {
       console.log("error");
-      callback(qerr, vals, fields, req, res);
+      callback(qerr, vals, fields);
       return;
     }
-    callback(qerr, vals, fields, req, res);
-      // var sql1="select Hotel_Name,Province,City,Address,\
-      // Stars,Description,PhoneNumber,Type,Room_date,Price\
-      //  from HotelInfo,RoomInfo where HotelInfo.Hotel_ID=\
-      //  RoomInfo.Hotel_ID and RoomInfo.Hotel_ID="+hotel_id
-      //  +" and Type='"+type+"' and Room_date='"+
-      //  room_date_from+"' ;"
-    //   searchManager.query(sql1, function(qerr1, vals1, fields1) {
-    //     //console.log(qerr);
-    //     callback(qerr1, vals1, fields1);
-    // });
+    callback(qerr, vals, fields);
   });
 }
 
