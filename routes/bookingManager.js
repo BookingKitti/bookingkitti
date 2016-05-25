@@ -26,7 +26,7 @@ exports.get_room_info = function(hotel_id, room_date_from, room_data_to, callbac
 
 exports.get_room_pics = function(hotel_id, callback) {
 
-    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" ;";
+    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" and File_Pos like '%small/150x150_%';";
     console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
         if (callback != null)
@@ -130,7 +130,7 @@ exports.create_order_ariticket = function(departure, destination, depart_time, a
 //input: Hotel ID
 //return: Type(room)
 exports.get_room_type = function(Hotel_ID, callback) {
-    
+
     var sql = "select * from RoomType where Hotel_ID = " + Hotel_ID;
 
     searchManager.query(sql, function(qerr, vals, fields) {

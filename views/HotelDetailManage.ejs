@@ -114,13 +114,13 @@
                                 <tr class="info">
 
                                     <td style="width: 76%;">
-                                      <div class='col-md-3'><img src=<% if (typeof RoomImg[i] != ' undefined') {%><%- "'"+RoomImg[i].File_Pos+ "'" %><%}%> height='80px'></div>
+                                      <div class='col-md-3'><img src=<% if (typeof RoomImg[i] != ' undefined') {%><%- "'"+RoomImg[0].File_Pos+ "'" %><%}%> height='80px'></div>
                                       <div style="font-size:15px;">
                                           <%- RoomType[i].Type %>
                                       </div>
                                     </td>
                                     <td style="width: 8%;">
-                                        <button type="button" color='red' class="btn btn-primary" data-toggle="modal" data-target=<%- "'#Upload_Pics'" %>>
+                                        <button type="button" color='red' class="btn btn-primary" data-toggle="modal" data-target=<%- "'#"+ "Upload_RoomPics"+i+ "'"%>>
                                             添加图片
                                         </button>
                                     </td>
@@ -149,6 +149,7 @@
     </div>
 <% include Add_Room %>
 <% include Upload_Pics %>
+<% include Upload_RoomPics %>
 <% include Modify_Room %>
 </body>
 

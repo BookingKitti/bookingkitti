@@ -36,6 +36,18 @@ function createGaussianPyramids(path, fileName, callback) {
         });
 }
 
+function createGaussianPyramids2L(path, fileName, callback) {
+  imageMagick(path + fileName)
+      .resize(150, 150, '!')
+      .autoOrient()
+      .write(path + 'small/150x150_' + fileName, function(err) {
+          if (err) {
+              return err;
+          }
+          callback();
+      });
+}
+
 /*@brief add a new hotel
  *@param req, request
  *@param res, response
@@ -116,7 +128,7 @@ exports.add_airticket_info = function(req, res, callback) {
  *req is the request
  *res is the response
  */
-exports.upload_room_photo = function(req, res, callback) {
+exports.upload_room_photo = function(req,res,callback) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.uploadDir = 'public' + AVATAR_UPLOAD_FOLDER;
@@ -157,38 +169,18 @@ exports.upload_room_photo = function(req, res, callback) {
             return;
         }
 
-        searchManager.query('select count(Hotel_ID) from RoomTypePics where Hotel_ID=' + req.query.Hotel_ID, function(qerr, vals) {
-            var count = vals[0]['count(Hotel_ID)'] / 4;
             var directoryName = 'Hotel_' + req.query.Hotel_ID + '/';
-            var fileName = count + '.' + extName;
+            var fileName = req.query.RoomType + '.' + extName;
             var newPath = form.uploadDir + directoryName + fileName;
             var rename = function() {
                 fs.rename(files.fulAvatar.path, newPath, function() {
-                    createGaussianPyramids(form.uploadDir + directoryName, fileName, function(err) {
-                        searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                    createGaussianPyramids2L(form.uploadDir + directoryName, fileName, function(err) {
+                        searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',\''+ req.query.RoomType+'\','+ '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
                             function(qerr) {
                                 if (qerr) {
+                                    callback(qerr,req,res);
                                     return;
                                 }
-                                searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'medium/300x300_' + fileName + '\')',
-                                    function(qerr) {
-                                        if (qerr) {
-                                            return;
-                                        }
-                                        searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + 'large/600x600_' + fileName + '\')',
-                                            function(qerr) {
-                                                if (qerr) {
-                                                    return;
-                                                }
-                                                searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',' + '\'avatar/' + directoryName + fileName + '\')',
-                                                    function(qerr) {
-                                                        if (qerr) {
-                                                            return;
-                                                        }
-                                                        callback(qerr, req, res);
-                                                    });
-                                            });
-                                    });
                             });
                     });
                 });
@@ -206,7 +198,6 @@ exports.upload_room_photo = function(req, res, callback) {
                     rename();
                 }
             })
-        })
     });
 }
 
@@ -343,13 +334,13 @@ exports.delete_hotel_info = function(req, res, callback) {
  *req is the request
  *res is the response
  */
-exports.delete_airticket_info = function(req, res, callback) {
+exports.delete_airticket_info = function(req, callback) {
     if (req.query.AirTicket_ID == null) {
-        callback("Hotel_ID is null");
+        callback("AirTicket_ID is null");
     }
-    var sql = 'delete from HotelInfo where Hotel_ID=' + req.query.AirTicket_ID;
+    var sql = 'delete from TicketsInfo where AirTicket_ID=' + req.query.AirTicket_ID;
     searchManager.query(sql, function(err) {
-        callback(err, req, res);
+        callback(err);
     })
 }
 
@@ -453,7 +444,7 @@ exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Avail
     if (Price != null) {
         var sql = "insert into RoomInfo values(" + Hotel_ID + ", '" + Type + "', '" + Start_date + "', '" + End_date + "', " + Available + ", " + Price
         + ") on duplicate key update RoomInfo set Price = " + Price;
-        
+
 
         searchManager.query(sql, function(qerr) {
             callback(qerr);

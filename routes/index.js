@@ -583,6 +583,21 @@ router.post('/updateHotel', function(req, res) {
         });
 })
 
+router.post('/uploadRoomPics', function(req, res) {
+    adminManager.upload_room_photo(req, res, function(err, req, res) {
+      // body...
+      showAdminDetail(req, res, req.query.Hotel_ID);
+    })
+})
+
+router.get('/deleteAirTicket', function(req, res) {
+    // body...
+    adminManager.delete_airticket_info(req, function(err) {
+      // body...
+       adminSearchTicket(req,res);
+    })
+})
+
 router.get('/hotelDetailManage', function(req, res) {
     showAdminDetail(req, res, req.query.Hotel_ID);
 });
