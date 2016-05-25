@@ -170,8 +170,9 @@ insert into TicketsInfo values('1');
 END IF;
 END //
 
-CREATE TRIGGER trig_roomtype_pics BEFORE INSERT ON RoomType
+CREATE TRIGGER trig_roomtype_pics AFTER INSERT ON RoomType
 FOR EACH ROW BEGIN
 insert into RoomTypePics values(NEW.Hotel_ID, NEW.Type, 'avatar/default_room.png');
-END IF;
 END //
+
+delimiter ;
