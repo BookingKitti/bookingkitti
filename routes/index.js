@@ -20,11 +20,9 @@ var showAdminDetail = function(req, res, Hotel_ID) {
     var data_room_image;
     var count = 0;
     bookingManager.get_room_pics(Hotel_ID, function(qerr, vals) {
-        for(var data in vals){
-          if(data.File_Pos=='undefined')
-            data.File_Pos='avatar/Hotel_ID1/small/150x150_0.png';
-        }
         data_room_image = vals;
+        console.log("我要输出了哦");
+        console.log(vals);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get room pics');
@@ -35,13 +33,16 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                   RoomType: data_room,
                   url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                   FilePos: data_image,
-                  RoomImg: data_room_image
+                  RoomImg: data_room_image,
+
               });
             }
         }
     })
     searchManager.query('select * from HotelPics where Hotel_ID=' + Hotel_ID + ' and ' + 'File_Pos like \'%600x600%\'', function(qerr, vals) {
         data_image = vals;
+        console.log("老子他妈要输出了");
+        console.log(data_image);
         count++;
         if (qerr) {
             console.log('Fatal error: Cannot get hotel info');
@@ -137,7 +138,10 @@ var showDetail = function(req, res) {
                     Comment: data_comment,
                     url: req.originalUrl,
                     FilePos: data_image,
-                    RoomImg: data_room_image
+                    RoomImg: data_room_image,
+                    date_checkin:req.session.Date_From,
+                    date_checkout:req.session.Date_To
+
                 });
             }
         }
@@ -157,7 +161,10 @@ var showDetail = function(req, res) {
                     Comment: data_comment,
                     url: req.originalUrl,
                     FilePos: data_image,
-                    RoomImg: data_room_image
+                    RoomImg: data_room_image,
+                    date_checkin:req.session.Date_From,
+                    date_checkout:req.session.Date_To
+
                 });
             }
         }
@@ -178,7 +185,10 @@ var showDetail = function(req, res) {
                         Comment: data_comment,
                         url: req.originalUrl,
                         FilePos: data_image,
-                        RoomImg: data_room_image
+                        RoomImg: data_room_image,
+                        date_checkin:req.session.Date_From,
+                        date_checkout:req.session.Date_To
+
                     });
                 }
             }
@@ -215,7 +225,10 @@ var showDetail = function(req, res) {
                         Comment: data_comment,
                         url: req.originalUrl,
                         FilePos: data_image,
-                        RoomImg: data_room_image
+                        RoomImg: data_room_image,
+                        date_checkin:req.session.Date_From,
+                        date_checkout:req.session.Date_To
+
                     });
                 }
             }
@@ -236,7 +249,10 @@ var showDetail = function(req, res) {
                         Comment: data_comment,
                         url: req.originalUrl,
                         FilePos: data_image,
-                        RoomImg: data_room_image
+                        RoomImg: data_room_image,
+                        date_checkin:req.session.Date_From,
+                        date_checkout:req.session.Date_To
+
                     });
                 }
             }
@@ -290,7 +306,9 @@ router.get('/SearchHotelResults', function(req, res, next) {
             res.render('SearchHotelResults', {
                 tabChoose: 0,
                 data: vals,
-                searchID: req.query.SearchID
+                searchID: req.query.SearchID,
+                date_checkin:req.session.Date_From,
+                date_checkout:req.session.Date_To
             })
         });
 })
@@ -381,8 +399,8 @@ router.post('/searchHotel', function(req, res) {
                 tabChoose: 0,
                 data: vals,
                 searchID: search_ID,
-                date_from: req.session.Date_From,
-                date_to: req.session.Date_To
+                date_checkout: req.session.Date_To,
+                date_checkin: req.session.Date_From
             })
         });
 });
@@ -586,7 +604,7 @@ router.post('/updateHotel', function(req, res) {
 router.post('/uploadRoomPics', function(req, res) {
     adminManager.upload_room_photo(req, res, function(err, req, res) {
       // body...
-      console.log("Here jdiawjdi j");
+      console.log(err);
       showAdminDetail(req, res, req.query.Hotel_ID);
     })
 })

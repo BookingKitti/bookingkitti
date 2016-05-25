@@ -26,12 +26,25 @@ exports.get_room_info = function(hotel_id, room_date_from, room_data_to, callbac
 
 exports.get_room_pics = function(hotel_id, callback) {
 
-    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" and File_Pos like '%small/150x150_%' or File_Pos like '%zzefault%';";
+    var sql="select Type,File_Pos from RoomTypePics where Hotel_ID= "+hotel_id +" and (File_Pos like '%small/150x150_%' or File_Pos like '%zzefault%');";
     console.log(sql);
     searchManager.query(sql, function(qerr, vals, fields) {
+      var map=new Object();
+      for(var row in vals){
+        console.log(vals[row].Type);
+        console.log(vals[row].File_Pos);
+        if(typeof map[vals[row].Type]=="undefined"){
+          map[vals[row].Type]=vals[row].File_Pos;
+        }
+        else if(map[vals[row].Type]=="avatar/zzefault_room.png"&&vals[row].File_Pos!="avatar/zzefault_room.png"){
+          map[vals[row].Type]=vals[row].File_Pos;
+        }
+      }
+      console.log("注意我注意我");
+      console.log(map);
         if (callback != null)
         {
-          callback(qerr, vals, fields);
+          callback(qerr, map, fields);
         }
     });
 }

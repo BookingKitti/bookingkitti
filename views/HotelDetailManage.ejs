@@ -28,7 +28,7 @@
                 <div class='row'>
                     <div class='col-md-4 col-xs-12'>
                         <div class="carousel slide" id="carousel">
-                          <%if (typeof FilePos != "undefined"){%>
+                          <%if (typeof FilePos[0] != 'undefined'){%>
                             <ol class="carousel-indicators">
                                 <li class="active" data-slide-to="0" data-target="#carousel"></li>
                                 <% for (var i=1;i<FilePos.length;i++){ %>
@@ -114,7 +114,7 @@
                                 <tr class="info">
 
                                     <td style="width: 76%;">
-                                      <div class='col-md-3'><img src=<% if (typeof RoomImg[i] != ' undefined') {%><%- "'"+RoomImg[0].File_Pos+ "'" %><%}%> height='80px'></div>
+                                      <div class='col-md-3'><img src=<% if (typeof RoomImg[i] != ' undefined') {%><%- "'"+RoomImg[RoomType[i].Type]+ "'" %><%}%> height='80px'></div>
                                       <div style="font-size:15px;">
                                           <%- RoomType[i].Type %>
                                       </div>
