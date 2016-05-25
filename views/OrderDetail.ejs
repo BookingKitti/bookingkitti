@@ -16,6 +16,7 @@
                             <div class='panel panel-heading'>
                                 <h1 class="panel-title" style='font-size:35px;color:#CC6666;'>订单确认</h1>
                             </div>
+                            <% if (OrderType=='Hotel'){%>
                             <div class='panel panel-body'>
                               <div class='row'>
                                 <div class='col-md-8'>
@@ -34,7 +35,25 @@
                                 <div class='span12' style='font-size:36px;color:red;'>订单总额：<%- TotalPrice %></div>
                               </div>
                           </div>
+                          <%} else if (OrderType=='Ticket'){%>
+                            <div class='panel panel-body'>
+                              <div class='row'>
+                                <div class='col-md-8'>
+                                  <div class='span12'><h3>出发地  <%- Departure %></h3></div><br>
+                                  <div class='span12'><h3>目的地  <%- Destination %></h3></div><br>
+                                  <div class='span12' style='font-size:15px;'>登机人:  <%- ID %></div><br>
+                                  <div class='span12' style='font-size:16px'>出发日期:  <%- Depart_time %></div><br>
+                                </div>
+                                <div class='col-md-4'>
+                                  <div class='span12'><img src=<%- "'"+RoomImg+"'" %> class='thumbnail' ></div>
+                                </div>
 
+                              </div><br>
+                              <div class='span12'>
+                                <div class='span12' style='font-size:36px;color:red;'>订单总额：<%- TotalPrice %></div>
+                              </div>
+                          </div>
+                            <%}%>
                           <div class='span12'>
                               <button type="submit" class="btn btn-primary">确认提交</button>
                           </div>
