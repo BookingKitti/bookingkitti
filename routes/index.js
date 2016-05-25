@@ -8,6 +8,16 @@ var adminManager = require('./adminManager');
 var hotManager = require('./hotManager');
 var path=require('path')
 router.use(express.static(path.join(__dirname, '../public')));
+router.use(session(
+  {
+      secret:'paykitty',
+      name:'cookiespace',
+      cookie:{maxAge:6000},
+      resave:false,
+      saveUninitialized:true,
+  }
+));
+
 var defaultPage = function(req, res) {
 
     res.render('Search', {
