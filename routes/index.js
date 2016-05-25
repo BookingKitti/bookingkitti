@@ -16,11 +16,9 @@ var defaultPage = function(req, res) {
 var showAdminDetail = function(req, res, Hotel_ID) {
     var data_hotel;
     var data_room;
-    var data_comment;
     var data_image;
     var data_room_image;
     var count = 0;
-    var min, max;
     bookingManager.get_room_pics(Hotel_ID, function(qerr, vals) {
         data_room_image = vals;
         count++;
@@ -28,16 +26,13 @@ var showAdminDetail = function(req, res, Hotel_ID) {
             console.log('Fatal error: Cannot get room pics');
         } else {
             if (count == 5) {
-                res.render('HotelDetailManage', {
-                    tabChoose: 0,
-                    HotelInfo: data_hotel,
-                    RoomInfo: data_room,
-                    Price: min + "-" + max,
-                    Comment: data_comment,
-                    url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
-                    FilePos: data_image,
-                    RoomImg: data_room_image
-                });
+              res.render('HotelDetailManage', {
+                  HotelInfo: data_hotel,
+                  RoomType: data_room,
+                  url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
+                  FilePos: data_image,
+                  RoomImg: data_room_image
+              });
             }
         }
     })
@@ -48,16 +43,13 @@ var showAdminDetail = function(req, res, Hotel_ID) {
             console.log('Fatal error: Cannot get hotel info');
         } else {
             if (count == 5) {
-                res.render('HotelDetailManage', {
-                    tabChoose: 0,
-                    HotelInfo: data_hotel,
-                    RoomInfo: data_room,
-                    Price: min + "-" + max,
-                    Comment: data_comment,
-                    url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
-                    FilePos: data_image,
-                    RoomImg: data_room_image
-                });
+              res.render('HotelDetailManage', {
+                  HotelInfo: data_hotel,
+                  RoomType: data_room,
+                  url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
+                  FilePos: data_image,
+                  RoomImg: data_room_image
+              });
             }
         }
     })
@@ -69,49 +61,28 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
                 if (count == 5) {
-                    res.render('HotelDetailManage', {
-                        tabChoose: 0,
-                        HotelInfo: data_hotel,
-                        RoomInfo: data_room,
-                        Price: min + "-" + max,
-                        Comment: data_comment,
-                        url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
-                        FilePos: data_image,
-                        RoomImg: data_room_image
-                    });
+                  res.render('HotelDetailManage', {
+                      HotelInfo: data_hotel,
+                      RoomType: data_room,
+                      url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
+                      FilePos: data_image,
+                      RoomImg: data_room_image
+                  });
                 }
             }
         });
-    bookingManager.get_room_info(Hotel_ID, req.session.Date_From, req.session.Date_To,
-        function(qerr, vals, fields) {
+    bookingManager.get_room_type(Hotel_ID, function(qerr, vals, fields) {
             data_room = vals;
             console.log(data_room);
             count++;
             if (qerr) {
-                console.log('Fatal error: cannot get room info');
-            } else {
-                if (vals[0] == undefined) {
-                    min = 0;
-                    max = 0;
-                } else {
-                    min = vals[0]['avg(Price)'];
-                    max = vals[0]['avg(Price)'];
-                    for (var i = 0; i < vals.length; i++) {
-                        if (vals[i]['avg(Price)'] > max) {
-                            max = vals[i]['avg(Price)'];
-                        }
-                        if (vals[i]['avg(Price)'] < min) {
-                            min = vals[i]['avg(Price)'];
-                        }
-                    }
-                }
+                console.log('Fatal error: cannot get room type');
+            }
+            else {
                 if (count == 5) {
                     res.render('HotelDetailManage', {
-                        tabChoose: 0,
                         HotelInfo: data_hotel,
-                        RoomInfo: data_room,
-                        Price: min + "-" + max,
-                        Comment: data_comment,
+                        RoomType: data_room,
                         url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image
@@ -127,16 +98,13 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                 console.log('Fatal error: cannot get room info');
             } else {
                 if (count == 5) {
-                    res.render('HotelDetailManage', {
-                        tabChoose: 0,
-                        HotelInfo: data_hotel,
-                        RoomInfo: data_room,
-                        Price: min + "-" + max,
-                        Comment: data_comment,
-                        url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
-                        FilePos: data_image,
-                        RoomImg: data_room_image
-                    });
+                  res.render('HotelDetailManage', {
+                      HotelInfo: data_hotel,
+                      RoomType: data_room,
+                      url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
+                      FilePos: data_image,
+                      RoomImg: data_room_image
+                  });
                 }
             }
         });

@@ -52,11 +52,14 @@
                     </div>
                     <div class='col-md-8 col-xs-12'>
                     <div class='row'>
-                      <div class='col-md-4'>
+                      <div class='col-md-2'>
                         <input class="form-control" type="text" name="City" value = <%- HotelInfo[0].City %>>
                       </div>
-                      <div class='col-md-4'>
+                      <div class='col-md-2'>
                         <input class="form-control" type="text" name="Province" value =   <%- HotelInfo[0].Province  %>>
+                      </div>
+                      <div class='col-md-5'>
+                        <input class="form-control" type="text" name="Address" value =   <%- HotelInfo[0].Address %>>
                       </div>
                     </div>
                     <br>
@@ -107,12 +110,12 @@
                         </thead>
                         <tbody>
 
-                            <% if (typeof RoomInfo != "undefined"){for (var i=0;i<RoomInfo.length;i++){%>
+                            <% if (typeof RoomType != "undefined"){for (var i=0;i<RoomInfo.length;i++){%>
                                 <tr class="info">
 
                                     <td style="width: 74%;">
                                       <div style="font-size:15px;">
-                                          <%- RoomInfo[i].Type %>
+                                          <%- RoomType[i].Type %>
                                       </div>
                                     </td>
                                     <td style="width: 10%;">

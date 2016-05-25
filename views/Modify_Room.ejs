@@ -3,7 +3,7 @@
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 </head>
 <form name="Modify_Room" method="post" action="./modifyRoom ">
-<% for (var it=0;it<RoomInfo.length;it++){ %>
+<% for (var it=0;it<RoomType.length;it++){ %>
 <div class="modal fade" id=<%- "'"+"Modify_Room"+it+"'"%> tabindex="-1" role="dialog" aria-labelledby=<%-"'ModalLabel'"%> >
   <div class="modal-dialog">
        <div class="modal-content">
@@ -19,13 +19,13 @@
           <div class="modal-body">
              <div class = "row">
                <div class = "col-md-3">
-                 <input type="text" name="Room_Type" class="form-control" value = <%- RoomInfo[it].Type %> />
+                 <input type="text" name="Room_Type" class="form-control" value = <%- RoomTyoe[it].Type %> />
                </div>
              </div>
              <br>
              <div class = "row">
                <div class = "col-md-3">
-                 <input type="text" name="Total" class="form-control" value = <%- RoomInfo[it].Total %> />
+                 <input type="text" name="Total" class="form-control" value = <%- RoomType[it].Total %> />
                </div>
              </div>
              <br>
