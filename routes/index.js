@@ -668,12 +668,15 @@ router.get('/avatar',function(req,res){
   res.sendfile(req.originalUrl)
 })
 router.get('/getdetail',function(req,res,next){
-  var Hotel_id=req.query.Hotel_ID;
-  var AirTicket_ID=req.query.AirTicket_ID;
-  console.log('getdetail');
-  if(typeof Hotel_id!='undefined')
+  var temp=req.query.ID
+  var Hotel_ID;
+  var AirTicket_ID;
+  if (temp.charAt(0)=='H') Hotel_ID=temp.substring(1, temp.length)
+  else if(temp.charAt(0)=='T') AirTicket_ID=temp.substring(1,temp.length)
+  console.log('getdetail',Hotel_ID,AirTicket_ID);
+  if(typeof Hotel_ID!='undefined')
   {
-    bookingManager.send_hotel_detailed_info(Hotel_id, function(plist){
+    bookingManager.send_hotel_detailed_info(Hotel_ID, function(plist){
       res.send(plist)
     })
   }

@@ -206,7 +206,7 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, res) {
         buyer: User_ID,
         seller: 0, //default
         orderAmount: 1, //default
-        orderItems: Hotel_ID, //-------------------------------need to modify
+        orderItems: 'H'+Hotel_ID, //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     };//这是需要提交的数据
@@ -344,7 +344,7 @@ exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res) {
         buyer: User_ID,
         seller: 0, //default
         orderAmount: 1, //default
-        orderItems: AirTicket_ID, //-------------------------------need to modify
+        orderItems: 'T'+AirTicket_ID, //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     };//这是需要提交的数据
