@@ -249,7 +249,7 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, res) {
 酒店Interface 2: 像M2发送某个酒店的详细信息，包括图片url
 In: Hotel_ID -- 酒店ID
 */
-exports.send_hotel_detailed_info = function (Hotel_ID) {
+exports.send_hotel_detailed_info = function (Hotel_ID,callback) {
 
     var sql = "select * from HotelInfo natural join HotelPics where Hotel_ID = " + Hotel_ID + " limit 1";
 
@@ -285,38 +285,38 @@ exports.send_hotel_detailed_info = function (Hotel_ID) {
             Heat: plist[10],//int
             File_Pos: plist[11]
         };//这是需要提交的数据
-
-
-        var content = qs.stringify(post_data);
-
-        var options = {
-            hostname: '121.42.175.1',
-            port: 10086, //default
-            path: '/a2/api/insertorder',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
-        };
-
-        var req = http.request(options, function (res) {
-            //console.log('STATUS: ' + res.statusCode);
-            //console.log('HEADERS: ' + JSON.stringify(res.headers));
-            res.setEncoding('utf8');
-            res.on('data', function (chunk) {
-                console.log('BODY: ' + chunk);
-            });
-        });
-
-        req.on('error', function (e) {
-            console.log('problem with request: ' + e.message);
-        });
-
-        // write data to request body
-        req.write(content);
-
-        req.end();
-    });
+        callback(post_data)
+      })
+    //     var content = qs.stringify(post_data);
+    //
+    //     var options = {
+    //         hostname: '121.42.175.1',
+    //         port: 10086, //default
+    //         path: '/a2/api/insertorder',
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    //         }
+    //     };
+    //
+    //     var req = http.request(options, function (res) {
+    //         //console.log('STATUS: ' + res.statusCode);
+    //         //console.log('HEADERS: ' + JSON.stringify(res.headers));
+    //         res.setEncoding('utf8');
+    //         res.on('data', function (chunk) {
+    //             console.log('BODY: ' + chunk);
+    //         });
+    //     });
+    //
+    //     req.on('error', function (e) {
+    //         console.log('problem with request: ' + e.message);
+    //     });
+    //
+    //     // write data to request body
+    //     req.write(content);
+    //
+    //     req.end();
+    // });
 
 }
 
@@ -386,7 +386,7 @@ exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res) {
 酒店Interface 2: 像M2发送某机票的详细信息
 In: AirTicket_ID -- 机票ID
 */
-exports.send_hotel_detailed_info = function (AirTicket_ID) {
+exports.send_airticket_detailed_info = function (AirTicket_ID,callback) {
 
     var sql = "select * from TicketsInfo where AirTicket_ID = " + AirTicket_ID;
 
@@ -423,37 +423,38 @@ exports.send_hotel_detailed_info = function (AirTicket_ID) {
             Price: plist[11],
             Discount: plist[12]
         };//这是需要提交的数据
+        callback(post_data)
+      })
 
-
-        var content = qs.stringify(post_data);
-
-        var options = {
-            hostname: '121.42.175.1',
-            port: 10086, //default
-            path: '/a2/api/insertorder',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
-        };
-
-        var req = http.request(options, function (res) {
-            //console.log('STATUS: ' + res.statusCode);
-            //console.log('HEADERS: ' + JSON.stringify(res.headers));
-            res.setEncoding('utf8');
-            res.on('data', function (chunk) {
-                console.log('BODY: ' + chunk);
-            });
-        });
-
-        req.on('error', function (e) {
-            console.log('problem with request: ' + e.message);
-        });
-
-        // write data to request body
-        req.write(content);
-
-        req.end();
-    });
+    //     var content = qs.stringify(post_data);
+    //
+    //     var options = {
+    //         hostname: '121.42.175.1',
+    //         port: 10086, //default
+    //         path: '/a2/api/insertorder',
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    //         }
+    //     };
+    //
+    //     var req = http.request(options, function (res) {
+    //         //console.log('STATUS: ' + res.statusCode);
+    //         //console.log('HEADERS: ' + JSON.stringify(res.headers));
+    //         res.setEncoding('utf8');
+    //         res.on('data', function (chunk) {
+    //             console.log('BODY: ' + chunk);
+    //         });
+    //     });
+    //
+    //     req.on('error', function (e) {
+    //         console.log('problem with request: ' + e.message);
+    //     });
+    //
+    //     // write data to request body
+    //     req.write(content);
+    //
+    //     req.end();
+    // });
 
 }
