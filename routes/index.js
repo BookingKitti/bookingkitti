@@ -576,6 +576,12 @@ router.post('/addHotel', function(req, res) {
     })
 })
 
+router.post('/addTickets', function(req, res) {
+    adminManager.add_airticket_info(req, res, function(){
+        adminSearchHotel(req, res);
+})
+}
+
 router.get('/deleteHotel', function(req, res) {
     adminManager.delete_hotel_info(req, res, function(qerr, req, res) {
         adminSearchHotel(req, res);

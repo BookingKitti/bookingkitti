@@ -106,14 +106,18 @@ exports.add_room_type = function(req, callback) {
 exports.add_airticket_info = function(req, res, callback) {
     var sql = 'insert into TicketsInfo values(';
     sql += 'null,';
+    sql += ' \'' + req.body.Flight_Company + '\',';
+    sql += ' \'' + req.body.Flight_No + '\','; 
     sql += ' \'' + req.body.Departure + '\',';
-    sql += ' \'' + req.body.Airport + '\',';
+    sql += ' \'' + req.body.Stopover + '\',';
     sql += ' \'' + req.body.Destination + '\',';
     sql += ' \'' + req.body.Depart_time + '\',';
+    sql += ' \'' + req.body.Stopover_timr + '\',';
     sql += ' \'' + req.body.Arrive_time + '\',';
     sql += ' \'' + req.body.Total + '\',';
-    sql += ' \'' + req.body.Total + '\',';
-    sql += ' \'' + req.body.Price + '\')';
+    sql += ' \'' + req.body.Price + '\',';
+    sql += ' \'' + req.body.Discount + '\')';
+    console.log(sql);
     searchManager.query(sql, function(err) {
         callback(err, req, res);
     });
