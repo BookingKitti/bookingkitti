@@ -293,7 +293,9 @@ router.get('/test', function(req, res, next) {
     vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
-
+    bookingManager.send_airticket_order_info(req.session.user_id, 1, res, function() {
+        res.render()
+    });
     // res.render('OrderDetail', {
     //     OrderType:'Ticket',
     //     Departure:'杭州',
@@ -514,12 +516,15 @@ router.get('/orderconfirm', function(req, res) {
 
 router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
-    bookingManager.create_order_hotel(req.query.Hotel_ID,
+    console.log(req.body);
+    console.log(req.query);
+    bookingManager.create_order_hotel(req.session.user_id,
+        req.query.Hotel_ID,
         req.query.RoomType,
         req.body.date_checkin,
         req.body.date_checkout,
         function(qerr, vals, fields) {
-            showDetail(req, res)
+            res.render('OrderDetail', {})
         });
 })
 

@@ -1,4 +1,5 @@
 var searchManager = require('./searchManager');
+var http = require('http');
 
 exports.get_hotel_info = function(hotel_id, callback) {
     var sql = "select * from HotelInfo where Hotel_ID= " + hotel_id + " ;";
@@ -123,7 +124,7 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
         }
 
         var myDate = new Date();
-        var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + Room_date + ", " +  Room_date + ")";
+        var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', "+Math.random()*100+")";
 
         searchManager.query(insert_sql, function(qerr, vals, fields) {
             //console.log(qerr);
@@ -195,7 +196,7 @@ In:
   Hotel_ID --
   res --
 */
-exports.send_hotel_order_info = function (User_ID, Hotel_ID, res) {
+exports.send_hotel_order_info = function (User_ID, Hotel_ID, res, callback) {
 
     //send post request: include six values
 
@@ -215,9 +216,9 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, res) {
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '121.42.175.1',
-        port: 10086, //default
-        path: '/a2/api/insertorder',
+        hostname: '120.27.45.210',
+        port: 3000, //default
+        path: '/',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -241,6 +242,10 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, res) {
     req.write(content);
 
     req.end();
+
+    if (callback != null) {
+        callback();
+    }
 }
 
 
@@ -285,6 +290,7 @@ exports.send_hotel_detailed_info = function (Hotel_ID,callback) {
             Heat: plist[10],//int
             File_Pos: plist[11]
         };//这是需要提交的数据
+
         callback(post_data)
       })
     //     var content = qs.stringify(post_data);
@@ -333,7 +339,7 @@ exports.send_hotel_detailed_info = function (Hotel_ID,callback) {
 /*
 机票Interface 1：像M2发送订单详情post
 */
-exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res) {
+exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res, callback) {
 
     //send post request: include six values
 
@@ -353,8 +359,8 @@ exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res) {
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '121.42.175.1',
-        port: 10086, //default
+        hostname: '120.27.45.210',
+        port: 3000, //default
         path: '/a2/api/insertorder',
         method: 'POST',
         headers: {
@@ -379,6 +385,10 @@ exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res) {
     req.write(content);
 
     req.end();
+
+    if (callback != null) {
+        callback();
+    }
 }
 
 
