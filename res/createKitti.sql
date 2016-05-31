@@ -1,5 +1,9 @@
 use paykitty;
 
+create table UserAccount(
+  AccountID int primary key auto_increment
+);
+
 create table TicketsInfo(
   AirTicket_ID int primary key auto_increment,
   Flight_Company varchar(50),
