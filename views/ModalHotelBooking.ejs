@@ -2,97 +2,92 @@
 
 <!-- Modal -->
 <% for (var it=0;it<RoomInfo.length;it++){ %>
-    <div class="modal fade" id=<%- "'"+ "Modal"+it+ "'"%> tabindex="-1" role="dialog" aria-labelledby=
-        <%- "'"+"ModalLabel"+it+"'" %> >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">预定<%- HotelInfo[0].Hotel_Name %></h4>
-                    </div>
-                    <div class="modal-body">
-                        <%-'<form class="form" name="bookHotel" method="post" action='+"'bookHotel?&&Hotel_ID="+HotelInfo[0].Hotel_ID+"&&RoomType="+RoomInfo[it].Type+"'>" %>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            房间类型
-                                        </th>
-                                        <th>
-                                            房间价格
-                                        </th>
-                                        <th>
-                                            预定
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr class="info">
-                                        <td>
-                                            <%- RoomInfo[it].Type %>
-                                        </td>
-                                        <td>
-                                            <%- RoomInfo[it]['avg(Price)'] %>
-                                        </td>
-                                        <td>
-                                            <%= (RoomInfo[it]['min(Available)'])?'有房':'已满' %>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <div class="form-group">
-                                <label>入住人姓名</label>
-                                <input type="text" class="form-control" placeholder="请输入入住人中文名" name='CheckInName'>
-                            </div>
-                            <div class="form-group">
-                                <label>联系方式</label>
-                                <input type="text" class="form-control" placeholder="手机号码" name='Contacts'>
-                            </div>
-                            <div class="span4">
-                                <div class="form-group">
-                                    <label for=<%- "'"+ "dtp_input2"+it+ "'"%> class="col-md-2 control-label">入住日期</label>
-                                    <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field=<%- "'"+ "dtp_input2"+it+ "'"%> data-link-format="yyyy-mm-dd">
-                                        <input class="form-control" size="16" type="text" value=<%-(typeof date_checkin=='undefined' )? "''": '"'+date_checkin+ '"'%> readonly>
-                                        <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                        </span>
-                                        <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                    <input type="hidden" id=<%- "'"+ "dtp_input2"+it+ "'"%> value=
-                                    <%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin'/>
-                                        <br/>
-                                </div>
-                            </div>
-                            <div class="span4">
-                                <div class="form-group">
-                                    <label for=<%- "'"+ "dtp_input3"+it+ "'"%> class="col-md-2 control-label">离店日期</label>
-                                    <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field=<%- "'"+ "dtp_input3"+it+ "'" %> data-link-format="yyyy-mm-dd">
-                                        <input class="form-control" size="16" type="text" value=<%-(typeof date_checkout=='undefined' )? "''": '"'+date_checkout+ '"'%> readonly>
-                                        <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                        </span>
-                                        <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                    <input type="hidden" id=<%- "'"+ "dtp_input3"+it+ "'" %> value=
-                                    <%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout'/>
-                                        <br/>
-                                </div>
-                            </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">确认预定</button>
-                    </div>
-                    </form>
+    <div class="modal fade" id=<%- "'"+"Modal"+it+"'"%> tabindex="-1" role="dialog" aria-labelledby=<%- "'"+"ModalLabel"+it+"'" %> >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">预定<%- HotelInfo[0].Hotel_Name %></h4>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <%-'<form class="form" name="/bookHotel" method="post" action='+"'bookHotel?&&Hotel_ID="+HotelInfo[0].Hotel_ID+"&&RoomType="+RoomInfo[it].Type+"'>" %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    房间类型
+                                </th>
+                                <th>
+                                    房间价格
+                                </th>
+                                <th>
+                                    预定
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="info">
+                                <td>
+                                    <%- RoomInfo[it].Type %>
+                                </td>
+                                <td>
+                                    <%- RoomInfo[it]['avg(Price)'] %>
+                                </td>
+                                <td>
+                                    <%= (RoomInfo[it]['min(Available)'])?'有房':'已满' %>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <label>入住人姓名</label>
+                        <input type="text" class="form-control" placeholder="请输入入住人中文名" name='CheckInName'>
+                    </div>
+                    <div class="form-group">
+                        <label>联系方式</label>
+                        <input type="text" class="form-control" placeholder="手机号码" name='Contacts'>
+                    </div>
+                    <div class="span4">
+                        <div class="form-group">
+                            <label for=<%-"'"+"dtp_input2"+it+"'"%> class="col-md-2 control-label">入住日期</label>
+                            <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field=<%-"'"+"dtp_input2"+it+"'"%> data-link-format="yyyy-mm-dd">
+                                <input class="form-control" size="16" type="text" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> readonly>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <input type="hidden" id=<%-"'"+"dtp_input2"+it+"'"%> value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin'/><br/>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="form-group">
+                            <label for=<%-"'"+"dtp_input3"+it+"'"%> class="col-md-2 control-label">离店日期</label>
+                            <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field=<%- "'"+"dtp_input3"+it+"'" %> data-link-format="yyyy-mm-dd">
+                                <input class="form-control" size="16" type="text" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> readonly>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <input type="hidden" id=<%- "'"+"dtp_input3"+it+"'" %> value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout'/><br/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">确认预定</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <%}%>
+</div>
+<%}%>
