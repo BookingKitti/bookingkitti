@@ -1,5 +1,4 @@
-
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -8,126 +7,125 @@
 
     <title>PayKitty-Account</title>
 
-<link rel="stylesheet" href="/A1/stylesheets/common.css"/><!-- 基本样式 -->
-<link rel="stylesheet" href="/A1/stylesheets/animate.min.css"/> <!-- 动画效果 -->
-<link rel="stylesheet" type="text/css" href="/A1/stylesheets/drop_menu.css" />
-<link rel="stylesheet" type="text/css" href="/A1/stylesheets/left_menu.css" />
+    <link rel="stylesheet" href="/A1/stylesheets/common.css" />
+    <!-- 基本样式 -->
+    <link rel="stylesheet" href="/A1/stylesheets/animate.min.css" />
+    <!-- 动画效果 -->
+    <link rel="stylesheet" type="text/css" href="/A1/stylesheets/drop_menu.css" />
+    <link rel="stylesheet" type="text/css" href="/A1/stylesheets/left_menu.css" />
     <!-- Bootstrap -->
     <link href="http://121.42.175.1/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="http://121.42.175.1/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
-    <link href="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <link href="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
 
     <!-- Custom Theme Style -->
     <link href="http://121.42.175.1/static/css/custom.css" rel="stylesheet">
 
-  </head>
+</head>
 
-        <div class="col-md-3 left_col menu_fixed">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>PayKitty</span></a>
-            </div>
+<div class="col-md-3 left_col menu_fixed">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>PayKitty</span></a>
+        </div>
 
-            <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-            <!-- menu profile quick info -->
-            <div class="profile">
-              <div class="profile_pic">
+        <!-- menu profile quick info -->
+        <div class="profile">
+            <div class="profile_pic">
                 <img src="http://121.42.175.1/static/images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
+            </div>
+            <div class="profile_info">
                 <span>您好！</span>
                 <h2><%= AccountName %></h2>
-              </div>
             </div>
-            <!-- /menu profile quick info -->
+        </div>
+        <!-- /menu profile quick info -->
 
-            <br />
+        <br />
 
 
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section container">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section container">
                 <h3>&nbsp</h3>
                 <ul class="nav side-menu">
-                  <li>
-                    <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" style="display: none;">
-                      <li>
-                        <a href="/account/info">账户记录</a>
-                      </li>
-                      <!-- <li>账户记录</li> -->
-                      <li>
-                        <a href="/account/transaction">交易信息</a>
-                      </li>
-                      <!-- <li><a href="index3.html">Dashboard3</a>
+                    <li>
+                        <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none;">
+                            <li>
+                                <a href="/account/info">账户记录</a>
+                            </li>
+                            <!-- <li>账户记录</li> -->
+                            <li>
+                                <a href="/account/transaction">交易信息</a>
+                            </li>
+                            <!-- <li><a href="index3.html">Dashboard3</a>
                       </li> -->
-                    </ul>
-                  </li>
-                  <li><a >
-                    <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" style="display:block;">
-                          <li>
-                              <a href="http://121.42.175.1/orderlist">所有订单</a>
-                          </li>
-                    </ul>
-                  </li>
-                  <li><a >
-                    <i class="fa fa-beer"></i> 出去走走 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li>
-                        <a href="/a3/">旅店与飞行器预定</a>
-                      </li>
-                      <li>
-                        <a href="/a3/admin/">管理员</a>
-                      </li>
-                     </ul>
-                  </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display:block;">
+                            <li>
+                                <a href="http://121.42.175.1/orderlist">所有订单</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-beer"></i> 出去走走 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="/a3/">旅店与飞行器预定</a>
+                            </li>
+                            <li>
+                                <a href="/a3/admin/">管理员</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-              </div>
             </div>
-          </div>
         </div>
+    </div>
+</div>
 
-        <!-- top navigation -->
-        <div class="top_nav">
+<!-- top navigation -->
+<div class="top_nav">
 
-          <div class="nav_menu">
-            <nav class="" role="navigation">
-              <div class="nav toggle">
+    <div class="nav_menu">
+        <nav class="" role="navigation">
+            <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
+            </div>
 
-              <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="http://121.42.175.1/static/images/img.jpg" alt=""><%= AccountName %>
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li>
-                      <a href="/account/info"><i class="fa fa-sign-out pull-right"></i> 账户管理</a>
-                    </li>
-                    <li>
-                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 交易信息</a>
-                    </li>
-                    <li>
-                      <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
-                    </li>
-                  </ul>
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="http://121.42.175.1/static/images/img.jpg" alt="">
+                        <%= AccountName %>
+                            <span class=" fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li>
+                            <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
+                        </li>
+                    </ul>
                 </li>
 
 
-                  </ul>
-                </li>
+            </ul>
+            </li>
 
-              </ul>
-            </nav>
-          </div>
+            </ul>
+        </nav>
+    </div>
 
-        </div>
-        <!-- /top navigation -->
+</div>
+<!-- /top navigation -->
 
-        <!-- page content -->
-        <!-- <div class="tab-content"> -->
+<!-- page content -->
+<!-- <div class="tab-content"> -->
