@@ -293,7 +293,8 @@ router.get('/test', function(req, res, next) {
     vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
-    bookingManager.send_hotel_order_info(req.session.user_id, 1, res, function() {
+    bookingManager.send_hotel_order_info(123, 1, 800, res, function() {
+        console.log("到这儿啦");
         res.render()
     });
     // res.render('OrderDetail', {
@@ -520,6 +521,7 @@ router.post('/bookHotel', function(req, res) {
     console.log(req.query);
     bookingManager.create_order_hotel(req.session.user_id,
         req.query.Hotel_ID,
+        800,
         req.query.RoomType,
         req.body.date_checkin,
         req.body.date_checkout,
