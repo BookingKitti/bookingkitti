@@ -524,7 +524,9 @@ router.post('/bookHotel', function(req, res) {
         req.body.date_checkin,
         req.body.date_checkout,
         function(qerr, vals, fields) {
-            res.render('OrderDetail', {})
+            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, res, function() {
+                showDetail(req, res);
+            });
         });
 })
 

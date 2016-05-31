@@ -216,8 +216,7 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, res, callback) {
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '120.27.45.210',
-        port: 3000, //default
+        hostname: '121.42.175.1/api/insertorder',
         path: '/',
         method: 'POST',
         headers: {
