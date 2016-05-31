@@ -1,6 +1,4 @@
-drop database if exists kitty;
-create database kitty;
-use kitty;
+use paykitty;
 
 create table TicketsInfo(
   AirTicket_ID int primary key auto_increment,
@@ -17,10 +15,6 @@ create table TicketsInfo(
   Available int not null,#>=0
   Price int not null, #>=0
   Discount decimal(3, 2)
-) DEFAULT CHARSET=utf8;
-
-create table UserAccount(
-  AccountID int primary key auto_increment
 ) DEFAULT CHARSET=utf8;
 
 create table HotelInfo(
