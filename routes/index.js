@@ -21,9 +21,11 @@ router.use(session({
 
 var defaultPage = function(req, res) {
 
+    req.session.Date_From = "2015-06-02";
+    req.session.Date_To = "2015-06-03 ";
     res.render('Search', {
-        date_checkin: '26 五月 2016',
-        date_checkout: '26 五月 2016',
+        date_checkin: '2 六月 2016',
+        date_checkout: '3 六月 2016',
         AccountName: req.session.name
     });
 }
