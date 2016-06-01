@@ -386,10 +386,10 @@ router.get('/', function(req, res, next) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
                     DiscountHotel: dis_hotel,
-                    date_checkin: '26 五月 2016',
-                    date_checkout: '27 五月 2016',
-                    true_checkin: '2016-05-26',
-                    true_checkout: '2016-05-27',
+                    date_checkin: '2 六月 2016',
+                    date_checkout: '3 六月 2016',
+                    true_checkin: '2016-06-2',
+                    true_checkout: '2016-06-3',
                     AccountName: req.session.name
                 })
             }
@@ -406,10 +406,10 @@ router.get('/', function(req, res, next) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
                     DiscountHotel: dis_hotel,
-                    date_checkin: '26 五月 2016',
-                    date_checkout: '27 五月 2016',
-                    true_checkin: '2016-05-26',
-                    true_checkout: '2016-05-27',
+                    date_checkin: '2 六月 2016',
+                    date_checkout: '3 六月 2016',
+                    true_checkin: '2016-06-2',
+                    true_checkout: '2016-06-3',
                     AccountName: req.session.name
                 })
             }
