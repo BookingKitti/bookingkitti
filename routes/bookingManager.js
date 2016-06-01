@@ -260,7 +260,7 @@ exports.send_hotel_detailed_info = function (Hotel_ID,callback) {
     searchManager.query(sql, function(qerr, vals, fields) {
 
         var plist = [];
-
+        console.log("hahahah",vals);
         for (var index in vals) {
             var tuple = vals[index];
             var result = '';

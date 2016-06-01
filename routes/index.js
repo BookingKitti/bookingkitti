@@ -284,7 +284,7 @@ function yaowang() {
     this.Hotel_Name = 'location';
 }
 router.get('/test', function(req, res, next) {
-    console.log("test");
+    console.log("test-=======================");
     filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png'];
     var vals = new Array();
     vals[0] = new yaowang();
@@ -293,7 +293,7 @@ router.get('/test', function(req, res, next) {
     vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
-    bookingManager.send_airticket_order_info(req.session.user_id, 1, res, function() {
+    bookingManager.send_hotel_order_info(1, 1, res, function() {
         res.render()
     });
     // res.render('OrderDetail', {
@@ -683,11 +683,13 @@ router.get('/getdetail', function(req, res, next) {
     console.log('getdetail', Hotel_ID, AirTicket_ID);
     if (typeof Hotel_ID != 'undefined') {
         bookingManager.send_hotel_detailed_info(Hotel_ID, function(plist) {
+            console.log(plist);
             res.send(plist)
         })
     }
     if (typeof AirTicket_ID != 'undefined') {
         bookingManager.send_airticket_detailed_info(AirTicket_ID, function(plist) {
+          console.log(plist);
             res.send(plist)
         })
     }
