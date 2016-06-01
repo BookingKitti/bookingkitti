@@ -199,7 +199,8 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
-
+    console.log("======================");
+    console.log(JSON.stringify(post_data));
     var content = qs.stringify(post_data);
 
     var options = {
