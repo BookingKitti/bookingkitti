@@ -184,7 +184,7 @@ In:
 */
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     //send post request: include six values
-
+    
     var qs = require('querystring');
 
     var order=new Array();
