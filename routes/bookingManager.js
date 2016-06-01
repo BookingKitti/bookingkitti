@@ -126,7 +126,7 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
          searchManager.query(select_price_sql, function(qerr, vals, fields) {
              //console.log(qerr);
              //callback(qerr, vals, fields);
-             var sumPrice = vals[index].sum_price;
+             var sumPrice = vals[0].sum_price;
 
              var myDate = new Date();
              var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + sumPrice + ")";
