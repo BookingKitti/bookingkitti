@@ -216,8 +216,8 @@ exports.send_hotel_order_info = function (User_ID, Hotel_ID, res, callback) {
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '121.42.175.1/api/insertorder',
-        path: '/',
+        hostname: '121.42.175.1/a2/api/insertorder',
+	path: '/',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
