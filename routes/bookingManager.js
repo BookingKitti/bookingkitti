@@ -120,23 +120,22 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
             return;
         }
 
-        var select_price_sql = "select sum(price) as sum_price from HotelInfo natural join RoomInfo where Hotel_ID = " + hotel_id
-         + " and Type = '" + type + "' and Room_date between '" + room_date_from + "' and '" + room_data_to + "';";
+        var select_price_sql = "select sum(price) as sum_price from HotelInfo natural join RoomInfo where Hotel_ID = " + hotel_id + " and Type = '" + type + "' and Room_date between '" + room_date_from + "' and '" + room_data_to + "';";
 
-         searchManager.query(select_price_sql, function(qerr, vals, fields) {
-             //console.log(qerr);
-             //callback(qerr, vals, fields);
-             var sumPrice = vals[0].sum_price;
+        searchManager.query(select_price_sql, function(qerr, vals, fields) {
+            //console.log(qerr);
+            //callback(qerr, vals, fields);
+            var sumPrice = vals[0].sum_price;
 
-             var myDate = new Date();
-             var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + sumPrice + ")";
+            var myDate = new Date();
+            var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + sumPrice + ")";
 
-             searchManager.query(insert_sql, function(qerr, vals) {
-                 //console.log(qerr);
-                 //callback(qerr, vals, fields);
-                 vals = sumPrice;
-             });
-         });
+            searchManager.query(insert_sql, function(qerr, vals) {
+                //console.log(qerr);
+                //callback(qerr, vals, fields);
+                callback(qerr, sumPrice);
+            });
+        });
     });
 }
 
@@ -183,7 +182,7 @@ In:
   Hotel_ID --
   res --
 */
-exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price,callback) {
+exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     //send post request: include six values
 
     var qs = require('querystring');
@@ -194,7 +193,7 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price,callback) {
         seller: 0, //default
         orderAmount: Price, //default
         orderItems: JSON.stringify({
-            "items": ["H"+Hotel_ID]
+            "items": ["H" + Hotel_ID]
         }), //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
