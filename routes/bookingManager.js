@@ -1,5 +1,6 @@
 var searchManager = require('./searchManager');
 var http = require('http');
+var url = require('url');
 
 exports.get_hotel_info = function(hotel_id, callback) {
     var sql = "select * from HotelInfo where Hotel_ID= " + hotel_id + " ;";
@@ -141,326 +142,6 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
 }
 
 exports.create_order_ariticket = function(user_id, departure, destination, depart_time, arrive_time, callback) {
-<<<<<<< HEAD
-    change_airticket_data(departure, airport, destination, depart_time, arrive_time, function(qerr, vals, fields) {
-        //result=result;
-        if(qerr)
-        {
-            callback(qerr, vals, fields);
-        }
-    });
-    //var final_qerr;
-    //var final_vals;
-    var sql="select Departure,Destination,Depart_time,Arrive_time,Price from TicketsInfo where "
-    + " Departure=  '" + departure + "' "
-    + " and Destination= '" + destination + "' "
-    + " and Depart_time= '" + depart_time + "' "
-    + " and Arrive_time= '" + arrive_time + "' ;";
-
-    searchManager.query(sql, function(qerr, vals, fields) {
-        //console.log(qerr);
-        callback(qerr, vals, fields);
-    });
-}
-
-//input: Hotel ID
-//return: Type(room)
-exports.get_room_type = function(Hotel_ID, callback) {
-
-    var sql = "select * from RoomType where Hotel_ID = " + Hotel_ID;
-
-    searchManager.query(sql, function(qerr, vals, fields) {
-        //console.log(qerr);
-        callback(qerr, vals, fields);
-    });
-}
-
-//buyer:
-//seller
-//amount
-//item: Hotel_ID
-//status:
-//finish_time:
-
-/*
-酒店Interface 1: 像M2发送订单详情post
-In:
-  User_ID --
-  Hotel_ID --
-  res --
-*/
-exports.send_hotel_order_info = function (User_ID, Hotel_ID, res, callback) {
-
-    //send post request: include six values
-
-    var qs = require('querystring');
-
-    //JSON Format:
-    var post_data = {
-        buyer: User_ID,
-        seller: 0, //default
-        orderAmount: 1, //default
-        orderItems: 'H'+Hotel_ID, //-------------------------------need to modify
-        orderStatus: 0, //default
-        time: toDate(new Date()) //format %Y %m %d %H %M %S
-    };//这是需要提交的数据
-
-
-    var content = qs.stringify(post_data);
-
-    var options = {
-        hostname: '121.42.175.1/a2/api/insertorder',
-	path: '/',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-    };
-
-    var req = http.request(options, function (res) {
-        //console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
-        });
-    });
-
-    req.on('error', function (e) {
-        console.log('problem with request: ' + e.message);
-    });
-
-    // write data to request body
-    req.write(content);
-
-    req.end();
-
-    if (callback != null) {
-        callback();
-    }
-}
-
-
-
-/*
-酒店Interface 2: 像M2发送某个酒店的详细信息，包括图片url
-In: Hotel_ID -- 酒店ID
-*/
-exports.send_hotel_detailed_info = function (Hotel_ID,callback) {
-
-    var sql = "select * from HotelInfo natural join HotelPics where Hotel_ID = " + Hotel_ID + " limit 1";
-
-    searchManager.query(sql, function(qerr, vals, fields) {
-
-        var plist = [];
-
-        for (var index in vals) {
-            var tuple = vals[index];
-            var result = '';
-            //var i = 0;
-            //plist[] = "";
-            for (var attribute in tuple) {
-                plist[plist.length] = tuple[attribute];
-                //i++;
-            }
-            //末尾多出##
-        }
-
-        var qs = require('querystring');
-
-        var post_data = {
-            Hotel_ID:  plist[0],//int primary key auto_increment,
-            Hotel_Name: plist[1],//varchar(20) not null,
-            Province: plist[2],//varchar(20) not null,
-            City: plist[3],//varchar(20) not null,
-            Address: plist[4],//varchar(20) not null,
-            Stars: plist[5],//int not null,
-            Description: plist[6],//text not null,
-            PhoneNumber: plist[7],//varchar(20) not null,
-            Discount: plist[8],//decimal(3, 2),
-            Score: plist[9],//float,
-            Heat: plist[10],//int
-            File_Pos: plist[11]
-        };//这是需要提交的数据
-
-        callback(post_data)
-      })
-    //     var content = qs.stringify(post_data);
-    //
-    //     var options = {
-    //         hostname: '121.42.175.1',
-    //         port: 10086, //default
-    //         path: '/a2/api/insertorder',
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    //         }
-    //     };
-    //
-    //     var req = http.request(options, function (res) {
-    //         //console.log('STATUS: ' + res.statusCode);
-    //         //console.log('HEADERS: ' + JSON.stringify(res.headers));
-    //         res.setEncoding('utf8');
-    //         res.on('data', function (chunk) {
-    //             console.log('BODY: ' + chunk);
-    //         });
-    //     });
-    //
-    //     req.on('error', function (e) {
-    //         console.log('problem with request: ' + e.message);
-    //     });
-    //
-    //     // write data to request body
-    //     req.write(content);
-    //
-    //     req.end();
-    // });
-
-}
-
-
-
-
-
-
-
-
-
-
-
-/*
-机票Interface 1：像M2发送订单详情post
-*/
-exports.send_airticket_order_info = function (User_ID, AirTicket_ID, res, callback) {
-
-    //send post request: include six values
-
-    var qs = require('querystring');
-
-    //JSON Format:
-    var post_data = {
-        buyer: User_ID,
-        seller: 0, //default
-        orderAmount: 1, //default
-        orderItems: 'T'+AirTicket_ID, //-------------------------------need to modify
-        orderStatus: 0, //default
-        time: toDate(new Date()) //format %Y %m %d %H %M %S
-    };//这是需要提交的数据
-
-
-    var content = qs.stringify(post_data);
-
-    var options = {
-        hostname: '120.27.45.210',
-        port: 3000, //default
-        path: '/a2/api/insertorder',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-    };
-
-    var req = http.request(options, function (res) {
-        //console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
-        });
-    });
-
-    req.on('error', function (e) {
-        console.log('problem with request: ' + e.message);
-    });
-
-    // write data to request body
-    req.write(content);
-
-    req.end();
-
-    if (callback != null) {
-        callback();
-    }
-}
-
-
-/*
-酒店Interface 2: 像M2发送某机票的详细信息
-In: AirTicket_ID -- 机票ID
-*/
-exports.send_airticket_detailed_info = function (AirTicket_ID,callback) {
-
-    var sql = "select * from TicketsInfo where AirTicket_ID = " + AirTicket_ID;
-
-    searchManager.query(sql, function(qerr, vals, fields) {
-
-        var plist = [];
-
-        for (var index in vals) {
-            var tuple = vals[index];
-            var result = '';
-            //var i = 0;
-            //plist[] = "";
-            for (var attribute in tuple) {
-                plist[plist.length] = tuple[attribute];
-                //i++;
-            }
-            //末尾多出##
-        }
-
-        var qs = require('querystring');
-
-        var post_data = {
-            AirTicket_ID:  plist[0],//int primary key auto_increment,
-            Flight_Company: plist[1],//varchar(20) not null,
-            Flight_No: plist[2],//varchar(20) not null,
-            Departure: plist[3],//varchar(20) not null,
-            Stopover: plist[4],//varchar(20) not null,
-            Destination: plist[5],//int not null,
-            Depart_time: plist[6],//text not null,
-            Stopover_time: plist[7],//varchar(20) not null,
-            Arrive_time: plist[8],//decimal(3, 2),
-            Total: plist[9],//float,
-            Available: plist[10],//int
-            Price: plist[11],
-            Discount: plist[12]
-        };//这是需要提交的数据
-        callback(post_data)
-      })
-
-    //     var content = qs.stringify(post_data);
-    //
-    //     var options = {
-    //         hostname: '121.42.175.1',
-    //         port: 10086, //default
-    //         path: '/a2/api/insertorder',
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    //         }
-    //     };
-    //
-    //     var req = http.request(options, function (res) {
-    //         //console.log('STATUS: ' + res.statusCode);
-    //         //console.log('HEADERS: ' + JSON.stringify(res.headers));
-    //         res.setEncoding('utf8');
-    //         res.on('data', function (chunk) {
-    //             console.log('BODY: ' + chunk);
-    //         });
-    //     });
-    //
-    //     req.on('error', function (e) {
-    //         console.log('problem with request: ' + e.message);
-    //     });
-    //
-    //     // write data to request body
-    //     req.write(content);
-    //
-    //     req.end();
-    // });
-
-}
-
     change_airticket_data(departure, airport, destination, depart_time, arrive_time, function(qerr, vals, fields) {
         //result=result;
         if (qerr) {
@@ -503,43 +184,53 @@ In:
   Hotel_ID --
   res --
 */
-exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, res, callback) {
+exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
+
+    //send post request: include six values
+    // 目标地址
+    strUrl = "http://115.29.112.57:3000/book";
+    var parse = url.parse(strUrl);
+
+    var order={
+      item: "H"+Hotel_ID
+    }
 
     var post_data = {
         buyer: User_ID,
-        seller: 0,
-        orderAmount: Price,
-        orderItems: '{"items":[T1]}',
-        orderStatus: '0',
-        orderTime: '2016-05-31 13:00:00'
-    };
+        seller: 0, //default
+        orderAmount: Price, //default
+        orderItems: JSON.stringify(order), //-------------------------------need to modify
+        orderStatus: 0, //default
+        time: toDate(new Date()) //format %Y %m %d %H %M %S
+    }; //这是需要提交的数据
 
-    var post_option = url.parse('http://121.42.175.1/a2/api/insertorder');
-    post_option.method = 'POST';
-    post_option.port = parseInt(80);
-    console.log(port);
-    var post_data = querystring.stringify(postData);
-    post_option.headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': post_data.length,
+    // 待发送的数据
+    var postStr = JSON.stringify(post_data);
+
+    var options = {
+        "method": "POST",
+        "host": parse.hostname,
+        "path": parse.path,
+        "port": parse.port,
+        "headers": {
+            "Content-Length": postStr.length
+        }
     };
-    var responseData = '';
-    var x = '';
-    var post_req = http.request(post_option, function(res) {
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            responseData += chunk;
-        }).on('end', function() {
-            x = JSON.parse(responseData);
-            callback(x);
-        })
-    }).on('error', function(e) {
-        console.log("Got error: " + e.message);
-        throw e;
+    var req = http.request(options, function(res) {
+        res.setEncoding("utf-8");
+        var resData = [];
+        res.on("data", function(chunk) {
+            resData.push(chunk);
+        }).on("end", function() {
+            console.log(resData.join(""));
+        });
     });
-    post_req.write(post_data);
+
+    req.write(postStr);
+    req.end();
 
     if (callback != null) {
+        console.log("callback reached");
         callback();
     }
 }
@@ -556,79 +247,40 @@ exports.send_hotel_detailed_info = function(Hotel_ID, callback) {
 
     searchManager.query(sql, function(qerr, vals, fields) {
 
-            var plist = [];
+        var plist = [];
 
-            for (var index in vals) {
-                var tuple = vals[index];
-                var result = '';
-                //var i = 0;
-                //plist[] = "";
-                for (var attribute in tuple) {
-                    plist[plist.length] = tuple[attribute];
-                    //i++;
-                }
-                //末尾多出##
+        for (var index in vals) {
+            var tuple = vals[index];
+            var result = '';
+            //var i = 0;
+            //plist[] = "";
+            for (var attribute in tuple) {
+                plist[plist.length] = tuple[attribute];
+                //i++;
             }
+            //末尾多出##
+        }
 
-            var qs = require('querystring');
+        var qs = require('querystring');
 
-            var post_data = {
-                Hotel_ID: plist[0], //int primary key auto_increment,
-                Hotel_Name: plist[1], //varchar(20) not null,
-                Province: plist[2], //varchar(20) not null,
-                City: plist[3], //varchar(20) not null,
-                Address: plist[4], //varchar(20) not null,
-                Stars: plist[5], //int not null,
-                Description: plist[6], //text not null,
-                PhoneNumber: plist[7], //varchar(20) not null,
-                Discount: plist[8], //decimal(3, 2),
-                Score: plist[9], //float,
-                Heat: plist[10], //int
-                File_Pos: plist[11]
-            }; //这是需要提交的数据
+        var post_data = {
+            Hotel_ID: plist[0], //int primary key auto_increment,
+            Hotel_Name: plist[1], //varchar(20) not null,
+            Province: plist[2], //varchar(20) not null,
+            City: plist[3], //varchar(20) not null,
+            Address: plist[4], //varchar(20) not null,
+            Stars: plist[5], //int not null,
+            Description: plist[6], //text not null,
+            PhoneNumber: plist[7], //varchar(20) not null,
+            Discount: plist[8], //decimal(3, 2),
+            Score: plist[9], //float,
+            Heat: plist[10], //int
+            File_Pos: plist[11]
+        }; //这是需要提交的数据
 
-            callback(post_data)
-        })
-        //     var content = qs.stringify(post_data);
-        //
-        //     var options = {
-        //         hostname: '121.42.175.1',
-        //         port: 10086, //default
-        //         path: '/a2/api/insertorder',
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        //         }
-        //     };
-        //
-        //     var req = http.request(options, function (res) {
-        //         //console.log('STATUS: ' + res.statusCode);
-        //         //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        //         res.setEncoding('utf8');
-        //         res.on('data', function (chunk) {
-        //             console.log('BODY: ' + chunk);
-        //         });
-        //     });
-        //
-        //     req.on('error', function (e) {
-        //         console.log('problem with request: ' + e.message);
-        //     });
-        //
-        //     // write data to request body
-        //     req.write(content);
-        //
-        //     req.end();
-        // });
-
+        callback(post_data)
+    })
 }
-
-
-
-
-
-
-
-
 
 /*
 机票Interface 1：像M2发送订单详情post
@@ -729,37 +381,16 @@ exports.send_airticket_detailed_info = function(AirTicket_ID, callback) {
         }; //这是需要提交的数据
         callback(post_data)
     })
-
-    //     var content = qs.stringify(post_data);
-    //
-    //     var options = {
-    //         hostname: '121.42.175.1',
-    //         port: 10086, //default
-    //         path: '/a2/api/insertorder',
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    //         }
-    //     };
-    //
-    //     var req = http.request(options, function (res) {
-    //         //console.log('STATUS: ' + res.statusCode);
-    //         //console.log('HEADERS: ' + JSON.stringify(res.headers));
-    //         res.setEncoding('utf8');
-    //         res.on('data', function (chunk) {
-    //             console.log('BODY: ' + chunk);
-    //         });
-    //     });
-    //
-    //     req.on('error', function (e) {
-    //         console.log('problem with request: ' + e.message);
-    //     });
-    //
-    //     // write data to request body
-    //     req.write(content);
-    //
-    //     req.end();
-    // });
-
 }
->>>>>>> 189857887d5f6487431deb079216865d0eef7a7c
+
+//input: Hotel ID
+//return: Type(room)
+exports.get_room_type = function(Hotel_ID, callback) {
+
+    var sql = "select * from RoomType where Hotel_ID = " + Hotel_ID;
+
+    searchManager.query(sql, function(qerr, vals, fields) {
+        //console.log(qerr);
+        callback(qerr, vals, fields);
+    });
+}
