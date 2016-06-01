@@ -120,24 +120,23 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
             return;
         }
 
-        var myDate = new Date();
-        var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + Math.random() * 100 + ")";
+        var select_price_sql = "select sum(price) as sum_price from HotelInfo natural join RoomInfo where Hotel_ID = " + hotel_id
+         + " and Type = '" + type + "' and Room_date between '" + room_date_from + "' and '" + room_data_to + "';";
 
-        searchManager.query(insert_sql, function(qerr, vals, fields) {
-            //console.log(qerr);
-            //callback(qerr, vals, fields);
-            searchManager.query(sql, function(qerr, vals, fields) {
-                //console.log(qerr);
-                callback(qerr, vals, fields);
-            });
-        });
-        var sql = "select Departure,Destination,Depart_time,Arrive_time,Price from TicketsInfo where " + " Departure=  '" + departure + "' " + " and Destination= '" + destination + "' " + " and Depart_time= '" + depart_time + "' " + " and Arrive_time= '" + arrive_time + "' ;";
+         searchManager.query(select_price_sql, function(qerr, vals, fields) {
+             //console.log(qerr);
+             //callback(qerr, vals, fields);
+             var sumPrice = vals[0].sum_price;
 
-        searchManager.query(sql, function(qerr, vals, fields) {
-            //console.log(qerr);
-            callback(qerr, vals, fields);
-        });
+             var myDate = new Date();
+             var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + sumPrice + ")";
 
+             searchManager.query(insert_sql, function(qerr, vals) {
+                 //console.log(qerr);
+                 //callback(qerr, vals, fields);
+                 vals = sumPrice;
+             });
+         });
     });
 }
 
