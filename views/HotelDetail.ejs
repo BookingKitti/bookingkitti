@@ -52,7 +52,8 @@
                                 </div>
                                 <div class='row'>
                                     <span class='list-group-item'>详细信息：<br>
-                      <%- HotelInfo[0].Description %></span><br>
+                      <%- HotelInfo[0].Description %></span>
+                                    <br>
                                     <span>
                                       <div class="col-md-6">
                                           <label for="dtp_input2">入住日期</label>
@@ -60,132 +61,133 @@
                                               <input class="form-control" type="text" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> >
                                               <span class="input-group-addon">
                                                   <span class="glyphicon glyphicon-remove"></span>
-                                              </span>
-                                              <span class="input-group-addon">
+                                    </span>
+                                    <span class="input-group-addon">
                                                   <span class="glyphicon glyphicon-calendar"></span>
-                                              </span>
-                                          </div>
-                                          <input type="hidden" id="dtp_input2" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin' />
-                                          <br/>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <label for="dtp_input3">离店日期</label>
-                                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style="margin-bottom:0px">
-                                              <input class="form-control" type="text" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> >
-                                              <span class="input-group-addon">
-                                                  <span class="glyphicon glyphicon-remove"></span>
-                                              </span>
-                                              <span class="input-group-addon">
-                                                  <span class="glyphicon glyphicon-calendar"></span>
-                                              </span>
-                                          </div>
-                                          <input type="hidden" id="dtp_input3" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout' />
-                                      </div>
-                                  </div>
                                     </span>
                                 </div>
+                                <input type="hidden" id="dtp_input2" value=<%-(typeof date_checkin=='undefined' )? "''": '"'+date_checkin+ '"'%> name='date_checkin' />
+                                <br/>
                             </div>
-
-                        </div>
-                        <br>
-                        <div class='row'>
-                            <div class="span6">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        价格区间：
-                                        <%- Price %>
-                                            <br> 联系方式：
-                                            <%- HotelInfo[0].PhoneNumber %>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="span12">
-
-                                <table class="table">
-                                    <thead>
-                                        <tr class='text-center'>
-                                            <th>
-                                                房间类型
-                                            </th>
-                                            <th>
-                                                房间价格
-                                            </th>
-                                            <th>
-                                                预定
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% if (typeof RoomInfo!='undefined'){for (var i=0;i<RoomInfo.length;i++){%>
-                                            <tr class="info">
-                                                <td>
-
-                                                    <div class='col-md-3'><img src=<% if (typeof RoomImg != ' undefined') {%><%- "'"+RoomImg[RoomInfo[i].Type]+ "'" %><%}%> height='80px'></div>
-                                                    <div class='col-md-3' style="font-size:15px;">
-                                                        <%- RoomInfo[i].Type %>
-                                                    </div>
-                                                </td>
-                                                <td style='font-size:18px;'>
-                                                    <%- RoomInfo[i]['avg(Price)'] %>
-                                                </td>
-                                                <td style='font-size:18px;'>
-                                                    <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
-                                                </td>
-                                                <td style='font-size:18px;'>
-                                                    <% if (RoomInfo[i]['min(Available)']){%>
-                                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+ "Modal"+i+ "'"%> > 预定
-                                                        </button>
-                                                        <%}else{
-                                        %>
-                                                            <button type="button" class="btn" color="gray" disabled="disabled">预定</button>
-                                                            <%}%>
-                                                </td>
-                                            </tr>
-                                            <%}}%>
-                                    </tbody>
-                                </table>
-                                <div class="span7 text-center"></div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <ul class="list-group">
-                                            <% if (typeof Comment!='undefined'){for (var i=0;i<Comment.length;i++){ %>
-                                                <li class="list-group-item">
-                                                    <%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %>
-                                                </li>
-                                                <%}}%>
-                                        </ul>
-                                    </div>
+                            <div class="col-md-6">
+                                <label for="dtp_input3">离店日期</label>
+                                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style="margin-bottom:0px">
+                                    <input class="form-control" type="text" value=<%-(typeof date_checkout=='undefined' )? "''": '"'+date_checkout+ '"'%> >
+                                    <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                    <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
                                 </div>
-                                <div class='row'>
-                                    <% include CommentOfHotel %>
-                                </div>
+                                <input type="hidden" id="dtp_input3" value=<%-(typeof date_checkout=='undefined' )? "''": '"'+date_checkout+ '"'%> name='date_checkout' />
                             </div>
                         </div>
+                        </span>
                     </div>
                 </div>
-                <% include footer.html %>
+
+        </div>
+        <br>
+        <div class='row'>
+            <div class="span6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        价格区间：
+                        <%- Price %>
+                            <br> 联系方式：
+                            <%- HotelInfo[0].PhoneNumber %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+
+                <table class="table">
+                    <thead>
+                        <tr class='text-center'>
+                            <th>
+                                房间类型
+                            </th>
+                            <th>
+                                房间价格
+                            </th>
+                            <th>
+                                预定
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (typeof RoomInfo!='undefined'){for (var i=0;i<RoomInfo.length;i++){%>
+                            <tr class="info">
+                                <td>
+
+                                    <div class='col-md-3'><img src=<% if (typeof RoomImg !=' undefined' ) {%>
+                                        <%- "'"+RoomImg[RoomInfo[i].Type]+ "'" %>
+                                            <%}%> height='80px'></div>
+                                    <div class='col-md-3' style="font-size:15px;">
+                                        <%- RoomInfo[i].Type %>
+                                    </div>
+                                </td>
+                                <td style='font-size:18px;'>
+                                    <%- RoomInfo[i]['avg(Price)'] %>
+                                </td>
+                                <td style='font-size:18px;'>
+                                    <%= (RoomInfo[i]['min(Available)'])?'有房':'已满' %>
+                                </td>
+                                <td style='font-size:18px;'>
+                                    <% if (RoomInfo[i]['min(Available)']){%>
+                                        <button type="button" color='red' class="btn btn-danger" data-toggle="modal" data-target=<%- "'#"+ "Modal"+i+ "'"%> > 预定
+                                        </button>
+                                        <%}else{
+                                        %>
+                                            <button type="button" class="btn" color="gray" disabled="disabled">预定</button>
+                                            <%}%>
+                                </td>
+                            </tr>
+                            <%}}%>
+                    </tbody>
+                </table>
+                <div class="span7 text-center"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="list-group">
+                            <% if (typeof Comment!='undefined'){for (var i=0;i<Comment.length;i++){ %>
+                                <li class="list-group-item">
+                                    <%- "评分： "+Comment[i].Scores+"<br>"+"评价内容： "+Comment[i].Comments %>
+                                </li>
+                                <%}}%>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class='row'>
+                    <% include CommentOfHotel %>
+                </div> -->
+            </div>
         </div>
     </div>
-    <% include ModalHotelBooking %>
+    </div>
+    <% include footer.html %>
+        </div>
+        </div>
+        <% include ModalHotelBooking %>
 
-        <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-        <script type="text/javascript" src="js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-        <script type="text/javascript">
-            $('.form_date').datetimepicker({
-                language: 'zh-CN',
-                weekStart: 1,
-                todayBtn: 1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 2,
-                minView: 2,
-                forceParse: 0
-            });
-        </script>
+            <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+            <script type="text/javascript" src="js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+            <script type="text/javascript">
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    weekStart: 1,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0
+                });
+            </script>
 </body>
 
 </html>
