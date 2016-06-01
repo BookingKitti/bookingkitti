@@ -187,19 +187,24 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
 
     var qs = require('querystring');
 
+    var order=new Array();
+    order[0]={
+        "id": "H" + Hotel_ID,
+        "price": Price
+    }
+
     //JSON Format:
     var post_data = {
         buyer: User_ID,
         seller: 0, //default
         orderAmount: Price, //default
-        orderItems: JSON.stringify({
-            "items": ["H" + Hotel_ID]
-        }), //-------------------------------need to modify
+        orderItems: JSON.stringify(order), //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
-
+    console.log("======================");
+    console.log(JSON.stringify(post_data));
     var content = qs.stringify(post_data);
 
     var options = {
