@@ -1,38 +1,37 @@
-var http = require('http');
+var searchManager = require('./bookingManager');
 
-var qs = require('querystring');
+exports.sendEmail = function (req, res) {
 
-var post_data = {
-    buyer: 123,
-    time: new Date().getTime()};//这是需要提交的数据
+    var data = {
+        address: 'test@test.com',
+        subject: "test"
+    };
 
+    data = JSON.stringify(data);
+    console.log(data);
+    var opt = {
+        method: "POST",
+        host: "localhost",
+        port: 8080,
+        path: "/v1/sendEmail",
+        headers: {
+            "Content-Type": 'application/json',
+            "Content-Length": data.length
+        }
+    };
 
-var content = qs.stringify(post_data);
-
-var options = {
-    hostname: '121.42.175.1',
-    port: 10086,
-    path: '/a2/api/insertorder',
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }
-};
-
-var req = http.request(options, function (res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
-        console.log('BODY: ' + chunk);
+    var req = http.request(opt, function (serverFeedback) {
+        if (serverFeedback.statusCode == 200) {
+            var body = "";
+            serverFeedback.on('data', function (data) { body += data; })
+                          .on('end', function () { res.send(200, body); });
+        }
+        else {
+            res.send(500, "error");
+        }
     });
-});
+    req.write(data + "\n");
+    req.end();
+}
 
-req.on('error', function (e) {
-    console.log('problem with request: ' + e.message);
-});
-
-// write data to request body
-req.write(content);
-
-req.end();
+sendEmail();

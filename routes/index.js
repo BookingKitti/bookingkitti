@@ -305,6 +305,9 @@ router.get('/test', function(req, res, next) {
     vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
+    bookingManager.send_airticket_order_info(123, 1, res, function() {
+        console.log("到这儿啦");
+    });
     bookingManager.send_hotel_order_info(123, 1, 800, function() {
         console.log("到这儿啦");
     });
@@ -528,16 +531,18 @@ router.get('/orderconfirm', function(req, res) {
 
 router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
+    console.log("booking=====watch me!!!!!!!!!!!!!!!!!!!!!");
     console.log(req.body);
     console.log(req.query);
-    bookingManager.create_order_hotel(req.session.user_id,
+    bookingManager.create_order_hotel(
+        req.session.user_id,
         req.query.Hotel_ID,
-        800,
         req.query.RoomType,
         req.body.date_checkin,
         req.body.date_checkout,
-        function(qerr, vals, fields) {
-            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, res, function() {
+        function(qerr, price) {
+            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, price,function() {
+                console.log("detail sent detail sent");
                 showDetail(req, res);
             });
         });
@@ -659,7 +664,6 @@ router.post('/updateHotel', function(req, res) {
 })
 
 router.post('/uploadRoomPics', function(req, res) {
-    console.log("in uploadRoomPics =======================");
     adminManager.upload_room_photo(req, res, function(err, req, res) {
         // body...
         console.log(err);
