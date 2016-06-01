@@ -184,7 +184,7 @@ In:
   Hotel_ID --
   res --
 */
-exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
+exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price,callback) {
     //send post request: include six values
 
     var qs = require('querystring');
@@ -193,7 +193,7 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     var post_data = {
         buyer: User_ID,
         seller: 0, //default
-        orderAmount: 1, //default
+        orderAmount: Price, //default
         orderItems: JSON.stringify({
             "items": ["H"+Hotel_ID]
         }), //-------------------------------need to modify

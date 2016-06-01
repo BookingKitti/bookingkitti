@@ -531,16 +531,18 @@ router.get('/orderconfirm', function(req, res) {
 
 router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
+    console.log("booking=====watch me!!!!!!!!!!!!!!!!!!!!!");
     console.log(req.body);
     console.log(req.query);
-    bookingManager.create_order_hotel(req.session.user_id,
+    bookingManager.create_order_hotel(
+        req.session.user_id,
         req.query.Hotel_ID,
-        800,
         req.query.RoomType,
         req.body.date_checkin,
         req.body.date_checkout,
-        function(qerr, vals, fields) {
-            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, res, function() {
+        function(qerr, price) {
+            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, price,function() {
+                console.log("detail sent detail sent");
                 showDetail(req, res);
             });
         });
