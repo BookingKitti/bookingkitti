@@ -20,9 +20,6 @@ router.use(session({
 }));
 
 var defaultPage = function(req, res) {
-
-    req.session.Date_From = "2015-06-02";
-    req.session.Date_To = "2015-06-03 ";
     res.render('Search', {
         date_checkin: '2 六月 2016',
         date_checkout: '3 六月 2016',
@@ -141,6 +138,7 @@ var showDetail = function(req, res) {
     var data_room_image;
     var count = 0;
     var min, max;
+    console.log("=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     bookingManager.get_room_pics(req.query.Hotel_ID, function(qerr, vals) {
         data_room_image = vals;
         count++;
@@ -148,6 +146,7 @@ var showDetail = function(req, res) {
             console.log('Fatal error: Cannot get room pics');
         } else {
             if (count == 5) {
+                console.log(req.session);
                 res.render('HotelDetail', {
                     tabChoose: 0,
                     HotelInfo: data_hotel,
@@ -171,6 +170,8 @@ var showDetail = function(req, res) {
             console.log('Fatal error: Cannot get hotel info');
         } else {
             if (count == 5) {
+                console.log(req.session);
+
                 res.render('HotelDetail', {
                     tabChoose: 0,
                     HotelInfo: data_hotel,
@@ -195,7 +196,10 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
                 if (count == 5) {
+                    console.log(req.session);
                     res.render('HotelDetail', {
+
+
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -235,7 +239,10 @@ var showDetail = function(req, res) {
                     }
                 }
                 if (count == 5) {
+                    console.log(req.session);
                     res.render('HotelDetail', {
+
+
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -259,7 +266,10 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: cannot get room info');
             } else {
                 if (count == 5) {
+                    console.log(req.session);
+
                     res.render('HotelDetail', {
+
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -359,8 +369,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    console.log("root router===================================");
-    console.log(req.session);
+    req.session.Date_From = "2016-06-02";
+    req.session.Date_To = "2016-06-03 ";
     count = 0;
     var hot_hotel;
     var dis_hotel;
