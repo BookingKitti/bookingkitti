@@ -37,15 +37,15 @@ function createGaussianPyramids(path, fileName, callback) {
 }
 
 function createGaussianPyramids2L(path, fileName, callback) {
-  imageMagick(path + fileName)
-      .resize(150, 150, '!')
-      .autoOrient()
-      .write(path + 'small/150x150_' + fileName, function(err) {
-          if (err) {
-              return err;
-          }
-          callback();
-      });
+    imageMagick(path + fileName)
+        .resize(150, 150, '!')
+        .autoOrient()
+        .write(path + 'small/150x150_' + fileName, function(err) {
+            if (err) {
+                return err;
+            }
+            callback();
+        });
 }
 
 /*@brief add a new hotel
@@ -85,7 +85,7 @@ exports.add_hotel_info = function(req, res, callback) {
  */
 exports.add_room_type = function(req, callback) {
     var sql = 'insert into RoomType values(';
-    sql += req.query.Hotel_ID+ ',';
+    sql += req.query.Hotel_ID + ',';
     sql += ' \'' + req.body.Room_Type + '\',';
     sql += ' \'' + req.body.Details + '\',';
     sql += ' ' + req.body.Total + ')';
@@ -132,7 +132,7 @@ exports.add_airticket_info = function(req, res, callback) {
  *req is the request
  *res is the response
  */
-exports.upload_room_photo = function(req,res,callback) {
+exports.upload_room_photo = function(req, res, callback) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.uploadDir = 'public' + AVATAR_UPLOAD_FOLDER;
@@ -173,35 +173,35 @@ exports.upload_room_photo = function(req,res,callback) {
             return;
         }
 
-            var directoryName = 'Hotel_' + req.query.Hotel_ID + '/';
-            var fileName = req.query.RoomType + '.' + extName;
-            var newPath = form.uploadDir + directoryName + fileName;
-            var rename = function() {
-                fs.rename(files.fulAvatar.path, newPath, function() {
-                    createGaussianPyramids2L(form.uploadDir + directoryName, fileName, function(err) {
-                        searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',\''+ req.query.RoomType+'\','+ '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
-                            function(qerr) {
-                                if (qerr) {
-                                    callback(qerr,req,res);
-                                    return;
-                                }
-                            });
-                    });
+        var directoryName = 'Hotel_' + req.query.Hotel_ID + '/';
+        var fileName = req.query.RoomType + '.' + extName;
+        var newPath = form.uploadDir + directoryName + fileName;
+        var rename = function() {
+            fs.rename(files.fulAvatar.path, newPath, function() {
+                createGaussianPyramids2L(form.uploadDir + directoryName, fileName, function(err) {
+                    searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',\'' + req.query.RoomType + '\',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
+                        function(qerr) {
+                            if (qerr) {
+                                callback(qerr, req, res);
+                                return;
+                            }
+                        });
                 });
-            }
-            fs.exists(form.uploadDir + directoryName, function(result) {
-                if (result == false) {
-                    fs.mkdir(form.uploadDir + directoryName, function() {
-                        fs.mkdir(form.uploadDir + directoryName + 'small', function() {
-                            fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
-                                fs.mkdir(form.uploadDir + directoryName + 'large', rename)
-                            })
+            });
+        }
+        fs.exists(form.uploadDir + directoryName, function(result) {
+            if (result == false) {
+                fs.mkdir(form.uploadDir + directoryName, function() {
+                    fs.mkdir(form.uploadDir + directoryName + 'small', function() {
+                        fs.mkdir(form.uploadDir + directoryName + 'medium', function() {
+                            fs.mkdir(form.uploadDir + directoryName + 'large', rename)
                         })
                     })
-                } else {
-                    rename();
-                }
-            })
+                })
+            } else {
+                rename();
+            }
+        })
     });
 }
 
@@ -420,7 +420,7 @@ exports.update_airticket_info = function(Airticket_ID, Departure, Airport, Desti
  *err is the query error
  */
 
-exports.delete_room_type = function (Hotel_ID, Type, callback) {
+exports.delete_room_type = function(Hotel_ID, Type, callback) {
 
     var main_sql = "delete from RoomType where Hotel_ID = " + Hotel_ID + " and Type = '" + Type + "'";
 
@@ -431,34 +431,33 @@ exports.delete_room_type = function (Hotel_ID, Type, callback) {
             searchManager.query(clause_sql, function(qerr) {
                 callback(qerr);
             });
-        }
-        else {
+        } else {
             callback(qerr);
         }
     });
 }
 
 /*
-* @Hotel_ID, Type, Room_date: conditions
-* @modify: Price
-*/
+ * @Hotel_ID, Type, Room_date: conditions
+ * @modify: Price
+ */
 
 function addDate(date, days) {
     var d = new Date(date);
     d.setDate(d.getDate() + days);
     var month = d.getMonth() + 1;
     var day = d.getDate();
-    if(month < 10){
+    if (month < 10) {
         month = "0" + month;
     }
-    if(day < 10) {
+    if (day < 10) {
         day = "0" + day;
     }
     var val = d.getFullYear() + "-" + month + "-" + day;
     return val;
 }
 
-exports.update_room_info = function (Hotel_ID, Type, Start_date, End_date, Available, Price, callback) {
+exports.update_room_info = function(Hotel_ID, Type, Start_date, End_date, Available, Price, callback) {
     //date = date + 1
     var sql = "insert into RoomInfo (Hotel_ID, Type, Room_date, Available, Price) values ";
     //+ ") on duplicate key update RoomInfo set Price = " + Price;

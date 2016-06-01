@@ -185,52 +185,54 @@ In:
   res --
 */
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
-
     //send post request: include six values
-    // 目标地址
-    strUrl = "http://115.29.112.57:3000/book";
-    var parse = url.parse(strUrl);
 
-    var order={
-      item: "H"+Hotel_ID
-    }
+    var qs = require('querystring');
 
+    //JSON Format:
     var post_data = {
         buyer: User_ID,
         seller: 0, //default
-        orderAmount: Price, //default
-        orderItems: JSON.stringify(order), //-------------------------------need to modify
+        orderAmount: 1, //default
+        orderItems: JSON.stringify({
+            "items": ["H"+Hotel_ID]
+        }), //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
-    // 待发送的数据
-    var postStr = JSON.stringify(post_data);
+
+    var content = qs.stringify(post_data);
 
     var options = {
-        "method": "POST",
-        "host": parse.hostname,
-        "path": parse.path,
-        "port": parse.port,
-        "headers": {
-            "Content-Length": postStr.length
+        hostname: '115.29.112.57',
+        port: 3000, //default
+        path: '/book',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
     };
+
     var req = http.request(options, function(res) {
-        res.setEncoding("utf-8");
-        var resData = [];
-        res.on("data", function(chunk) {
-            resData.push(chunk);
-        }).on("end", function() {
-            console.log(resData.join(""));
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
+        res.on('data', function(chunk) {
+            console.log('BODY: ' + chunk);
         });
     });
 
-    req.write(postStr);
+    req.on('error', function(e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+    // write data to request body
+    req.write(content);
+
     req.end();
 
     if (callback != null) {
-        console.log("callback reached");
         callback();
     }
 }
@@ -296,7 +298,9 @@ exports.send_airticket_order_info = function(User_ID, AirTicket_ID, res, callbac
         buyer: User_ID,
         seller: 0, //default
         orderAmount: 1, //default
-        orderItems: 'T' + AirTicket_ID, //-------------------------------need to modify
+        orderItems: JSON.stringify({
+            "items": ["T1"]
+        }), //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
@@ -305,9 +309,9 @@ exports.send_airticket_order_info = function(User_ID, AirTicket_ID, res, callbac
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '120.27.45.210',
+        hostname: '115.29.112.57',
         port: 3000, //default
-        path: '/a2/api/insertorder',
+        path: '/book',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
