@@ -374,6 +374,7 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 router.get('/', function(req, res, next) {
     req.session.Date_From = "2016-06-02";
     req.session.Date_To = "2016-06-03 ";
+    req.session.name = "A1";
     count = 0;
     var hot_hotel;
     var dis_hotel;
@@ -541,9 +542,9 @@ router.post('/bookHotel', function(req, res) {
         req.body.date_checkin,
         req.body.date_checkout,
         function(qerr, price) {
-            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, price,function() {
+            bookingManager.send_hotel_order_info(req.session.name, req.query.Hotel_ID, price, function() {
                 console.log("detail sent detail sent");
-                showDetail(req, res);
+                res.redirect("http://121.42.175.1/orderlist");
             });
         });
 })
