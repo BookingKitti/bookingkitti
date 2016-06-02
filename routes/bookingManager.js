@@ -106,7 +106,7 @@ function toDate(date) {
     if (day < 10) {
         day = "0" + day;
     }
-    var val = d.getFullYear() + "-" + month + "-" + day + " 00:00:00"; //default for %H %M %S
+    var val = d.getFullYear() + "-" + month + "-" + day + " "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds(); //default for %H %M %S
     return val;
 }
 //Y-m-d H:M:S
