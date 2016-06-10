@@ -140,6 +140,7 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
 }
 
 exports.create_order_ariticket = function(user_id, departure, destination, depart_time, arrive_time, callback) {
+
     change_airticket_data(departure, airport, destination, depart_time, arrive_time, function(qerr, vals, fields) {
         //result=result;
         if (qerr) {
