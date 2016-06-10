@@ -184,7 +184,7 @@ In:
 */
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     //send post request: include six values
-    
+
     var qs = require('querystring');
 
     var order=new Array();
@@ -200,7 +200,7 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         orderAmount: Price, //default
         orderItems: JSON.stringify(order), //-------------------------------need to modify
         orderStatus: 0, //default
-        time: toDate(new Date()) //format %Y %m %d %H %M %S
+        ordertime: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
     console.log("======================");
