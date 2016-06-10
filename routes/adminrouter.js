@@ -24,7 +24,8 @@ var defaultPage = function(req, res) {
     res.render('Search', {
         date_checkin: '26 五月 2016',
         date_checkout: '26 五月 2016',
-        AccountName: req.session.name
+        AccountName: req.session.name,
+        userid: req.session.user
     });
 }
 
@@ -49,7 +50,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 });
             }
         }
@@ -67,7 +69,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 });
             }
         }
@@ -86,7 +89,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        AccountName: req.session.name
+                        AccountName: req.session.name,
+                        userid: req.session.user
                     });
                 }
             }
@@ -105,7 +109,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 });
             }
         }
@@ -124,7 +129,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        AccountName: req.session.name
+                        AccountName: req.session.name,
+                        userid: req.session.user
                     });
                 }
             }
@@ -157,7 +163,8 @@ var showDetail = function(req, res) {
                     RoomImg: data_room_image,
                     date_checkin: req.session.Date_From,
                     date_checkout: req.session.Date_To,
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 });
             }
         }
@@ -180,7 +187,8 @@ var showDetail = function(req, res) {
                     RoomImg: data_room_image,
                     date_checkin: req.session.Date_From,
                     date_checkout: req.session.Date_To,
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 });
             }
         }
@@ -204,7 +212,8 @@ var showDetail = function(req, res) {
                         RoomImg: data_room_image,
                         date_checkin: req.session.Date_From,
                         date_checkout: req.session.Date_To,
-                        AccountName: req.session.name
+                        AccountName: req.session.name,
+                        userid: req.session.user
                     });
                 }
             }
@@ -244,7 +253,8 @@ var showDetail = function(req, res) {
                         RoomImg: data_room_image,
                         date_checkin: req.session.Date_From,
                         date_checkout: req.session.Date_To,
-                        AccountName: req.session.name
+                        AccountName: req.session.name,
+                        userid: req.session.user
                     });
                 }
             }
@@ -268,7 +278,8 @@ var showDetail = function(req, res) {
                         RoomImg: data_room_image,
                         date_checkin: req.session.Date_From,
                         date_checkout: req.session.Date_To,
-                        AccountName: req.session.name
+                        AccountName: req.session.name,
+                        userid: req.session.user
                     });
                 }
             }
@@ -327,7 +338,8 @@ router.get('/SearchHotelResults', function(req, res, next) {
                 searchID: req.query.SearchID,
                 date_checkin: req.session.Date_From,
                 date_checkout: req.session.Date_To,
-                AccountName: req.session.name
+                AccountName: req.session.name,
+                userid: req.session.user
             })
         });
 })
@@ -348,7 +360,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
                 tabChoose: 0,
                 data: vals,
                 searchID: req.query.SearchID,
-                AccountName: req.session.name
+                AccountName: req.session.name,
+                userid: req.session.user
             })
         });
 })
@@ -376,7 +389,8 @@ router.get('/', function(req, res, next) {
                     date_checkout: '27 五月 2016',
                     true_checkin: '2016-05-26',
                     true_checkout: '2016-05-27',
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 })
             }
         });
@@ -396,7 +410,8 @@ router.get('/', function(req, res, next) {
                     date_checkout: '27 五月 2016',
                     true_checkin: '2016-05-26',
                     true_checkout: '2016-05-27',
-                    AccountName: req.session.name
+                    AccountName: req.session.name,
+                    userid: req.session.user
                 })
             }
         });
@@ -432,7 +447,8 @@ router.post('/searchHotel', function(req, res) {
                 searchID: search_ID,
                 date_checkout: req.session.Date_To,
                 date_checkin: req.session.Date_From,
-                AccountName: req.session.name
+                AccountName: req.session.name,
+                userid: req.session.user
             })
         });
 });
@@ -454,7 +470,8 @@ router.post('/searchTicket', function(req, res) {
                 tabChoose: 0,
                 searchID: search_ID,
                 data: vals,
-                AccountName: req.session.name
+                AccountName: req.session.name,
+                userid: req.session.user
             })
         });
 });
@@ -478,7 +495,8 @@ router.post('/hotelDetail', function(req, res) {
 router.get('/comment', function(req, res) {
     res.render('comment', {
         tabChoose: 2,
-        AccountName: req.session.name
+        AccountName: req.session.name,
+        userid: req.session.user
     });
 });
 
@@ -508,7 +526,8 @@ router.post('/comment', function(req, res, next) {
 router.get('/orderconfirm', function(req, res) {
     res.render('OrderDetail', {
         tabChoose: 1,
-        AccountName: req.session.name
+        AccountName: req.session.name,
+        userid: req.session.user
     })
 })
 
@@ -536,7 +555,8 @@ var adminSearchHotel = function(req, res) {
             res.render('HotelManage', {
                 tabChoose: 0,
                 data: vals,
-                AccountName: req.session.name
+                AccountName: req.session.name,
+                userid: req.session.user
             })
         });
 }
@@ -552,7 +572,8 @@ var adminSearchTicket = function(req, res) {
                 tabChoose: 0,
                 searchID: search_ID,
                 data: vals,
-                AccountName: req.session.name
+                AccountName: req.session.name,
+                userid: req.session.user
             })
         });
 }
@@ -686,5 +707,5 @@ router.get('/getdetail', function(req, res, next) {
         })
     }
 })
- 
+
 module.exports = router;
