@@ -68,6 +68,7 @@ exports.add_hotel_info = function(req, res, callback) {
     sql += ' \'' + req.body.Description + '\',';
     sql += ' \'' + req.body.PhoneNumber + '\',';
     sql += ' ' + req.body.Discount + ' ';
+    sql += ' ' + req.body.Seller_Id + ' ';
     sql += ' ,0,0)';
     searchManager.query(sql, function(err) {
         callback(err, req, res);

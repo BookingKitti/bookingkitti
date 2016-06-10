@@ -3,8 +3,15 @@ var mysql = require("mysql");
 var pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
+<<<<<<< HEAD
     password: 'c97a38112fe3444a', //'lucas95123',
     database: 'paykitty',
+=======
+
+    password: 'cjs2042868', //'lucas95123',
+    database: 'kitty',
+
+>>>>>>> 300481d20b5cc547e64ce687a90249f92fba4b34
 });
 
 exports.query = function(sql, callback) {
