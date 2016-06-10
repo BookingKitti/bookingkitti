@@ -1,5 +1,5 @@
 <% for (var it=0;it<RoomType.length;it++){ %>
-    <div class="modal fade" id=<%- "'"+"./Upload_RoomPics"+it+"'"%> tabindex="-1" role="dialog" aria-labelledby=
+    <div class="modal fade" id=<%- "'"+"Upload_RoomPics"+it+"'"%> tabindex="-1" role="dialog" aria-labelledby=
         <%-"'ModalLabel'"%> >
             <div class="modal-dialog">
               <form class="form-signin" role="form" action=<%- "uploadRoomPics?Hotel_ID="+HotelInfo[0].Hotel_ID+ "&RoomType="+RoomType[it].Type %> method="post" enctype='multipart/form-data'>

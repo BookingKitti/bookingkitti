@@ -106,7 +106,7 @@ function toDate(date) {
     if (day < 10) {
         day = "0" + day;
     }
-    var val = d.getFullYear() + "-" + month + "-" + day + " 00:00:00"; //default for %H %M %S
+    var val = d.getFullYear() + "-" + month + "-" + day + " "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds(); //default for %H %M %S
     return val;
 }
 //Y-m-d H:M:S
@@ -195,24 +195,28 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
 
     //JSON Format:
     var post_data = {
-        buyer: User_ID,
+        buyer: parseInt(User_ID),
         seller: 0, //default
-        orderAmount: Price, //default
-        orderItems: JSON.stringify(order), //-------------------------------need to modify
+        orderAmount: parseInt(Price), //default
+        orderItems: qs.stringify(order), //-------------------------------need to modify
         orderStatus: 0, //default
-        ordertime: toDate(new Date()) //format %Y %m %d %H %M %S
+        orderTime: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
     console.log("======================");
-    console.log(JSON.stringify(post_data));
+    console.log(qs.stringify(post_data));
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '115.29.112.57',
-        port: 3000, //default
-        path: '/book',
-        method: 'POST',
+        hostname: '121.42.175.1',
+	//hostname: '115.29.112.57',
+        path: '/a2/api/insertorder',
+        //port: 3000,
+	port: 80,
+	//path: '/book',
+	method: 'POST',
         headers: {
+	    'Content-Length': content.length,
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
     };

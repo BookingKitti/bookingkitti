@@ -542,7 +542,7 @@ router.post('/bookHotel', function(req, res) {
         req.body.date_checkin,
         req.body.date_checkout,
         function(qerr, price) {
-            bookingManager.send_hotel_order_info(123, req.query.Hotel_ID, price, function() {
+            bookingManager.send_hotel_order_info(123,req.query.Hotel_ID, price, function() {
                 console.log("detail sent detail sent");
                 res.redirect("http://121.42.175.1/orderlist");
             });
