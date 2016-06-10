@@ -198,7 +198,7 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         buyer: parseInt(User_ID),
         seller: 0, //default
         orderAmount: parseInt(Price), //default
-        orderItems: qs.stringify(order), //-------------------------------need to modify
+        orderItems: JSON.stringify(order), //-------------------------------need to modify
         orderStatus: 0, //default
         orderTime: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
