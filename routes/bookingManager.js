@@ -285,7 +285,8 @@ exports.send_hotel_detailed_info = function(Hotel_ID, callback) {
             Discount: plist[8], //decimal(3, 2),
             Score: plist[9], //float,
             Heat: plist[10], //int
-            File_Pos: plist[11]
+            Seller_Id: plist[11]
+            File_Pos: plist[12]
         }; //这是需要提交的数据
 
         callback(post_data)
