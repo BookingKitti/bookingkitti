@@ -20,10 +20,9 @@ router.use(session({
 }));
 
 var defaultPage = function(req, res) {
-
     res.render('Search', {
-        date_checkin: '26 五月 2016',
-        date_checkout: '26 五月 2016',
+        date_checkin: '2 六月 2016',
+        date_checkout: '3 六月 2016',
         AccountName: req.session.name
     });
 }
@@ -139,6 +138,7 @@ var showDetail = function(req, res) {
     var data_room_image;
     var count = 0;
     var min, max;
+    console.log("=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     bookingManager.get_room_pics(req.query.Hotel_ID, function(qerr, vals) {
         data_room_image = vals;
         count++;
@@ -146,6 +146,7 @@ var showDetail = function(req, res) {
             console.log('Fatal error: Cannot get room pics');
         } else {
             if (count == 5) {
+                console.log(req.session);
                 res.render('HotelDetail', {
                     tabChoose: 0,
                     HotelInfo: data_hotel,
@@ -169,6 +170,8 @@ var showDetail = function(req, res) {
             console.log('Fatal error: Cannot get hotel info');
         } else {
             if (count == 5) {
+                console.log(req.session);
+
                 res.render('HotelDetail', {
                     tabChoose: 0,
                     HotelInfo: data_hotel,
@@ -193,7 +196,10 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: Cannot get hotel info');
             } else {
                 if (count == 5) {
+                    console.log(req.session);
                     res.render('HotelDetail', {
+
+
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -233,7 +239,10 @@ var showDetail = function(req, res) {
                     }
                 }
                 if (count == 5) {
+                    console.log(req.session);
                     res.render('HotelDetail', {
+
+
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -257,7 +266,10 @@ var showDetail = function(req, res) {
                 console.log('Fatal error: cannot get room info');
             } else {
                 if (count == 5) {
+                    console.log(req.session);
+
                     res.render('HotelDetail', {
+
                         tabChoose: 0,
                         HotelInfo: data_hotel,
                         RoomInfo: data_room,
@@ -294,6 +306,9 @@ router.get('/test', function(req, res, next) {
     vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
     vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
 
+    bookingManager.send_airticket_order_info(123, 1, res, function() {
+        console.log("到这儿啦");
+    });
     bookingManager.send_hotel_order_info(123, 1, 800, function() {
         console.log("到这儿啦");
     });
@@ -358,8 +373,10 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    console.log("root router===================================");
-    console.log(req.session);
+    req.session.Date_From = "2016-06-02";
+    req.session.Date_To = "2016-06-03 ";
+    req.session.name = "A1";
+    req.session.id = 123;
     count = 0;
     var hot_hotel;
     var dis_hotel;
@@ -375,10 +392,10 @@ router.get('/', function(req, res, next) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
                     DiscountHotel: dis_hotel,
-                    date_checkin: '26 五月 2016',
-                    date_checkout: '27 五月 2016',
-                    true_checkin: '2016-05-26',
-                    true_checkout: '2016-05-27',
+                    date_checkin: '2 六月 2016',
+                    date_checkout: '3 六月 2016',
+                    true_checkin: '2016-06-2',
+                    true_checkout: '2016-06-3',
                     AccountName: req.session.name
                 })
             }
@@ -395,10 +412,10 @@ router.get('/', function(req, res, next) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
                     DiscountHotel: dis_hotel,
-                    date_checkin: '26 五月 2016',
-                    date_checkout: '27 五月 2016',
-                    true_checkin: '2016-05-26',
-                    true_checkout: '2016-05-27',
+                    date_checkin: '2 六月 2016',
+                    date_checkout: '3 六月 2016',
+                    true_checkin: '2016-06-2',
+                    true_checkout: '2016-06-3',
                     AccountName: req.session.name
                 })
             }
@@ -517,17 +534,18 @@ router.get('/orderconfirm', function(req, res) {
 
 router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
-    console.log(req.body);
-    console.log(req.query);
-    bookingManager.create_order_hotel(req.session.user_id,
-        req.query.Hotel_ID,
-        800,
+    console.log("booking=====watch me!!!!!!!!!!!!!!!!!!!!!");
+    console.log(req.session);
+    bookingManager.create_order_hotel(
+        123,
+	req.query.Hotel_ID,
         req.query.RoomType,
         req.body.date_checkin,
         req.body.date_checkout,
-        function(qerr, vals, fields) {
-            bookingManager.send_hotel_order_info(req.session.user_id, req.query.Hotel_ID, res, function() {
-                showDetail(req, res);
+        function(qerr, price) {
+            bookingManager.send_hotel_order_info(123,req.query.Hotel_ID, price, function() {
+                console.log("detail sent detail sent");
+                res.redirect("http://121.42.175.1/orderlist");
             });
         });
 })

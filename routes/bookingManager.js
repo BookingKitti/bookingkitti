@@ -106,7 +106,7 @@ function toDate(date) {
     if (day < 10) {
         day = "0" + day;
     }
-    var val = d.getFullYear() + "-" + month + "-" + day + " 00:00:00"; //default for %H %M %S
+    var val = d.getFullYear() + "-" + month + "-" + day + " "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds(); //default for %H %M %S
     return val;
 }
 //Y-m-d H:M:S
@@ -120,24 +120,22 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
             return;
         }
 
-        var myDate = new Date();
-        var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + Math.random() * 100 + ")";
+        var select_price_sql = "select sum(price) as sum_price from HotelInfo natural join RoomInfo where Hotel_ID = " + hotel_id + " and Type = '" + type + "' and Room_date between '" + room_date_from + "' and '" + room_data_to + "';";
 
-        searchManager.query(insert_sql, function(qerr, vals, fields) {
+        searchManager.query(select_price_sql, function(qerr, vals, fields) {
             //console.log(qerr);
             //callback(qerr, vals, fields);
-            searchManager.query(sql, function(qerr, vals, fields) {
+            var sumPrice = vals[0].sum_price;
+
+            var myDate = new Date();
+            var insert_sql = "insert into HotelOrderHistory values(" + user_id + ", " + hotel_id + ", '" + toDate(myDate) + "', " + sumPrice + ")";
+
+            searchManager.query(insert_sql, function(qerr, vals) {
                 //console.log(qerr);
-                callback(qerr, vals, fields);
+                //callback(qerr, vals, fields);
+                callback(qerr, sumPrice);
             });
         });
-        var sql = "select Departure,Destination,Depart_time,Arrive_time,Price from TicketsInfo where " + " Departure=  '" + departure + "' " + " and Destination= '" + destination + "' " + " and Depart_time= '" + depart_time + "' " + " and Arrive_time= '" + arrive_time + "' ;";
-
-        searchManager.query(sql, function(qerr, vals, fields) {
-            //console.log(qerr);
-            callback(qerr, vals, fields);
-        });
-
     });
 }
 
@@ -186,52 +184,63 @@ In:
   res --
 */
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
-
     //send post request: include six values
-    // 目标地址
-    strUrl = "http://115.29.112.57:3000/book";
-    var parse = url.parse(strUrl);
+    
+    var qs = require('querystring');
 
-    var order={
-      item: "H"+Hotel_ID
+    var order=new Array();
+    order[0]={
+        "id": "H" + Hotel_ID,
+        "price": Price
     }
 
+    //JSON Format:
     var post_data = {
-        buyer: User_ID,
+        buyer: parseInt(User_ID),
         seller: 0, //default
-        orderAmount: Price, //default
-        orderItems: JSON.stringify(order), //-------------------------------need to modify
+        orderAmount: parseInt(Price), //default
+        orderItems: qs.stringify(order), //-------------------------------need to modify
         orderStatus: 0, //default
-        time: toDate(new Date()) //format %Y %m %d %H %M %S
+        orderTime: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
-    // 待发送的数据
-    var postStr = JSON.stringify(post_data);
+    console.log("======================");
+    console.log(qs.stringify(post_data));
+    var content = qs.stringify(post_data);
 
     var options = {
-        "method": "POST",
-        "host": parse.hostname,
-        "path": parse.path,
-        "port": parse.port,
-        "headers": {
-            "Content-Length": postStr.length
+        hostname: '121.42.175.1',
+	//hostname: '115.29.112.57',
+        path: '/a2/api/insertorder',
+        //port: 3000,
+	port: 80,
+	//path: '/book',
+	method: 'POST',
+        headers: {
+	    'Content-Length': content.length,
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
     };
+
     var req = http.request(options, function(res) {
-        res.setEncoding("utf-8");
-        var resData = [];
-        res.on("data", function(chunk) {
-            resData.push(chunk);
-        }).on("end", function() {
-            console.log(resData.join(""));
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
+        res.on('data', function(chunk) {
+            console.log('BODY: ' + chunk);
         });
     });
 
-    req.write(postStr);
+    req.on('error', function(e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+    // write data to request body
+    req.write(content);
+
     req.end();
 
     if (callback != null) {
-        console.log("callback reached");
         callback();
     }
 }
@@ -297,7 +306,9 @@ exports.send_airticket_order_info = function(User_ID, AirTicket_ID, res, callbac
         buyer: User_ID,
         seller: 0, //default
         orderAmount: 1, //default
-        orderItems: 'T' + AirTicket_ID, //-------------------------------need to modify
+        orderItems: JSON.stringify({
+            "items": ["T1"]
+        }), //-------------------------------need to modify
         orderStatus: 0, //default
         time: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
@@ -306,9 +317,9 @@ exports.send_airticket_order_info = function(User_ID, AirTicket_ID, res, callbac
     var content = qs.stringify(post_data);
 
     var options = {
-        hostname: '120.27.45.210',
+        hostname: '115.29.112.57',
         port: 3000, //default
-        path: '/a2/api/insertorder',
+        path: '/book',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
