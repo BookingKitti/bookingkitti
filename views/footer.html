@@ -1,5 +1,5 @@
-
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js">
+</script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -17,4 +17,39 @@
             $('LeftBox').stickUp();
         });
     });
+    window.onload = function() {
+        var accountID = $("#user_id").attr("content");
+        $.get('/A1/API/message/clickedMessage', {
+            backUrl: window.location.href,
+            accountID: accountID
+        }, function(data, status) {
+            var mydoc = "";
+            data = JSON.parse(data);
+            for (var i in data) {
+                mydoc +=
+                    "<li>\
+                        <a href=\"" + data[i].href +
+                    "\">\
+                          <span class=\"image\">\
+                            <img src=\"http://121.42.175.1/static/images/img.jpg\" alt=\"Profile Image\" />\
+                          </span>\
+                          <span>\
+                            <span>来自" +
+                    data[i].sender + "的消息</span>\
+                          <span class=\"time\">" + data[i].time +
+                    "</span>\
+                          </span>\
+                          <span class=\"message\">\
+                            " + data[i].message +
+                    "\
+                          </span>\
+                        </a>\
+                      </li>";
+            }
+            $('#messageEnd').before(mydoc);
+            var myclickAllUrl = "/account/message/clear?backUrl=" + window.location.href + "&accountID=" + accountID;
+            $('#messageClickAll').attr("href", myclickAllUrl);
+            $('#messageAmount').text("" + data.length);
+        });
+    }
 </script>

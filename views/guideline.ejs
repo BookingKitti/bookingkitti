@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta id="user_id" content=<%-"'"+userid+"'"%>>
 
     <title>PayKitty-Account</title>
 
@@ -103,6 +104,30 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span id="messageAmount" class="badge bg-green"></span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li id="messageEnd">
+                      <div class="text-center">
+                        <a id="messageClickAll">
+                          <strong>确认看过了所有新消息</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a href="/account/message">
+                          <strong>查看所有通知</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="http://121.42.175.1/static/images/img.jpg" alt="">
@@ -116,9 +141,6 @@
                     </ul>
                 </li>
 
-
-            </ul>
-            </li>
 
             </ul>
         </nav>
