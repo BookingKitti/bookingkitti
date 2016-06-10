@@ -536,7 +536,7 @@ router.post('/bookHotel', function(req, res) {
     console.log("booking=====watch me!!!!!!!!!!!!!!!!!!!!!");
     console.log(req.session);
     bookingManager.create_order_hotel(
-        123///req.session.id,
+        123,///req.session.id,
         req.query.Hotel_ID,
         req.query.RoomType,
         req.body.date_checkin,
