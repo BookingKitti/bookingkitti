@@ -6,8 +6,11 @@ var commentManager = require('./commentManager');
 var bookingManager = require('./bookingManager');
 var adminManager = require('./adminManager');
 var hotManager = require('./hotManager');
+var moment = require('moment');
 var path = require('path')
 var session = require('express-session')
+moment.locale("zh-CN");
+
 router.use(express.static(path.join(__dirname, '../public')));
 router.use(session({
     secret: 'paykitty',
@@ -162,8 +165,8 @@ var showDetail = function(req, res) {
                     url: req.originalUrl,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    date_checkin: req.session.Date_From,
-                    date_checkout: req.session.Date_To,
+                    true_checkin: req.session.Date_From,
+                    true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
                     userid: req.session.user
                 });
@@ -188,8 +191,10 @@ var showDetail = function(req, res) {
                     url: req.originalUrl,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    date_checkin: req.session.Date_From,
-                    date_checkout: req.session.Date_To,
+                    true_checkin: req.session.Date_From,
+                    true_checkout: req.session.Date_To,
+                    date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                    date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                     AccountName: req.session.name,
                     userid: req.session.user
                 });
@@ -216,8 +221,8 @@ var showDetail = function(req, res) {
                         url: req.originalUrl,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        date_checkin: req.session.Date_From,
-                        date_checkout: req.session.Date_To,
+                        true_checkin: req.session.Date_From,
+                        true_checkout: req.session.Date_To,
                         AccountName: req.session.name,
                         userid: req.session.user
                     });
@@ -260,8 +265,8 @@ var showDetail = function(req, res) {
                         url: req.originalUrl,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        date_checkin: req.session.Date_From,
-                        date_checkout: req.session.Date_To,
+                        true_checkin: req.session.Date_From,
+                        true_checkout: req.session.Date_To,
                         AccountName: req.session.name,
                         userid: req.session.user
                     });
@@ -288,8 +293,8 @@ var showDetail = function(req, res) {
                         url: req.originalUrl,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        date_checkin: req.session.Date_From,
-                        date_checkout: req.session.Date_To,
+                        true_checkin: req.session.Date_From,
+                        true_checkout: req.session.Date_To,
                         AccountName: req.session.name,
                         userid: req.session.user
                     });
@@ -354,8 +359,8 @@ router.get('/SearchHotelResults', function(req, res, next) {
                 tabChoose: 0,
                 data: vals,
                 searchID: req.query.SearchID,
-                date_checkin: req.session.Date_From,
-                date_checkout: req.session.Date_To,
+                true_checkin: req.session.Date_From,
+                true_checkout: req.session.Date_To,
                 AccountName: req.session.name,
                 userid: req.session.user
             })
@@ -407,8 +412,8 @@ router.get('/', function(req, res, next) {
                     DiscountHotel: dis_hotel,
                     date_checkin: '2 六月 2016',
                     date_checkout: '3 六月 2016',
-                    true_checkin: '2016-06-2',
-                    true_checkout: '2016-06-3',
+                    true_checkin: '2016-06-02',
+                    true_checkout: '2016-06-03',
                     AccountName: req.session.name,
                     userid: req.session.user
                 })
@@ -428,8 +433,8 @@ router.get('/', function(req, res, next) {
                     DiscountHotel: dis_hotel,
                     date_checkin: '2 六月 2016',
                     date_checkout: '3 六月 2016',
-                    true_checkin: '2016-06-2',
-                    true_checkout: '2016-06-3',
+                    true_checkin: '2016-06-02',
+                    true_checkout: '2016-06-03',
                     AccountName: req.session.name,
                     userid: req.session.user
                 })
@@ -461,12 +466,15 @@ router.post('/searchHotel', function(req, res) {
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
         function(qerr, vals, fields, search_ID) { //还需要修改
+          console.log(req.session);
             res.render('SearchHotelResults', {
                 tabChoose: 0,
                 data: vals,
                 searchID: search_ID,
-                date_checkout: req.session.Date_To,
-                date_checkin: req.session.Date_From,
+                true_checkout: req.session.Date_To,
+                true_checkin: req.session.Date_From,
+                date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                 AccountName: req.session.name,
                 userid: req.session.user
             })
