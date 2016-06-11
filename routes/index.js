@@ -167,6 +167,8 @@ var showDetail = function(req, res) {
                     RoomImg: data_room_image,
                     true_checkin: req.session.Date_From,
                     true_checkout: req.session.Date_To,
+                    date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                    date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                     AccountName: req.session.name,
                     userid: req.session.user
                 });
@@ -223,6 +225,8 @@ var showDetail = function(req, res) {
                         RoomImg: data_room_image,
                         true_checkin: req.session.Date_From,
                         true_checkout: req.session.Date_To,
+                        date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                        date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                         AccountName: req.session.name,
                         userid: req.session.user
                     });
@@ -267,6 +271,8 @@ var showDetail = function(req, res) {
                         RoomImg: data_room_image,
                         true_checkin: req.session.Date_From,
                         true_checkout: req.session.Date_To,
+                        date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                        date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                         AccountName: req.session.name,
                         userid: req.session.user
                     });
@@ -295,6 +301,8 @@ var showDetail = function(req, res) {
                         RoomImg: data_room_image,
                         true_checkin: req.session.Date_From,
                         true_checkout: req.session.Date_To,
+                        date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                        date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                         AccountName: req.session.name,
                         userid: req.session.user
                     });
