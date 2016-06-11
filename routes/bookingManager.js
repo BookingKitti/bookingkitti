@@ -237,6 +237,7 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
 
     console.log("notice me!!!!!!!!!!!!!!")
     console.log(content);
+    console.log("unnotice me!!!!!!!!!!!!")
     // write data to request body
     req.write(content);
 
