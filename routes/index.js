@@ -632,8 +632,9 @@ router.post('/addHotel', function(req, res) {
 })
 
 router.post('/addTickets', function(req, res) {
+  console.log("注意注意注意我");
     adminManager.add_airticket_info(req, res, function() {
-        adminSearchHotel(req, res);
+        adminSearchTicket(req, res);
     })
 })
 
@@ -723,6 +724,7 @@ router.post('/uploadHotelPics', function(req, res) {
 router.get('/avatar', function(req, res) {
     res.sendfile(req.originalUrl)
 })
+
 router.get('/getdetail', function(req, res, next) {
     var temp = req.query.ID
     var Hotel_ID;
@@ -742,5 +744,11 @@ router.get('/getdetail', function(req, res, next) {
             res.send(plist)
         })
     }
+})
+
+router.get('/comment', function(req, res, next) {
+  res.render("comment",{
+    AccountName:req.session.name
+  });
 })
 module.exports = router;

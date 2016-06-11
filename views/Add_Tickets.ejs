@@ -1,76 +1,116 @@
 <form name="Add_Tickets" method="post" action="addTickets">
-    <div class="modal fade" id=<%- "'Add_Ticket'"%> tabindex="-1" role="dialog" aria-labelledby=
-        <%-"'ModalLabel'"%> >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">
-                Add Ticket
-             </h4>
+    <div class="modal fade" id=<%- "'Add_Ticket'"%> tabindex="-1" role="dialog" aria-labelledby=<%-"'ModalLabel'"%>>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加机票
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" name="Flight_Company" class="form-control" required="required" placeholder="航空公司"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="Flight_No" class="form-control" required="required" placeholder="航班号"/>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="Flight_Company" class="form-control" required="required" placeholder="Flight Company" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="Flight_No" class="form-control" required="required" placeholder="Flight No" />
-                            </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" name="Departure" class="form-control" required="required" placeholder="出发地"/>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="Departure" class="form-control" required="required" placeholder="Departure" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="Stopover" class="form-control" required="required" placeholder="Stopover" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="Destination" class="form-control" required="required" placeholder="Destination" />
-                            </div>
+                        <div class="col-md-3">
+                            <input type="text" name="Stopover" class="form-control" required="required" placeholder="经停"/>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="Depart_time" class="form-control" required="required" placeholder="Depart time" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="Stopover_time" class="form-control" required="required" placeholder="Stopover time" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="Arrive_time" class="form-control" required="required" placeholder="Arrive time" />
-                            </div>
+                        <div class="col-md-3">
+                            <input type="text" name="Destination" class="form-control" required="required" placeholder="目的地"/>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="Total" class="form-control" required="required" placeholder="Total" />
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="Price" class="form-control" required="required" placeholder="Price" />
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="Discount" class="form-control" required="required" placeholder="Discount" />
-                            </div>
-                        </div>
-                        <br>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" >
-                            submit
-                        </button>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input4" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                                <input class="form-control" size="16" type="text" value="">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <input type="hidden" id="dtp_input4" value="" name='Depart_time'/><br/>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input5" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                                <input class="form-control" size="16" type="text" value="">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <input type="hidden" id="dtp_input5" value="" name='Stopover_time'/><br/>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input6" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                                <input class="form-control" size="16" type="text" value="">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <input type="hidden" id="dtp_input6" value="" name='Arrive_time'/><br/>
+                        </div>
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="number" name="Total" class="form-control" required="required" placeholder="总票数"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="number" name="Price" class="form-control" required="required" placeholder="价格"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" name="Discount" class="form-control" required="required" placeholder="折扣"/>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        提交
+                    </button>
                 </div>
             </div>
-
+        </div>
     </div>
 </form>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
