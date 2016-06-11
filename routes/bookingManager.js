@@ -235,6 +235,8 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         console.log('problem with request: ' + e.message);
     });
 
+    console.log("notice me!!!!!!!!!!!!!!")
+    console.log(content);
     // write data to request body
     req.write(content);
 
