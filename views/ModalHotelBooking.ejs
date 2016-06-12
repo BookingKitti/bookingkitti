@@ -63,7 +63,7 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
-                            <input type="hidden" id=<%-"'"+"dtp_input2"+it+"'"%> value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> name='date_checkin'/><br/>
+                            <input type="hidden" id=<%-"'"+"dtp_input2"+it+"'"%> value=<%-(typeof date_checkout!='undefined')?((typeof true_checkin=='undefined')?'"'+date_checkin+'"':'"'+true_checkin+'"'):"''"%> name='date_checkin'/><br/>
                         </div>
                     </div>
                     <div class="span4">
@@ -78,7 +78,7 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
-                            <input type="hidden" id=<%- "'"+"dtp_input3"+it+"'" %> value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> name='date_checkout'/><br/>
+                            <input type="hidden" id=<%- "'"+"dtp_input3"+it+"'" %> value=<%-(typeof date_checkout!='undefined')?((typeof true_checkout=='undefined')?'"'+date_checkout+'"':'"'+true_checkout+'"'):"''"%> name='date_checkout'/><br/>
                         </div>
                     </div>
 
