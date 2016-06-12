@@ -22,15 +22,6 @@ router.use(session({
     saveUninitialized: true,
 }));
 
-var defaultPage = function(req, res) {
-    res.render('Search', {
-        date_checkin: '2 六月 2016',
-        date_checkout: '3 六月 2016',
-        AccountName: req.session.name,
-        userid: req.session.user
-    });
-}
-
 var showAdminDetail = function(req, res, Hotel_ID) {
     var data_hotel;
     var data_room;
@@ -314,46 +305,6 @@ var showDetail = function(req, res) {
 /*@brief GET home page which is default search page
  *render search.ejs
  */
-function yaowang() {
-    this.HotelInfo = 'name';
-    this.Hotel_ID = 'age';
-    this.Hotel_Name = 'location';
-}
-router.get('/test', function(req, res, next) {
-    console.log("test-=======================");
-    filepath = ['avatar/Hotel_1/small/150x150_0.png', 'avatar/Hotel_2/small/150x150_0.png', 'avatar/Hotel_3/small/150x150_0.png'];
-    var vals = new Array();
-    vals[0] = new yaowang();
-    vals[1] = new yaowang();
-    vals[2] = new yaowang();
-    vals[0].Hotel_ID = vals[1].Hotel_ID = vals[2].Hotel_ID = 1
-    vals[0].HotelInfo = vals[1].HotelInfo = vals[2].HotelInfo = '来自保加利亚的好酒店'
-    vals[0].Hotel_Name = vals[1].Hotel_Name = vals[2].Hotel_Name = 'XON'
-
-    bookingManager.send_airticket_order_info(123, 1, res, function() {
-        console.log("到这儿啦");
-    });
-    bookingManager.send_hotel_order_info(123, 1, 800, function() {
-        console.log("到这儿啦");
-    });
-    // res.render('OrderDetail', {
-    //     OrderType:'Ticket',
-    //     Departure:'杭州',
-    //     Destination:'上海',
-    //     Depart_time:'2015-05-05',
-    //     RoomImg:"avatar/Hotel_1/small/150x150_0.png",
-    //     ID:'Azis',
-    //     TotalPrice:1000,
-    //     DiscountHotelPic: filepath,
-    //     HotHotel: vals,
-    //     DiscountHotel: vals,
-    //     data: vals,
-    //     searchID: 1,
-    //     AccountName:req.session.name
-    // })
-
-})
-
 router.get('/SearchHotelResults', function(req, res, next) {
     //req.body.
     //if(req.query.SortBy == "" )
@@ -399,8 +350,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    req.session.Date_From = "2016-06-02";
-    req.session.Date_To = "2016-06-03 ";
+    req.session.Date_From = moment().format('l');
+    req.session.Date_To = moment().add(1,"days").format('l');
     req.session.name = "A1";
     req.session.id = 123;
     count = 0;
@@ -418,10 +369,10 @@ router.get('/', function(req, res, next) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
                     DiscountHotel: dis_hotel,
-                    date_checkin: '2 六月 2016',
-                    date_checkout: '3 六月 2016',
-                    true_checkin: '2016-06-02',
-                    true_checkout: '2016-06-03',
+                    date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                    date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
+                    true_checkin: req.session.Date_From,
+                    true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
                     userid: req.session.user
                 })
@@ -439,21 +390,16 @@ router.get('/', function(req, res, next) {
                 res.render('Search', {
                     HotHotel: hot_hotel,
                     DiscountHotel: dis_hotel,
-                    date_checkin: '2 六月 2016',
-                    date_checkout: '3 六月 2016',
-                    true_checkin: '2016-06-02',
-                    true_checkout: '2016-06-03',
+                    date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                    date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
+                    true_checkin: req.session.Date_From,
+                    true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
                     userid: req.session.user
                 })
             }
         });
 });
-
-/*@brief GET search page
- *render search.ejs
- */
-router.get('/search', defaultPage);
 
 /*@brief POST searchHotel page
  *parse input and call filterManager
@@ -573,12 +519,13 @@ router.post('/bookHotel', function(req, res) {
     //bookingManager.create_order_hotel()
     console.log("booking=====watch me!!!!!!!!!!!!!!!!!!!!!");
     console.log(req.session);
+    console.log(req.body);
     bookingManager.create_order_hotel(
         123,///req.session.id,
         req.query.Hotel_ID,
         req.query.RoomType,
-        req.body.date_checkin,
-        req.body.date_checkout,
+        "2016-6-2",
+        "2016-6-3",
         function(qerr, price) {
             bookingManager.send_hotel_order_info(123,req.query.Hotel_ID, price, function() {
                 console.log("detail sent detail sent");
