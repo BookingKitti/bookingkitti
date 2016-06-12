@@ -205,8 +205,8 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     }; //这是需要提交的数据
 
     console.log("======================");
-    console.log(JSON.stringify(post_data));
-    var content = JSON.stringify(post_data);
+    console.log(qs.stringify(post_data));
+    var content = qs.stringify(post_data);
 
     var options = {
         hostname: '121.42.175.1',
@@ -218,7 +218,7 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
 	method: 'POST',
         headers: {
 	    'Content-Length': content.length,
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
     };
 
