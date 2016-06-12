@@ -139,6 +139,9 @@ var showDetail = function(req, res) {
     var count = 0;
     var min, max;
     console.log("=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    if (typeof req.session.Date_From=='undefined')req.session.Date_From = moment().format('l');
+    if (typeof req.session.Date_To=='undefined')req.session.Date_To = moment().add(1,"days").format('l');
+
     bookingManager.get_room_pics(req.query.Hotel_ID, function(qerr, vals) {
         data_room_image = vals;
         count++;
@@ -350,8 +353,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    req.session.Date_From = moment().format('l');
-    req.session.Date_To = moment().add(1,"days").format('l');
+    if (typeof req.session.Date_From=='undefined')req.session.Date_From = moment().format('l');
+    if (typeof req.session.Date_To=='undefined')req.session.Date_To = moment().add(1,"days").format('l');
     req.session.name = "A1";
     req.session.id = 123;
     count = 0;
