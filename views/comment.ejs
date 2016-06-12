@@ -15,25 +15,30 @@
             <div class="main_container">
                 <% include guideline.ejs %>
                 <div class='right_col container' role='main'>
-                    <form method="post">
-                        <div class="row">
-                            <div class="col-md-10 text-center">
-                                <div class="form-group">
-                                    <legend>评价</legend>
-                                    <label>评价星级</label>
-                                    <input id="rate-star" type="text" class="rating" min=1 max=5 step=1 data-size="lg" name="rating" showCaption=false>
+                    <div class="jumbotron">
+                        <h1><%-HotelName%></h1>
+                        <p><%-OrderPrice%></p>
+                        <p><%-OrderDate%></p>
+                        <form method="post" action=<%-"'/comment?Hotel_ID="+Hotel_ID+"'"%>>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <legend>评价</legend>
+                                        <label>评价星级</label>
+                                        <input id="rate-star" type="text" class="rating" min=1 max=5 step=1 data-size="lg" name="rating" showCaption=false>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <span class="help-block">请打分</span>
+                                        <label>评价内容</label>
+                                        <input type="text" name="content">
+                                        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-10 text-center">
-                                <div class="form-group">
-                                    <span class="help-block">请打分</span>
-                                    <label>评价内容</label>
-                                    <input type="text" name="content">
-                                    <button type="submit" class="btn btn-sm">提交</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
 
