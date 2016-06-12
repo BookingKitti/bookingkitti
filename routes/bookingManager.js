@@ -205,12 +205,12 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     }; //这是需要提交的数据
 
     console.log("======================");
-    console.log(qs.stringify(post_data));
-    var content = qs.stringify(post_data);
+    console.log(JSON.stringify(post_data));
+    var content = JSON.stringify(post_data);
 
     var options = {
         hostname: '121.42.175.1',
-	//hostname: '115.29.112.57',
+	    //hostname: '115.29.112.57',
         path: '/a2/api/insertorder',
         //port: 3000,
 	port: 80,
@@ -223,8 +223,8 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     };
 
     var req = http.request(options, function(res) {
-        //console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        console.log('STATUS: ' + res.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(res.headers));
         res.setEncoding('utf8');
         res.on('data', function(chunk) {
             console.log('BODY: ' + chunk);
@@ -235,9 +235,6 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         console.log('problem with request: ' + e.message);
     });
 
-    console.log("notice me!!!!!!!!!!!!!!")
-    console.log(content);
-    console.log("unnotice me!!!!!!!!!!!!")
     // write data to request body
     req.write(content);
 
