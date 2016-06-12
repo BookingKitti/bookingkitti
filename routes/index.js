@@ -528,13 +528,15 @@ router.post('/hotelDetail', function(req, res) {
 /*@brief GET comment page
  *render comment.ejs
  */
-router.get('/comment', function(req, res) {
-    res.render('comment', {
-        tabChoose: 2,
-        AccountName: req.session.name,
-        userid: req.session.user
+router.get('/comment', function(req, res, next) {
+    res.render("comment",{
+        AccountName:req.session.name,
+        Hotel_ID:req.query.Hotel_ID,
+        HotelName:req.query.HotelName,
+        OrderDate:"交易金额: "+req.query.OrderDate+"元",
+        OrderPrice:"交易时间: "+req.query.OrderPrice
     });
-});
+})
 
 /*@brief POST comment page
  *parse input and call commentManager
@@ -754,9 +756,5 @@ router.get('/getdetail', function(req, res, next) {
     }
 })
 
-router.get('/comment', function(req, res, next) {
-  res.render("comment",{
-    AccountName:req.session.name
-  });
-})
+
 module.exports = router;
