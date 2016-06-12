@@ -1,11 +1,11 @@
 var http = require('http');
 var url = require('url');
 
-strUrl = "http://120.27.45.210/";
+strUrl = "http://121.42.175.1/a2/api/insertorder";
 var parse = url.parse(strUrl);
 
 // 待发送的数据
-var postStr = "data=hello";
+var postStr = "hello world";
 var options = {
     "method": "POST",
     "host": parse.hostname,
