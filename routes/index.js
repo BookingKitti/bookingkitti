@@ -358,8 +358,10 @@ router.get('/', function(req, res, next) {
     if (typeof req.query.Type=='undefined') req.session.Type=1
     else req.session.Type=req.query.Type
     console.log(req.cookies);
-    req.session.name = req.cookies.kitty.name;
-    req.session.id = req.cookies.kitty.id;
+    req.session.id = req.cookies.kitty;
+    req.session.name  = req.cookies.kittyname;
+    req.session.type = req.cookies.kittytype;
+    console.log(req.session);
     count = 0;
     var hot_hotel;
     var dis_hotel;
