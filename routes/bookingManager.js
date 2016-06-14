@@ -198,16 +198,16 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         'buyer': parseInt(User_ID),
         'seller': 0, //default
         'orderAmount': parseInt(Price), //default
-        'orderItems': qs.stringify(order), //-------------------------------need to modify
+        'orderItems': JSON.stringify(order), //-------------------------------need to modify
         'orderStatus': 0, //default
         'orderTime': toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
     console.log("======================");
-    //console.log(qs.stringify(post_data));
-    //var content = qs.stringify(post_data);
-    console.log(JSON.stringify(test));
-    var content = JSON.stringify(test);
+    console.log(JSON.stringify(post_data));
+    var content = JSON.stringify(post_data);
+    //console.log(JSON.stringify(test));
+    //var content = JSON.stringify(test);
 
     var options = {
         hostname: '121.42.175.1',
