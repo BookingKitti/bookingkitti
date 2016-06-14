@@ -180,7 +180,7 @@ exports.get_room_type = function(Hotel_ID, callback) {
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     //send post request: include six values
     var qs = require('querystring');
-
+    Price = 500;
     var order=new Array();
     order[0]={
         "id": "H" + Hotel_ID,
