@@ -538,7 +538,7 @@ router.post('/bookHotel', function(req, res) {
 	    	console.log(qerr);
 	    }
 	    else{
-                bookingManager.send_hotel_order_info(req.session.id, req.query.Hotel_ID, price, function() {
+                bookingManager.send_hotel_order_info(req.cookies.kitty, req.query.Hotel_ID, price, function() {
                 res.redirect("http://121.42.175.1/orderlist");
             	});
 	    }
