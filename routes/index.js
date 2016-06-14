@@ -14,7 +14,7 @@ moment.locale("zh-CN");
 router.use(express.static(path.join(__dirname, '../public')));
 router.use(session({
     secret: 'paykitty',
-    name: 'cookiespace',
+    name: '/ookiespace',
     cookie: {
         maxAge: 6000
     },
@@ -550,7 +550,7 @@ router.post('/bookHotel', function(req, res) {
 	    	console.log(qerr);
 	    }
 	    else{
-                bookingManager.send_hotel_order_info(req.cookie.kitty, req.query.Hotel_ID, price, function() {
+                bookingManager.send_hotel_order_info(req.cookies.kitty, req.query.Hotel_ID, price, function() {
                 res.redirect("http://121.42.175.1/orderlist");
             	});
 	    }
@@ -568,7 +568,7 @@ router.post('/bookAirticket', function(req, res) {
                 console.log(qerr);
             }
             else{
-                bookingManager.send_airticket_order_info(req.cookie.kitty, req.query.AirTicket_ID, price, function() {
+                bookingManager.send_airticket_order_info(req.cookies.kitty, req.query.AirTicket_ID, price, function() {
                     res.redirect("http://121.42.175.1/orderlist");
                 });
             }
