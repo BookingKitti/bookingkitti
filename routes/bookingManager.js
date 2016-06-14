@@ -176,16 +176,9 @@ exports.get_room_type = function(Hotel_ID, callback) {
 //status:
 //finish_time:
 
-/*
-酒店Interface 1: 像M2发送订单详情post
-In:
-  User_ID --
-  Hotel_ID --
-  res --
-*/
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     //send post request: include six values
-
+    
     var qs = require('querystring');
 
     var order=new Array();
@@ -199,34 +192,32 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         buyer: parseInt(User_ID),
         seller: 0, //default
         orderAmount: parseInt(Price), //default
-        orderItems: JSON.stringify(order), //-------------------------------need to modify
+        orderItems: qs.stringify(order), //-------------------------------need to modify
         orderStatus: 0, //default
         orderTime: toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
     console.log("======================");
-    //console.log(qs.stringify(post_data));
-    //var content = qs.stringify(post_data);
-    console.log(qs.stringify({'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'}));
-    var content = qs.stringify({'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'});
+    console.log(qs.stringify(post_data));
+    var content = qs.stringify(post_data);
 
     var options = {
         hostname: '121.42.175.1',
-	    //hostname: '115.29.112.57',
+    //hostname: '115.29.112.57',
         path: '/a2/api/insertorder',
         //port: 3000,
-	port: 80,
-	//path: '/book',
-	method: 'POST',
+    port: 80,
+    //path: '/book',
+    method: 'POST',
         headers: {
-	    'Content-Length': content.length,
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Length': content.length,
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
     };
 
     var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
         res.setEncoding('utf8');
         res.on('data', function(chunk) {
             console.log('BODY: ' + chunk);
@@ -246,8 +237,6 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         callback();
     }
 }
-
-
 
 /*
 酒店Interface 2: 像M2发送某个酒店的详细信息，包括图片url
