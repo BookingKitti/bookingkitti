@@ -355,6 +355,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 router.get('/', function(req, res, next) {
     if (typeof req.session.Date_From=='undefined')req.session.Date_From = moment().format('l');
     if (typeof req.session.Date_To=='undefined')req.session.Date_To = moment().add(1,"days").format('l');
+    if (typeof req.query.Type=='undefined') req.session.Type=1
+    else req.session.Type=req.query.Type
     req.session.name = "A1";
     req.session.id = 123;
     count = 0;
@@ -377,7 +379,8 @@ router.get('/', function(req, res, next) {
                     true_checkin: req.session.Date_From,
                     true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type:req.session.Type
                 })
             }
         });
@@ -398,7 +401,8 @@ router.get('/', function(req, res, next) {
                     true_checkin: req.session.Date_From,
                     true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type:req.session.Type
                 })
             }
         });
@@ -456,7 +460,8 @@ router.post('/searchTicket', function(req, res) {
                 searchID: search_ID,
                 data: vals,
                 AccountName: req.session.name,
-                userid: req.session.user
+                userid: req.session.user,
+                Type: req.session.Type
             })
         });
 });

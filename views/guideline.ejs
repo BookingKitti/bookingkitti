@@ -38,7 +38,11 @@
         <!-- menu profile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                <img src="http://121.42.175.1/static/images/img.jpg" alt="..." class="img-circle profile_img">
+                <% if (Type!="1"){%>
+                <img src="http://121.42.175.1/static/images/buyer.png" alt="..." class="img-circle profile_img">
+                <%} else{%>
+                  <img src="http://121.42.175.1/static/images/seller.png" alt="..." class="img-circle profile_img">
+                  <%}%>
             </div>
             <div class="profile_info">
                 <span>您好！</span>
@@ -107,7 +111,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="http://121.42.175.1/static/images/img.jpg" alt="">
+                      <% if (Type!="1"){%>
+                        <img src="http://121.42.175.1/static/images/buyer.png" alt="">
+                        <%}else{%>
+                          <img src="http://121.42.175.1/static/images/seller.png" alt="">
+                          <%}%>
                         <%= AccountName %>
                             <span class=" fa fa-angle-down"></span>
                     </a>
