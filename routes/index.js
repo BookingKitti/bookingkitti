@@ -357,8 +357,9 @@ router.get('/', function(req, res, next) {
     if (typeof req.session.Date_To=='undefined')req.session.Date_To = moment().add(1,"days").format('l');
     if (typeof req.query.Type=='undefined') req.session.Type=1
     else req.session.Type=req.query.Type
-    req.session.name = "A1";
-    req.session.id = 123;
+    req.session.id = req.cookies.kitty;
+    req.session.user = req.cookies.kittyname;
+    req.session.type = req.cookies.kittytype;
     count = 0;
     var hot_hotel;
     var dis_hotel;
