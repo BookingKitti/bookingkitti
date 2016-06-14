@@ -1,6 +1,7 @@
 var searchManager = require('./searchManager');
 var http = require('http');
 var url = require('url');
+var qs = require('querystring');
 
 exports.get_hotel_info = function(hotel_id, callback) {
     var sql = "select * from HotelInfo where Hotel_ID= " + hotel_id + " ;";
@@ -186,8 +187,6 @@ In:
 exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     //send post request: include six values
 
-    var qs = require('querystring');
-
     var order=new Array();
     order[0]={
         "id": "H" + Hotel_ID,
@@ -196,31 +195,31 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
 
     //JSON Format:
     var post_data = {
-        buyer: parseInt(User_ID),
-        seller: 0, //default
-        orderAmount: parseInt(Price), //default
-        orderItems: JSON.stringify(order), //-------------------------------need to modify
-        orderStatus: 0, //default
-        orderTime: toDate(new Date()) //format %Y %m %d %H %M %S
+        'buyer': parseInt(User_ID),
+        'seller': 0, //default
+        'orderAmount': parseInt(Price), //default
+        'orderItems': qs.stringify(order), //-------------------------------need to modify
+        'orderStatus': 0, //default
+        'orderTime': toDate(new Date()) //format %Y %m %d %H %M %S
     }; //这是需要提交的数据
 
     console.log("======================");
     //console.log(qs.stringify(post_data));
     //var content = qs.stringify(post_data);
-    console.log(qs.stringify({'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'}));
-    var content = qs.stringify({'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'});
+    console.log(JSON.stringify(test));
+    var content = JSON.stringify(test);
 
     var options = {
         hostname: '121.42.175.1',
-	    //hostname: '115.29.112.57',
+        //hostname: '115.29.112.57',
         path: '/a2/api/insertorder',
+        //path: '/book',
+        port: 80,
         //port: 3000,
-	port: 80,
-	//path: '/book',
-	method: 'POST',
+        method: 'POST',
         headers: {
-	    'Content-Length': content.length,
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            'Content-Length': content.length,
+            'Content-Type': 'application/json'
         }
     };
 
