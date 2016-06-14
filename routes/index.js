@@ -44,7 +44,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     FilePos: data_image,
                     RoomImg: data_room_image,
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type: req.session.type
                 });
             }
         }
@@ -63,7 +64,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     FilePos: data_image,
                     RoomImg: data_room_image,
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type: req.session.type
                 });
             }
         }
@@ -83,7 +85,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         FilePos: data_image,
                         RoomImg: data_room_image,
                         AccountName: req.session.name,
-                        userid: req.session.user
+                        userid: req.session.user,
+                        Type: req.session.type
                     });
                 }
             }
@@ -103,7 +106,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     FilePos: data_image,
                     RoomImg: data_room_image,
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type: req.session.type
                 });
             }
         }
@@ -123,7 +127,8 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         FilePos: data_image,
                         RoomImg: data_room_image,
                         AccountName: req.session.name,
-                        userid: req.session.user
+                        userid: req.session.user,
+                        Type: req.session.type
                     });
                 }
             }
@@ -164,7 +169,8 @@ var showDetail = function(req, res) {
                     date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
                     date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type: req.session.type
                 });
             }
         }
@@ -192,7 +198,8 @@ var showDetail = function(req, res) {
                     date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
                     date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                     AccountName: req.session.name,
-                    userid: req.session.user
+                    userid: req.session.user,
+                    Type: req.session.type
                 });
             }
         }
@@ -222,7 +229,8 @@ var showDetail = function(req, res) {
                         date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
                         date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                         AccountName: req.session.name,
-                        userid: req.session.user
+                        userid: req.session.user,
+                        Type: req.session.type
                     });
                 }
             }
@@ -268,7 +276,8 @@ var showDetail = function(req, res) {
                         date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
                         date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                         AccountName: req.session.name,
-                        userid: req.session.user
+                        userid: req.session.user,
+                        Type: req.session.type
                     });
                 }
             }
@@ -298,7 +307,8 @@ var showDetail = function(req, res) {
                         date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
                         date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                         AccountName: req.session.name,
-                        userid: req.session.user
+                        userid: req.session.user,
+                        Type: req.session.type
                     });
                 }
             }
@@ -324,7 +334,8 @@ router.get('/SearchHotelResults', function(req, res, next) {
                 true_checkin: req.session.Date_From,
                 true_checkout: req.session.Date_To,
                 AccountName: req.session.name,
-                userid: req.session.user
+                userid: req.session.user,
+                Type: req.session.type
             })
         });
 })
@@ -346,7 +357,8 @@ router.get('/SearchTicketsResults', function(req, res, next) {
                 data: vals,
                 searchID: req.query.SearchID,
                 AccountName: req.session.name,
-                userid: req.session.user
+                userid: req.session.user,
+                Type: req.session.type
             })
         });
 })
@@ -355,9 +367,7 @@ router.get('/SearchTicketsResults', function(req, res, next) {
 router.get('/', function(req, res, next) {
     if (typeof req.session.Date_From=='undefined')req.session.Date_From = moment().format('l');
     if (typeof req.session.Date_To=='undefined')req.session.Date_To = moment().add(1,"days").format('l');
-    if (typeof req.query.Type=='undefined') req.session.Type=1
-    else req.session.Type=req.query.Type
-    req.session.id = req.cookies.kitty;
+    req.session.user = req.cookies.kitty;
     req.session.name  = req.cookies.kittyname;
     req.session.type = req.cookies.kittytype;
     count = 0;
@@ -381,7 +391,7 @@ router.get('/', function(req, res, next) {
                     true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
                     userid: req.session.user,
-                    Type:req.session.Type
+                    Type:req.session.type
                 })
             }
         });
@@ -403,7 +413,7 @@ router.get('/', function(req, res, next) {
                     true_checkout: req.session.Date_To,
                     AccountName: req.session.name,
                     userid: req.session.user,
-                    Type:req.session.Type
+                    Type:req.session.type
                 })
             }
         });
@@ -438,7 +448,8 @@ router.post('/searchHotel', function(req, res) {
                 date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
                 date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
                 AccountName: req.session.name,
-                userid: req.session.user
+                userid: req.session.user,
+                Type: req.session.type
             })
         });
 });
@@ -462,7 +473,7 @@ router.post('/searchTicket', function(req, res) {
                 data: vals,
                 AccountName: req.session.name,
                 userid: req.session.user,
-                Type: req.session.Type
+                Type: req.session.type
             })
         });
 });
@@ -520,7 +531,8 @@ router.get('/orderconfirm', function(req, res) {
     res.render('OrderDetail', {
         tabChoose: 1,
         AccountName: req.session.name,
-        userid: req.session.user
+        userid: req.session.user,
+        userid: req.session.type
     })
 })
 
@@ -538,7 +550,7 @@ router.post('/bookHotel', function(req, res) {
 	    	console.log(qerr);
 	    }
 	    else{
-                bookingManager.send_hotel_order_info(req.session.id, req.query.Hotel_ID, price, function() {
+                bookingManager.send_hotel_order_info(req.session.user, req.query.Hotel_ID, price, function() {
                 res.redirect("http://121.42.175.1/orderlist");
             	});
 	    }
@@ -559,7 +571,8 @@ var adminSearchHotel = function(req, res) {
                 tabChoose: 0,
                 data: vals,
                 AccountName: req.session.name,
-                userid: req.session.user
+                userid: req.session.user,
+                Type: req.session.type
             })
         });
 }
@@ -576,7 +589,8 @@ var adminSearchTicket = function(req, res) {
                 searchID: search_ID,
                 data: vals,
                 AccountName: req.session.name,
-                userid: req.session.user
+                userid: req.session.user,
+                Type: req.session.type
             })
         });
 }
