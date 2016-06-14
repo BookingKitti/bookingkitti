@@ -671,6 +671,7 @@ router.get('/deleteAirTicket', function(req, res) {
     // body...
     adminManager.delete_airticket_info(req, function(err) {
         // body...
+        console.log("deleteTicket");
         adminSearchTicket(req, res);
     })
 })
