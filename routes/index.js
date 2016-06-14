@@ -14,7 +14,7 @@ moment.locale("zh-CN");
 router.use(express.static(path.join(__dirname, '../public')));
 router.use(session({
     secret: 'paykitty',
-    name: 'cookiespace',
+    name: '/ookiespace',
     cookie: {
         maxAge: 6000
     },
