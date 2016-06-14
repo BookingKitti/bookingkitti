@@ -99,7 +99,7 @@ exports.search_airticket_info = function(departure, destination, depart_time, l_
         cond_list[cond_list.length] = " Destination='" + destination + "' ";
     }
     if (depart_time != null) {
-        cond_list[cond_list.length] = " Depart_time='" + depart_time + "' ";
+        cond_list[cond_list.length] = " Depart_time like '%" + depart_time + "%' ";
     }
 
     if (l_price != null)
