@@ -14,9 +14,11 @@
                     </div>
                     <img src=<%-"'"+ HotHotel[i].A_File_Pos +"'" %> alt=<%- "热门酒店"+i%>  width=300 height=300>
                 </div>
-                <p style="font-size:12px; color:red">
+                <p>
+                    <b style="font-size:12px; color:red">
                     超高评价：<%-HotHotel[i].Score%>分
                     超低价格：<%-HotHotel[i].min_price%>
+                    </b>
                 </p>
             </div>
           </div>
@@ -38,9 +40,11 @@
                 </div>
                 <img src=<%-"'"+ DiscountHotel[i].A_File_Pos +"'" %> alt=<%- "打折酒店"+i%> width=300 height=300>
             </div>
-            <p style="font-size:12px; color:red">
+            <p>
+                <b style="font-size:13px; color:yellow">
                 劲爆折扣：<%-DiscountHotel[i].Discount%>
                 超低价格：<%-HotHotel[i].min_price%>
+                </b>
             </p>
         </div>
       </div>
