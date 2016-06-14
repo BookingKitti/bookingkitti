@@ -1,0 +1,28 @@
+<script src="vendor/jquery.min.js"></script>
+<script>
+ var test = {'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'};
+          post("http://121.42.175.1/a2/api/insertorder",test,function(data,error){
+              if (error)
+              {
+                  console.log(error);
+              }
+              console.log(data);
+          });
+function post(URL, PARAMS, f) {
+    $.ajax({
+        type: "POST",
+        url: URL,
+        data: JSON.stringify(PARAMS),
+        cache: false,
+        // async: false,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            f(data,0);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            f(0, XMLHttpRequest.status);
+        }
+    });
+}
+</script>

@@ -35,25 +35,13 @@
               </div>
               <div class='container-fluid'>
 
-                <div class='row'><div class='col-md-offset-10 col-md-2'>
-                  <button type="add" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Add_Ticket'" %>>添加</button>
+                <div class='row'><div class='col-md-offset-11 col-md-2'>
+                  <button type="add" class="btn btn-success btn-wide" data-toggle="modal" data-target=<%- "'#Add_Ticket'" %>>添加</button>
                 </div></div>
-              <div class='row text-center'>
-
-                <h3>
-                    <div class='col-md-2' font-color="gray">航班信息</div>
-                    <div class='col-md-2' font-color="gray">出发地</div>
-                    <div class='col-md-2' font-color="gray">经停</div>
-                    <div class='col-md-2' font-color="gray">目的地</div>
-                    <div class='col-md-2' font-color="gray">优惠</div>
-                    <div class='col-md-2' font-color="gray">价格</div>
-                </h3>
-
-              </div>
             </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <% for (var i=0;i<data.length;i++){%>
-                        <br>
+                    <br>
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id=<%-"heading"+i %> >
                                 <h4 class="panel-title">
@@ -94,28 +82,17 @@
 
                                       </div>
                                       </div>
-
-
-
-
-
-                                      <div class='row' >
-                                        <br>
-                                        <div class = 'row'>
-                                            <div class='col-md-offset-11 col-md-1'>
-                                              <a href=<%-"'deleteAirTicket?AirTicket_ID="+data[i].AirTicket_ID+"'"%><button type="delete" class="btn btn-danger" >delete</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
                                   </a>
                                 </h4>
                             </div>
-
                         </div>
                         <!--<a class='list-group-item' href=<%- "'./SearchTicketsResults?AirTicket_ID="+data[i].AirTicket_ID+"'" %>></a>
                         -->
+                    <br>
+                    <div class='row'>
+                        <div class='col-md-2 col-md-offset-10'><a class='btn btn-danger btn-block' href=<%- "'./deleteAirTicket?AirTicket_ID="+data[i].AirTicket_ID+ "'" %> >删除</a></div>
+                    </div>
                     <%}%>
-
                 </div>
             </div>
           </div>
@@ -123,6 +100,5 @@
           <% include Add_Tickets %>
         </div>
       </div>
-
-
-        </body>
+    </body>
+</html>
