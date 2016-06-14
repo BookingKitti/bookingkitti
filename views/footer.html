@@ -17,37 +17,30 @@
             $('LeftBox').stickUp();
         });
     });
-    window.onload = function() {
+    window.onload=function(){
         var accountID = $("#user_id").attr("content");
-        $.get('/A1/API/message/clickedMessage', {
-            backUrl: window.location.href,
-            accountID: accountID
-        }, function(data, status) {
+        $.get('http://121.42.175.1/A1/API/message/clickedMessage', {backUrl:window.location.href, accountID : accountID}, function(data, status){
             var mydoc = "";
             data = JSON.parse(data);
             for (var i in data) {
                 mydoc +=
-                    "<li>\
-                        <a href=\"" + data[i].href +
-                    "\">\
+                        "<li>\
+                          <a href=\"http://121.42.175.1" + data[i].href + "\">\
                           <span class=\"image\">\
-                            <img src=\"http://121.42.175.1/static/images/img.jpg\" alt=\"Profile Image\" />\
+                            <img src=\"http://121.42.175.1/static/images/sys.png\" alt=\"Profile Image\" />\
                           </span>\
                           <span>\
-                            <span>来自" +
-                    data[i].sender + "的消息</span>\
-                          <span class=\"time\">" + data[i].time +
-                    "</span>\
+                            <span>来自" + data[i].sender + "的消息</span>\
+                          <span class=\"time\">" + data[i].time + "</span>\
                           </span>\
                           <span class=\"message\">\
-                            " + data[i].message +
-                    "\
+                            " + data[i].message + "\
                           </span>\
                         </a>\
                       </li>";
             }
             $('#messageEnd').before(mydoc);
-            var myclickAllUrl = "/account/message/clear?backUrl=" + window.location.href + "&accountID=" + accountID;
+            var myclickAllUrl = "http://121.42.175.1/account/message/clear?backUrl=" + window.location.href + "&accountID=" + accountID;
             $('#messageClickAll').attr("href", myclickAllUrl);
             $('#messageAmount').text("" + data.length);
         });
