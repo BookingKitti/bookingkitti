@@ -33,9 +33,9 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input4" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
-                                <input class="form-control" size="16" type="text" value="">
+                                <input class="form-control" size="16" type="text" value="" readonly placeholder="出发时间">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </span>
@@ -45,9 +45,9 @@
                             </div>
                             <input type="hidden" id="dtp_input4" value="" name='Depart_time'/><br/>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input5" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
-                                <input class="form-control" size="16" type="text" value="">
+                                <input class="form-control" size="16" type="text" value="" readonly placeholder="经停时间">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </span>
@@ -57,9 +57,9 @@
                             </div>
                             <input type="hidden" id="dtp_input5" value="" name='Stopover_time'/><br/>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input6" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
-                                <input class="form-control" size="16" type="text" value="">
+                                <input class="form-control" size="16" type="text" value="" readonly placeholder="到达时间">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </span>
@@ -68,6 +68,27 @@
                                 </span>
                             </div>
                             <input type="hidden" id="dtp_input6" value="" name='Arrive_time'/><br/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="number" name="Depart_hour" min = "0" max = "23" class="form-control" required="required"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="Depart_minute" min = "0" max = "59" class="form-control" required="required"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="Stopover_hour" min = "0" max = "23" class="form-control" required="required"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="Stopover_minute" min = "0" max = "59" class="form-control" required="required"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="Arrive_hour" min = "0" max = "23" class="form-control" required="required"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="Arrive_minute" min = "0" max = "59" class="form-control" required="required"/>
                         </div>
                     </div>
                     <br>
