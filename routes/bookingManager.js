@@ -205,8 +205,10 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
     }; //这是需要提交的数据
 
     console.log("======================");
-    console.log(qs.stringify(post_data));
-    var content = qs.stringify(post_data);
+    //console.log(qs.stringify(post_data));
+    //var content = qs.stringify(post_data);
+    console.log(qs.stringify({'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'}));
+    var content = qs.stringify({'buyer':0,'seller':1,'orderAmount':233,'orderItems':'[{"id":"H9","price":233}]','orderStatus':2,'orderTime':'2016-05-31 00:00:00'});
 
     var options = {
         hostname: '121.42.175.1',
