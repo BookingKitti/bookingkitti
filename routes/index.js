@@ -357,11 +357,9 @@ router.get('/', function(req, res, next) {
     if (typeof req.session.Date_To=='undefined')req.session.Date_To = moment().add(1,"days").format('l');
     if (typeof req.query.Type=='undefined') req.session.Type=1
     else req.session.Type=req.query.Type
-    console.log(req.cookies);
     req.session.id = req.cookies.kitty;
     req.session.name  = req.cookies.kittyname;
     req.session.type = req.cookies.kittytype;
-    console.log(req.session);
     count = 0;
     var hot_hotel;
     var dis_hotel;
@@ -527,13 +525,14 @@ router.get('/orderconfirm', function(req, res) {
 })
 
 router.post('/bookHotel', function(req, res) {
-    //bookingManager.create_order_hotel()
+    console.log(req.session);
+    console.log(req.query);
     bookingManager.create_order_hotel(
-        req.session.id,
+        req.cookies.kitty,
         req.query.Hotel_ID,
         req.query.RoomType,
-        req.session.Date_From,
-        req.session.Date_To,
+        req.body.date_checkin,
+        req.body.date_checkout,
         function(qerr, price) {
 	    if(qerr){
 	    	console.log(qerr);
