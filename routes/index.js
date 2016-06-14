@@ -557,6 +557,24 @@ router.post('/bookHotel', function(req, res) {
         });
 })
 
+router.post('/bookAirticket', function(req, res) {
+    console.log(req.session);
+    console.log(req.query);
+    bookingManager.create_order_ariticket(
+        req.cookies.kitty,
+        req.query.AirTicket_ID,
+        function(qerr, price) {
+            if(qerr){
+                console.log(qerr);
+            }
+            else{
+                bookingManager.send_airticket_order_info(req.session.user, req.query.AirTicket_ID, price, function() {
+                    res.redirect("http://121.42.175.1/orderlist");
+                });
+            }
+        });
+})
+
 var adminSearchHotel = function(req, res) {
     filterManager.search_admin_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
