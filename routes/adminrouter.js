@@ -51,9 +51,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    AccountName: req.cookies.kittyname,
                     userid: req.cookies.kitty,
-                    Type: req.cookies.kittytype
+                    Type: req.cookies.Type,
+                    ManagerID:req.cookies.ManagerID,
+                    AccountName:req.cookies.AccountName
                 });
             }
         }
@@ -71,9 +72,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    AccountName: req.cookies.kittyname,
                     userid: req.cookies.kitty,
-                    Type: req.cookies.kittytype
+                    Type: req.cookies.Type,
+                    ManagerID:req.cookies.ManagerID,
+                    AccountName:req.cookies.AccountName
                 });
             }
         }
@@ -92,9 +94,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        AccountName: req.cookies.kittyname,
                         userid: req.cookies.kitty,
-                        Type: req.cookies.kittytype
+                        Type: req.cookies.Type,
+                        ManagerID:req.cookies.ManagerID,
+                        AccountName:req.cookies.AccountName
                     });
                 }
             }
@@ -113,9 +116,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                     FilePos: data_image,
                     RoomImg: data_room_image,
-                    AccountName: req.cookies.kittyname,
                     userid: req.cookies.kitty,
-                    Type: req.cookies.kittytype
+                    Type: req.cookies.Type,
+                    ManagerID:req.cookies.ManagerID,
+                    AccountName:req.cookies.AccountName
                 });
             }
         }
@@ -134,9 +138,10 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         url: "/uploadHotelPics?Hotel_ID=" + data_hotel[0].Hotel_ID,
                         FilePos: data_image,
                         RoomImg: data_room_image,
-                        AccountName: req.cookies.kittyname,
                         userid: req.cookies.kitty,
-                        Type: req.cookies.kittytype
+                        Type: req.cookies.Type,
+                        ManagerID:req.cookies.ManagerID,
+                        AccountName:req.cookies.AccountName
                     });
                 }
             }
@@ -573,10 +578,12 @@ var adminSearchHotel = function(req, res) {
         function(qerr, vals, fields) { //还需要修改
             res.render('HotelManage', {
                 tabChoose: 0,
-                data: vals,
-                AccountName: req.cookies.kittyname,
+                data: vals,            
                 userid: req.cookies.kitty,
-                Type: req.cookies.kittytype
+                Type: req.cookies.Type,
+                ManagerID:req.cookies.ManagerID,
+                AccountName:req.cookies.AccountName
+
             })
         });
 }
@@ -592,9 +599,10 @@ var adminSearchTicket = function(req, res) {
                 tabChoose: 0,
                 searchID: search_ID,
                 data: vals,
-                AccountName: req.cookies.kittyname,
                 userid: req.cookies.kitty,
-                Type: req.cookies.kittytype
+                Type: req.cookies.Type,
+                ManagerID:req.cookies.ManagerID,
+                AccountName:req.cookies.AccountName
             })
         });
 }
