@@ -575,10 +575,11 @@ var adminSearchHotel = function(req, res) {
         req.body.date_checkout == "" ? null : req.body.date_checkout,
         req.body.textfield_minprice == "" ? null : req.body.textfield_minprice,
         req.body.textfield_maxprice == "" ? null : req.body.textfield_maxprice,
+        
         function(qerr, vals, fields) { //还需要修改
             res.render('HotelManage', {
                 tabChoose: 0,
-                data: vals,            
+                data: vals,
                 userid: req.cookies.kitty,
                 Type: req.cookies.Type,
                 ManagerID:req.cookies.ManagerID,
