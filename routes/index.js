@@ -467,8 +467,8 @@ router.post('/searchHotel', function(req, res) {
  *render searchResults.ejs
  */
 router.post('/searchTicket', function(req, res) {
-    if (typeof req.session.Date_From=='undefined')
-      {req.session.Date_From=req.body.Depart_time}
+    req.session.Date_From=req.body.Depart_time
+    req.session.Date_To=req.body.Return_time
     filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
         req.body.Destination == "" ? null : req.body.Destination,
         req.body.Depart_time == "" ? null : req.body.Depart_time,
