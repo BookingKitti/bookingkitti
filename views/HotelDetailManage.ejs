@@ -12,7 +12,7 @@
 
         <div class='container body'>
             <div class="main_container">
-              <% include guideline.ejs %>
+              <% include Adminguideline.ejs %>
               <div class='right_col' role='main'>
                 <div class='container-fluid'>
                   <form name="serachinfo" method="post" action=<%-"'"+"updateHotel?Hotel_ID="+HotelInfo[0].Hotel_ID+"'"%> >
@@ -24,7 +24,7 @@
                     <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target=<%- "'#Upload_Pics'" %>>添加图片</button>
                 </div>
 		<div class="col-md-2">
-            <a href="http://121.42.175.1:5003/admin"><button type="button" class="btn btn-success btn-block">返回</button></a>
+            <a href="http://121.42.175.1:5003/admin"><button type="button" class="btn btn-danger btn-block">返回</button></a>
 		</div>
                 </div>
                 <br>
