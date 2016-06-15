@@ -473,7 +473,12 @@ router.post('/searchTicket', function(req, res) {
                 data: vals,
                 AccountName: req.session.name,
                 userid: req.session.user,
-                Type: req.session.type
+                Type: req.session.type,
+                true_checkout: req.session.Date_To,
+                true_checkin: req.session.Date_From,
+                date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
+
             })
         });
 });
