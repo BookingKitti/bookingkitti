@@ -505,7 +505,11 @@ router.get('/comment', function(req, res, next) {
         Hotel_ID:req.query.Hotel_ID,
         HotelName:req.query.HotelName,
         OrderDate:"交易金额: "+req.query.OrderDate+"元",
-        OrderPrice:"交易时间: "+req.query.OrderPrice
+        OrderPrice:"交易时间: "+req.query.OrderPrice,
+        AccountName: req.cookies.kittyname,
+        userid: req.cookies.kitty,
+        Type: req.cookies.kittytype
+
     });
 })
 
