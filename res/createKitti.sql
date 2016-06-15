@@ -31,9 +31,9 @@ create table HotelInfo(
   Description text not null,
   PhoneNumber varchar(20) not null,
   Discount decimal(3, 2),
-  Seller_ID int,
   Score float,
-  Heat int
+  Heat int,
+  Seller_ID int
 ) DEFAULT CHARSET=utf8;
 
 create table RoomType(
