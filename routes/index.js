@@ -45,7 +45,7 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     RoomImg: data_room_image,
                     Type: req.cookies.Type,
                     ManagerID:req.cookies.ManagerID,
-                    AccountName:req.cookies.AccountName
+                    AccountName:req.cookies.AccountName,
                     userid: req.cookies.kitty,
 
                 });
@@ -67,7 +67,7 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     RoomImg: data_room_image,
                     Type: req.cookies.Type,
                     ManagerID:req.cookies.ManagerID,
-                    AccountName:req.cookies.AccountName
+                    AccountName:req.cookies.AccountName,
                     userid: req.cookies.kitty,
 
                 });
@@ -90,7 +90,7 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         RoomImg: data_room_image,
                         Type: req.cookies.Type,
                         ManagerID:req.cookies.ManagerID,
-                        AccountName:req.cookies.AccountName
+                        AccountName:req.cookies.AccountName,
                         userid: req.cookies.kitty,
 
                     });
@@ -113,7 +113,7 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                     RoomImg: data_room_image,
                     Type: req.cookies.Type,
                     ManagerID:req.cookies.ManagerID,
-                    AccountName:req.cookies.AccountName
+                    AccountName:req.cookies.AccountName,
                     userid: req.cookies.kitty,
 
                 });
@@ -136,7 +136,7 @@ var showAdminDetail = function(req, res, Hotel_ID) {
                         RoomImg: data_room_image,
                         Type: req.cookies.Type,
                         ManagerID:req.cookies.ManagerID,
-                        AccountName:req.cookies.AccountName
+                        AccountName:req.cookies.AccountName,
                         userid: req.cookies.kitty,
 
                     });
@@ -617,7 +617,7 @@ var adminSearchHotel = function(req, res) {
                 data: vals,
                 Type: req.cookies.Type,
                 ManagerID:req.cookies.ManagerID,
-                AccountName:req.cookies.AccountName
+                AccountName:req.cookies.AccountName,
                 userid: req.cookies.kitty,
 
             })
@@ -637,7 +637,7 @@ var adminSearchTicket = function(req, res) {
                 data: vals,
                 Type: req.cookies.Type,
                 ManagerID:req.cookies.ManagerID,
-                AccountName:req.cookies.AccountName
+                AccountName:req.cookies.AccountName,
                 userid: req.cookies.kitty,
 
             })
