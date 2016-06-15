@@ -18,7 +18,8 @@ create table TicketsInfo(
   Total int not null,#>=0
   Available int not null,#>=0
   Price int not null, #>=0
-  Discount decimal(3, 2)
+  Discount decimal(3, 2),
+  Seller_ID int
 ) DEFAULT CHARSET=utf8;
 
 create table HotelInfo(

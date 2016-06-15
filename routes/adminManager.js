@@ -118,7 +118,8 @@ exports.add_airticket_info = function(req, res, callback) {
     sql += ' ' + req.body.Total + ',';
     sql += ' ' + req.body.Total + ',';
     sql += ' ' + req.body.Price + ',';
-    sql += ' \'' + req.body.Discount + '\')';
+    sql += ' \'' + req.body.Discount + '\','
+    sql += ' '+req.body.Seller_Id+')';
     console.log(sql);
     searchManager.query(sql, function(err) {
         callback(err, req, res);

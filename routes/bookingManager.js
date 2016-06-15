@@ -147,7 +147,7 @@ exports.create_order_ariticket = function(user_id, airticket_id, callback) {
     //    //result=result;
     //    if (qerr) {
     //        callback(qerr, vals, fields);
-    //    } 
+    //    }
     //});
     var sql = "select Price from TicketsInfo where AirTicket_ID=" + airticket_id;
 
