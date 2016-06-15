@@ -396,7 +396,8 @@ exports.send_airticket_detailed_info = function(AirTicket_ID, callback) {
             Total: plist[9], //float,
             Available: plist[10], //int
             Price: plist[11],
-            Discount: plist[12]
+            Discount: plist[12],
+            File_Pos: "avatar/flight.png"
         }; //这是需要提交的数据
         callback(post_data)
     })
