@@ -567,7 +567,9 @@ router.post('/bookHotel', function(req, res) {
 })
 
 var adminSearchHotel = function(req, res) {
-    filterManager.search_admin_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
+    	console.log(req.cookies);
+	console.log("==========");
+	filterManager.search_admin_hotel_info(req.body.textfield_hotel_name == "" ? null : req.body.textfield_hotel_name,
         req.body.combobox_province == "" ? null : req.body.combobox_province,
         req.body.combobox_city == "" ? null : req.body.combobox_city,
         req.body.textfield_address == "" ? null : req.body.textfield_address,
