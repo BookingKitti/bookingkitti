@@ -49,9 +49,9 @@
             </div>
             <div class="profile_info">
                 <span>您好！</span>
-								<h2><%= ManagerID %></h2>
+
                 <h2><%= AccountName %></h2>
-								<h2><%= Type %></h2>
+
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -69,46 +69,9 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      <% if (typeof Type!='undefined'&&Type!="1"){%>
-                        <img src="http://121.42.175.1/static/images/buyer.png" alt="">
-                        <%}else{%>
-                          <img src="http://121.42.175.1/static/images/seller.png" alt="">
-                          <%}%>
-                        <%= AccountName %>
-                            <span class=" fa fa-angle-down"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li>
-                            <a href="http://121.42.175.1/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
-                        </li>
-                    </ul>
-                </li>
-                <li role="presentation" class="dropdown" style='height:57px'>
-                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false" style='height:57px'>
-                        <i class="fa fa-envelope-o" style='margin-top:10px'></i>
-                        <span id="messageAmount" class="badge bg-green"></span>
-                    </a>
-                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li id="messageEnd">
-                            <div class="text-center">
-                                <a id="messageClickAll">
-                                    <strong>确认看过了所有新消息</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="text-center">
-                                <a href="http://121.42.175.1/account/message">
-                                    <strong>查看所有通知</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
+              <li>
+                  <a href="http://121.42.175.1/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
+              </li>
             </ul>
         </nav>
     </div>
