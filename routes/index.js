@@ -352,13 +352,20 @@ router.get('/SearchTicketsResults', function(req, res, next) {
                 console.log("database error in sort of index");
                 return;
             }
+            console.log(req.session.Date_to);
+            console.log(req.session.Date_From)
             res.render('SearchTicketsResults', {
                 tabChoose: 0,
                 data: vals,
                 searchID: req.query.SearchID,
                 AccountName: req.cookies.kittyname,
                 userid: req.cookies.kitty,
-                Type: req.cookies.kittytype
+                Type: req.cookies.kittytype,
+                true_checkout: req.session.Date_To,
+                true_checkin: req.session.Date_From,
+                date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
+                date_checkout:moment(req.session.Date_To).format("D MMMM YYYY")
+
             })
         });
 })
@@ -460,7 +467,8 @@ router.post('/searchHotel', function(req, res) {
  *render searchResults.ejs
  */
 router.post('/searchTicket', function(req, res) {
-
+    if (typeof req.session.Date_From=='undefined')
+      {req.session.Date_From=req.body.Depart_time}
     filterManager.search_airticket_info(req.body.Departure == "" ? null : req.body.Departure,
         req.body.Destination == "" ? null : req.body.Destination,
         req.body.Depart_time == "" ? null : req.body.Depart_time,
@@ -477,7 +485,7 @@ router.post('/searchTicket', function(req, res) {
                 true_checkout: req.session.Date_To,
                 true_checkin: req.session.Date_From,
                 date_checkin:moment(req.session.Date_From).format("D MMMM YYYY"),
-                date_checkout:moment(req.session.Date_To).format("D MMMM YYYY"),
+                date_checkout:moment(req.session.Date_To).format("D MMMM YYYY")
 
             })
         });
