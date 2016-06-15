@@ -68,7 +68,7 @@ exports.add_hotel_info = function(req, res, callback) {
     sql += ' \'' + req.body.Description + '\',';
     sql += ' \'' + req.body.PhoneNumber + '\',';
     sql += ' ' + req.body.Discount + ' ,';
-    sql += '0,0,'+req.body.Seller_ID+')';
+    sql += '0,0,'+req.body.Seller_Id+')';
     searchManager.query(sql, function(err) {
         callback(err, req, res);
     });
@@ -183,10 +183,7 @@ exports.upload_room_photo = function(req, res, callback) {
                 createGaussianPyramids2L(form.uploadDir + directoryName, fileName, function(err) {
                     searchManager.query('insert into RoomTypePics values(' + req.query.Hotel_ID + ',\'' + req.query.RoomType + '\',' + '\'avatar/' + directoryName + 'small/150x150_' + fileName + '\')',
                         function(qerr) {
-                            if (qerr) {
-                                callback(qerr, req, res);
-                                return;
-                            }
+                            callback(qerr, req, res);
                         });
                 });
             });
