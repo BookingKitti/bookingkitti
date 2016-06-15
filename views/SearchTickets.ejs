@@ -5,8 +5,8 @@
             <div class="col-md-4">
                   <div class="row-fluid">
                       <div class="col-md-12">
-                          <label for="dtp_input2">出发日期</label>
-                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                          <label for="dtp_input5">出发日期</label>
+                          <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input5" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
                               <input class="form-control" size="16" type="text" value=<%-(typeof date_checkin=='undefined')?"''":'"'+date_checkin+'"'%> readonly placeholder="出发日期">
                               <span class="input-group-addon">
                                   <span class="glyphicon glyphicon-remove"></span>
@@ -18,8 +18,8 @@
                           <input type="hidden" id="dtp_input5" value=<%-(typeof date_checkin!='undefined')?((typeof true_checkin=='undefined')?'"'+date_checkin+'"':'"'+true_checkin+'"'):"''"%> name='Depart_time'/><br/>
                     </div>
                      <div class="col-md-12">
-                         <label for="dtp_input3">返程日期</label>
-                         <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
+                         <label for="dtp_input4">返程日期</label>
+                         <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input4" data-link-format="yyyy-mm-dd" style='margin-bottom:0px;'>
                              <input class="form-control" size="16" type="text" value=<%-(typeof date_checkout=='undefined')?"''":'"'+date_checkout+'"'%> readonly placeholder="返程日期">
                              <span class="input-group-addon">
                                  <span class="glyphicon glyphicon-remove"></span>
