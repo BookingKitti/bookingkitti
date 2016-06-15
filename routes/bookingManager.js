@@ -121,7 +121,7 @@ exports.create_order_hotel = function(user_id, hotel_id, type, room_date_from, r
             return;
         }
 
-        var select_price_sql = "select sum(price) as sum_price from HotelInfo natural join RoomInfo where Hotel_ID = " + hotel_id + " and Type = '" + type + "' and Room_date between '" + room_date_from + "' and '" + room_data_to + "';";
+        var select_price_sql = "select sum(price) as sum_price from HotelInfo natural join RoomInfo where Hotel_ID = " + hotel_id + " and Type = '" + type + "' and Room_date >= '" + room_date_from + "' and Room_date <'" + room_data_to + "';";
 
         searchManager.query(select_price_sql, function(qerr, vals, fields) {
             //console.log(qerr);
