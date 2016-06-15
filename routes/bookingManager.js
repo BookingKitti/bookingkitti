@@ -184,55 +184,60 @@ exports.send_hotel_order_info = function(User_ID, Hotel_ID, Price, callback) {
         "price": Price
     }
 
-    //JSON Format:
-    var post_data = {
-        'buyer': parseInt(User_ID),
-        'seller': 0, //default
-        'orderAmount': parseInt(Price), //default
-        'orderItems': JSON.stringify(order), //-------------------------------need to modify
-        'orderStatus': 0, //default
-        'orderTime': toDate(new Date()) //format %Y %m %d %H %M %S
-    }; //这是需要提交的数据
+    var sql = "select Seller_ID from HotelInfo where Hotel_ID = " + Hotel_ID;
 
-    console.log("======================");
-    console.log(JSON.stringify(post_data));
-    var content = JSON.stringify(post_data);
+    searchManager.query(sql, function(qerr, vals, fields) {
 
-    var options = {
-        hostname: '121.42.175.1',
-        //hostname: '115.29.112.57',
-        path: '/a2/api/insertorder',
-        //path: '/book',
-        port: 80,
-        //port: 3000,
-        method: 'POST',
-        headers: {
-            'Content-Length': content.length,
-            'Content-Type': 'application/json'
-        }
-    };
+        //JSON Format:
+        var post_data = {
+            'buyer': parseInt(User_ID),
+            'seller': vals[0].Seller_ID, //default
+            'orderAmount': parseInt(Price), //default
+            'orderItems': JSON.stringify(order), //-------------------------------need to modify
+            'orderStatus': 0, //default
+            'orderTime': toDate(new Date()) //format %Y %m %d %H %M %S
+        }; //这是需要提交的数据
 
-    var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            console.log('BODY: ' + chunk);
-        });
+      console.log("======================");
+      console.log(JSON.stringify(post_data));
+      var content = JSON.stringify(post_data);
+
+      var options = {
+          hostname: '121.42.175.1',
+          //hostname: '115.29.112.57',
+          path: '/a2/api/insertorder',
+          //path: '/book',
+          port: 80,
+          //port: 3000,
+          method: 'POST',
+          headers: {
+              'Content-Length': content.length,
+              'Content-Type': 'application/json'
+          }
+      };
+
+      var req = http.request(options, function(res) {
+          console.log('STATUS: ' + res.statusCode);
+          console.log('HEADERS: ' + JSON.stringify(res.headers));
+          res.setEncoding('utf8');
+          res.on('data', function(chunk) {
+              console.log('BODY: ' + chunk);
+          });
+      });
+
+      req.on('error', function(e) {
+          console.log('problem with request: ' + e.message);
+      });
+
+      // write data to request body
+      req.write(content);
+
+      req.end();
+
+      if (callback != null) {
+          callback();
+      }
     });
-
-    req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-    });
-
-    // write data to request body
-    req.write(content);
-
-    req.end();
-
-    if (callback != null) {
-        callback();
-    }
 }
 
 /*
@@ -294,55 +299,61 @@ exports.send_airticket_order_info = function(User_ID, AirTicket_ID, Price, callb
         "price": Price
     }
 
-    //JSON Format:
-    var post_data = {
-        'buyer': parseInt(User_ID),
-        'seller': 0, //default
-        'orderAmount': parseInt(Price), //default
-        'orderItems': JSON.stringify(order), //-------------------------------need to modify
-        'orderStatus': 0, //default
-        'orderTime': toDate(new Date()) //format %Y %m %d %H %M %S
-    }; //这是需要提交的数据
+    var sql = "select Seller_ID from TicketsInfo where AirTicket_ID = " + AirTicket_ID;
 
-    console.log("======================");
-    console.log(JSON.stringify(post_data));
-    var content = JSON.stringify(post_data);
+    searchManager.query(sql, function (qerr, vals, fields) {
 
-    var options = {
-        hostname: '121.42.175.1',
-        //hostname: '115.29.112.57',
-        path: '/a2/api/insertorder',
-        //path: '/book',
-        port: 80,
-        //port: 3000,
-        method: 'POST',
-        headers: {
-            'Content-Length': content.length,
-            'Content-Type': 'application/json'
-        }
-    };
+        //JSON Format:
+        var post_data = {
+            'buyer': parseInt(User_ID),
+            'seller': vals[0].Seller_ID, //default
+            'orderAmount': parseInt(Price), //default
+            'orderItems': JSON.stringify(order), //-------------------------------need to modify
+            'orderStatus': 0, //default
+            'orderTime': toDate(new Date()) //format %Y %m %d %H %M %S
+        }; //这是需要提交的数据
 
-    var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            console.log('BODY: ' + chunk);
+        console.log("======================");
+        console.log(JSON.stringify(post_data));
+        var content = JSON.stringify(post_data);
+
+        var options = {
+            hostname: '121.42.175.1',
+            //hostname: '115.29.112.57',
+            path: '/a2/api/insertorder',
+            //path: '/book',
+            port: 80,
+            //port: 3000,
+            method: 'POST',
+            headers: {
+                'Content-Length': content.length,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        var req = http.request(options, function(res) {
+            console.log('STATUS: ' + res.statusCode);
+            console.log('HEADERS: ' + JSON.stringify(res.headers));
+            res.setEncoding('utf8');
+            res.on('data', function(chunk) {
+                console.log('BODY: ' + chunk);
+            });
         });
+
+        req.on('error', function(e) {
+            console.log('problem with request: ' + e.message);
+        });
+
+        // write data to request body
+        req.write(content);
+
+        req.end();
+
+        if (callback != null) {
+            callback();
+        }
     });
 
-    req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-    });
-
-    // write data to request body
-    req.write(content);
-
-    req.end();
-
-    if (callback != null) {
-        callback();
-    }
 }
 
 
