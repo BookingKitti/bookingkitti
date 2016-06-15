@@ -528,7 +528,7 @@ router.get('/comment', function(req, res, next) {
 router.post('/comment', function(req, res, next) {
     commentManager.add_hotel_comment(req.query.Hotel_ID,
         parseFloat(req.body.rating),
-        1,
+        req.cookies.kitty,
         req.body.content == "" ? null : req.body.content,
         function(qerr, vals, fields) {
             if (qerr) {
